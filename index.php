@@ -15,7 +15,7 @@ $password2=""; // jelszo2
 $date=""; //regisztracios ido
 $phone="";
 $error_arrays=array(); //hibak
-
+// regisztracio
 if (isset($_POST['register_button'])){
 // Regisztracios form ertekek
 //vezeteknev
@@ -99,7 +99,7 @@ if (empty($error_arrays)){
         $username = $username . "_" . $usernameexits;
         $check_username_query = mysqli_query($con,"SELECT username FROM users WHERE username='$username'");
     }
-    $rand = rand(1,3);
+    $rand = rand(0,4);
     if ($rand ==1){
         $profile_pic ="img/profile_pics/r1.png";
     } else if ($rand ==2){
@@ -109,11 +109,35 @@ if (empty($error_arrays)){
     }
 
     $query = mysqli_query($con,"INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone')" );
+
+    array_push($error_arrays,"<span style='color: yellow'>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>"); // felhasználónak egy értesítés hogy sikeresen regisztrált
+
+    $_SESSION['reg_fname'] = "";
+    $_SESSION['reg_lname'] = "";
+    $_SESSION['reg_email'] = "";
+    $_SESSION['reg_email2'] = "";
     }
 
 }
+// bejelentkezes
+if(isset($_POST['login_button'])){
+    $email = filter_var($_POST['log_email'],FILTER_VALIDATE_EMAIL);
+    $_SESSION['log_email'] = $email;
+    $password = md5($_POST['log_password']);
+    $check_database_query=mysqli_query($con,"SELECT * FROM users WHERE email ='$email' AND password ='$password'");
+    $check_login_query = mysqli_num_rows($check_database_query);
 
+    if ($check_login_query ==1){
+        $row = mysqli_fetch_array($check_database_query);
+        $username = $row['username'];
+        $_SESSION['username'] = $username;
+        header("Location: menu.php");
+        exit();
+    }
+
+}
 ?>
+
 
 <!doctype html>
 <html>
@@ -128,8 +152,10 @@ if (empty($error_arrays)){
 
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="index.php" method="post">
+        <form action="" method="post">
             <h1>Regisztráció</h1>
+            <?php if (in_array("<span style='color: yellow'>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>",$error_arrays)) echo "<span style='color: yellow'>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>";   ?>
+
             <input type="text" name="reg_fname" placeholder="Vezetéknév"
                    value="<?php if(isset($_SESSION['reg_fname'])){
                        echo $_SESSION['reg_fname'];
@@ -171,14 +197,13 @@ if (empty($error_arrays)){
 
 
     <div class="form-container sign-in-container">
-        <form action="#">
+        <form action="" method="post">
             <h1>Bejelentkezés</h1>
 
-
-            <input type="email" placeholder="emailcím" />
-            <input type="password" placeholder="jelszó" />
+            <input type="email" name="log_email" placeholder="emailcímd" />
+            <input type="password" name="log_password" placeholder="jelszód" />
             <a href="#">Elfelejtetted a jelszavad?</a>
-            <button>Bejelentkezés</button>
+            <button name="login_button"  >Bejelentkezés</button>
         </form>
     </div>
     <div class="overlay-container">

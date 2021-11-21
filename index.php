@@ -33,13 +33,13 @@ $_SESSION['reg_lname'] = $lname;
 //email
 $em = strip_tags($_POST['reg_email']); //kitorli html tageket
 $em =str_replace(' ','',$em); // kitorli feher karakterek
-$em = ucfirst(strtolower($em)); //az elsp betut nagybetuve alakitja at
+$em = strtolower($em); //minden betu kisbetű lessz
 $_SESSION['reg_email'] = $em;
 
 //megerosito mail
 $em2 = strip_tags($_POST['reg_email2']); //kitorli html tageket
 $em2 =str_replace(' ','',$em2); // kitorli feher karakterek
-$em2 = ucfirst(strtolower($em2)); //az elsp betut nagybetuve alakitja at
+$em2 = strtolower($em2); //minden betü kisbetű lessz
 $_SESSION['reg_email2'] = $em2;
 //telefonszam
 $phone =strip_tags($_POST['phone_number']);
@@ -133,6 +133,9 @@ if(isset($_POST['login_button'])){
         $_SESSION['username'] = $username;
         header("Location: menu.php");
         exit();
+    } else {
+
+        array_push($error_arrays ,"Emailcíme vagy a jelszava helytelen<br>");
     }
 
 }
@@ -200,10 +203,19 @@ if(isset($_POST['login_button'])){
         <form action="" method="post">
             <h1>Bejelentkezés</h1>
 
-            <input type="email" name="log_email" placeholder="emailcímd" />
+            <input type="email" name="log_email" placeholder="emailcímd"
+                   value="<?php
+                   if (isset($_SESSION['log_email'])){
+                       echo $_SESSION['log_email'];
+                   }
+                   ?>" required >
             <input type="password" name="log_password" placeholder="jelszód" />
             <a href="#">Elfelejtetted a jelszavad?</a>
             <button name="login_button"  >Bejelentkezés</button>
+            <?php
+            if (in_array("Emailcíme vagy a jelszava helytelen<br>",$error_arrays))
+                echo "Emailcíme vagy a jelszava helytelen<br>"; ?>
+
         </form>
     </div>
     <div class="overlay-container">

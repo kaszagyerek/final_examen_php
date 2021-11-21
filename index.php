@@ -13,7 +13,7 @@ $em2=""; // Mailcim2
 $password=""; // jelszo
 $password2=""; // jelszo2
 $date=""; //regisztracios ido
-$phone_number="";
+$phone="";
 $error_arrays=array(); //hibak
 
 if (isset($_POST['register_button'])){
@@ -21,13 +21,13 @@ if (isset($_POST['register_button'])){
 //vezeteknev
 $fname = strip_tags($_POST['reg_fname']); //kitorli html tageket
 $fname =str_replace(' ','',$fname); // kitorli feher karakterek
-$fname = ucfirst(strtoupper($fname)); //az elsp betut nagybetuve alakitja at
+$fname = ucfirst(strtolower($fname)); //az elsp betut nagybetuve alakitja at
 $_SESSION['reg_fname'] = $fname;
 
 //keresztnev
 $lname = strip_tags($_POST['reg_lname']); //kitorli html tageket
 $lname =str_replace(' ','',$lname); // kitorli feher karakterek
-$lname = ucfirst(strtoupper($lname)); //az elsp betut nagybetuve alakitja at
+$lname = ucfirst(strtolower($lname)); //az elsp betut nagybetuve alakitja at
 $_SESSION['reg_lname'] = $lname;
 
 //email
@@ -42,7 +42,7 @@ $em2 =str_replace(' ','',$em2); // kitorli feher karakterek
 $em2 = ucfirst(strtolower($em2)); //az elsp betut nagybetuve alakitja at
 $_SESSION['reg_email2'] = $em2;
 //telefonszam
-
+$phone =strip_tags($_POST['phone_number']);
 
 //jelszo
 $password = strip_tags($_POST['reg_password']); //kitorli html tageket
@@ -84,7 +84,7 @@ if ($password != $password2){
         array_push($error_arrays,"Jelszava csak angol karaktereket tartalmazhat<br>");
     }
 }
-if (strlen($password)>50 || strlen($password <5)){
+if (strlen($password)>30 || strlen($password <5)){
     array_push($error_arrays,"Jelszava nagyobb kell legyen mint 5 karakter és kisebb kell legyen mint 50 karakter<br>");
 
 }
@@ -108,8 +108,7 @@ if (empty($error_arrays)){
         $profile_pic ="img/profile_pics/r3.png";
     }
 
-    $query = mysqli_query($con,"INSERT INTO `users` (`id`, `firs_name`, `last_name`, `username`, `email`, `password`, `signup_date`, `profile_pic`, `phone_number`) VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone_number')
-" );
+    $query = mysqli_query($con,"INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone')" );
     }
 
 }

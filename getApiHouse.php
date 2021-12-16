@@ -1,14 +1,6 @@
 <?php
 require "connection.php";
 
-/*   $trackinglr = isset($_GET['tracking']) ? $_GET['tracking'] : "";
-        if($trackinglr == ""){
-            die('{	"success": false, "msg" : "Tracking number not found!"}');
-        }
-        $sql = "SELECT td.`datum`, td.`megjegyzes`
- FROM `tracking` t,`tracking_details` td
-WHERE t.`trackingszam` = '$trackinglr'   AND t.`id` = td.`tracking_id` ORDER BY `datum`;";
-*/
 
 $action = isset($_GET['action']) ? $_GET['action'] : "";
 

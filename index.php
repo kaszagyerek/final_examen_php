@@ -176,7 +176,7 @@ if (empty($error_arrays)){
     </div>
 
 
-    <div class="form-container sign-in-container">
+    <div class="form-container sign-in-container" id="bejelentkezesajax">
        <!-- <form action="" method="post"> -->
             <h1>Bejelentkezés</h1>
 
@@ -225,20 +225,30 @@ if (empty($error_arrays)){
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script>
+
     $("#btnLoginResponse").click( function() {
         console.log("hello");
-     //   var email = $('#email').val();
+        var password = $('#bejelentkezesajax').find('input[name="log_password"]').val();
+        var email = $('#bejelentkezesajax').find('input[name="log_email"]').val();
+        var login = $('#btnLoginResponse').find('input[name="login_button"]').val();
         $.ajax({
-        type: "POST",
-            url: 'api.php',
-            data: {
-                 {email:email}
-                 {password:password}
-            }
+            type: "POST",
+            url: 'api.php=true,
+            data:{
+            password:password,
+            email:email
+
+            },
             success: function (response) {
                 response = JSON.parse(response);
                 console.log(response);
                 console.log("Res=-=:" + response.$email, response.$responseresult);
+            }
+        }).done(function(data) {
+            if(data == true){
+                alert("true");
+            } else {
+                alert("false");
             }
         });
 

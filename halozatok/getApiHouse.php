@@ -1,7 +1,6 @@
 <?php
 require "connection.php";
 
-
 $action = isset($_GET['action']) ? $_GET['action'] : "";
 
 switch ($action) {
@@ -28,5 +27,4 @@ switch ($action) {
             );
         }
         die(json_encode($resp));
-
 }

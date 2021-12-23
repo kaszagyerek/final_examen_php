@@ -1,13 +1,9 @@
 <?php
 require_once "connection.php";
 
-   // if (isset($_POST['login_button'])) {
+        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+        $password = md5($_POST['password']);
 
-
-
-        $email = filter_var($_POST['log_email'], FILTER_VALIDATE_EMAIL);
-        // $_SESSION['log_email'] = $email;
-        $password = md5($_POST['log_password']);
         $check_database_query = mysqli_query($con, "SELECT * FROM users WHERE email ='$email'
                                                     AND password ='$password'");
         $check_login_query = mysqli_num_rows($check_database_query);
@@ -29,10 +25,6 @@ require_once "connection.php";
         $result = array("valasz" => $responsboolean, "uzenet" => $responseresult);
         die(json_encode($result));
 
-
-//}
-
-echo "nem megy bele";
 
     ?>
 

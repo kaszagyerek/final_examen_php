@@ -14,103 +14,102 @@ $error_arrays=array();
 if (isset($_POST['register_button'])){
 // Regisztracios form ertekek
 //vezeteknev
-$fname = strip_tags($_POST['reg_fname']); //kitorli html tageket
-$fname =str_replace(' ','',$fname); // kitorli feher karakterek
-$fname = ucfirst(strtolower($fname)); //az elsp betut nagybetuve alakitja at
-$_SESSION['reg_fname'] = $fname;
+    $fname = strip_tags($_POST['reg_fname']); //kitorli html tageket
+    $fname =str_replace(' ','',$fname); // kitorli feher karakterek
+    $fname = ucfirst(strtolower($fname)); //az elsp betut nagybetuve alakitja at
+    $_SESSION['reg_fname'] = $fname;
 
 //keresztnev
-$lname = strip_tags($_POST['reg_lname']); //kitorli html tageket
-$lname =str_replace(' ','',$lname); // kitorli feher karakterek
-$lname = ucfirst(strtolower($lname)); //az elsp betut nagybetuve alakitja at
-$_SESSION['reg_lname'] = $lname;
+    $lname = strip_tags($_POST['reg_lname']); //kitorli html tageket
+    $lname =str_replace(' ','',$lname); // kitorli feher karakterek
+    $lname = ucfirst(strtolower($lname)); //az elsp betut nagybetuve alakitja at
+    $_SESSION['reg_lname'] = $lname;
 
 //email
-$em = strip_tags($_POST['reg_email']); //kitorli html tageket
-$em =str_replace(' ','',$em); // kitorli feher karakterek
-$em = strtolower($em); //minden betu kisbetű lessz
-$_SESSION['reg_email'] = $em;
+    $em = strip_tags($_POST['reg_email']); //kitorli html tageket
+    $em =str_replace(' ','',$em); // kitorli feher karakterek
+    $em = strtolower($em); //minden betu kisbetű lessz
+    $_SESSION['reg_email'] = $em;
 
 //megerosito mail
-$em2 = strip_tags($_POST['reg_email2']); //kitorli html tageket
-$em2 =str_replace(' ','',$em2); // kitorli feher karakterek
-$em2 = strtolower($em2); //minden betü kisbetű lessz
-$_SESSION['reg_email2'] = $em2;
+    $em2 = strip_tags($_POST['reg_email2']); //kitorli html tageket
+    $em2 =str_replace(' ','',$em2); // kitorli feher karakterek
+    $em2 = strtolower($em2); //minden betü kisbetű lessz
+    $_SESSION['reg_email2'] = $em2;
 //telefonszam
-$phone =strip_tags($_POST['phone_number']);
+    $phone =strip_tags($_POST['phone_number']);
 
 //jelszo
-$password = strip_tags($_POST['reg_password']); //kitorli html tageket
+    $password = strip_tags($_POST['reg_password']); //kitorli html tageket
 
 // megerosito jelszo
-$password2 = strip_tags($_POST['reg_password2']); //kitorli html tageket
+    $password2 = strip_tags($_POST['reg_password2']); //kitorli html tageket
 
-$date = date("Y-m-d"); // Jelenlegi ido
+    $date = date("Y-m-d"); // Jelenlegi ido
 
-if ($em == $em2){
-    // elenorizni mail helyes e
-    if (filter_var($em, FILTER_VALIDATE_EMAIL)){
-        $em= filter_var($em,FILTER_VALIDATE_EMAIL);
-        // ellenőrizük az email cim létezik e
-        $e_check = mysqli_query($con, "SELECT email FROM users WHERE email = '$em'");
-        // megszamolja visszadott sorokat
-        $num_rows = mysqli_num_rows($e_check);
+    if ($em == $em2){
+        // elenorizni mail helyes e
+        if (filter_var($em, FILTER_VALIDATE_EMAIL)){
+            $em= filter_var($em,FILTER_VALIDATE_EMAIL);
+            // ellenőrizük az email cim létezik e
+            $e_check = mysqli_query($con, "SELECT email FROM users WHERE email = '$em'");
+            // megszamolja visszadott sorokat
+            $num_rows = mysqli_num_rows($e_check);
 
-        if ($num_rows > 0){
-            array_push($error_arrays,"Email cimet már használták<br>");
+            if ($num_rows > 0){
+                array_push($error_arrays,"Email cimet már használták<br>");
+            }
+
+        }else {
+            array_push($error_arrays,"Helytelen formátum<br>");
+        }
+    }else {
+        array_push($error_arrays,"Az email címek nem találnak<br>");
+    }
+    if (strlen($fname)>25 || strlen($fname)<2){
+        array_push($error_arrays,"Vezeték neve 2 és 25 karakter között kell legyen<br>");
+    }
+    if (strlen($lname)>25 || strlen($lname)<2){
+        array_push($error_arrays,"Kereszt neve 2 és 25 karakter között kell legyen<br>");
+    }
+    if ($password != $password2){
+        array_push($error_arrays,"A jelszavai nem egyeznek meg<br>");
+    } else { // mit tartalmaz a jelszo
+        if (preg_match('/[^A-Za-z0-9]/',$password)){
+            array_push($error_arrays,"Jelszava csak angol karaktereket tartalmazhat<br>");
+        }
+    }
+    if (strlen($password)>30 || strlen($password <5)){
+        array_push($error_arrays,"Jelszava nagyobb kell legyen mint 5 karakter és kisebb kell legyen mint 50 karakter<br>");
+
+    }
+
+    if (empty($error_arrays)){
+        $password = md5($password2); // Titokositas mielott elkuldi az adatbazisba
+        $username = strtolower($fname ."_".$lname);
+        $check_username_query = mysqli_query($con,"SELECT username FROM users WHERE username='$username'");
+        $usernameexits=0;
+        while(mysqli_num_rows($check_username_query)!=0){
+            $usernameexits++;
+            $username = $username . "_" . $usernameexits;
+            $check_username_query = mysqli_query($con,"SELECT username FROM users WHERE username='$username'");
+        }
+        $rand = rand(0,4);
+        if ($rand ==1){
+            $profile_pic ="img/profile_pics/r1.png";
+        } else if ($rand ==2){
+            $profile_pic ="img/profile_pics/r2.png";
+        }else {
+            $profile_pic ="img/profile_pics/r3.png";
         }
 
-    }else {
-        array_push($error_arrays,"Helytelen formátum<br>");
-    }
-}else {
-    array_push($error_arrays,"Az email címek nem találnak<br>");
-}
-if (strlen($fname)>25 || strlen($fname)<2){
-    array_push($error_arrays,"Vezeték neve 2 és 25 karakter között kell legyen<br>");
-}
-if (strlen($lname)>25 || strlen($lname)<2){
-    array_push($error_arrays,"Kereszt neve 2 és 25 karakter között kell legyen<br>");
-}
-if ($password != $password2){
-    array_push($error_arrays,"A jelszavai nem egyeznek meg<br>");
-} else { // mit tartalmaz a jelszo
-    if (preg_match('/[^A-Za-z0-9]/',$password)){
-        array_push($error_arrays,"Jelszava csak angol karaktereket tartalmazhat<br>");
-    }
-}
-if (strlen($password)>30 || strlen($password <5)){
-    array_push($error_arrays,"Jelszava nagyobb kell legyen mint 5 karakter és kisebb kell legyen mint 50 karakter<br>");
+        $query = mysqli_query($con,"INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone')" );
 
-}
-
-if (empty($error_arrays)){
-    $password = md5($password2); // Titokositas mielott elkuldi az adatbazisba
-    $username = strtolower($fname ."_".$lname);
-    $check_username_query = mysqli_query($con,"SELECT username FROM users WHERE username='$username'");
-    $usernameexits=0;
-    while(mysqli_num_rows($check_username_query)!=0){
-        $usernameexits++;
-        $username = $username . "_" . $usernameexits;
-        $check_username_query = mysqli_query($con,"SELECT username FROM users WHERE username='$username'");
-    }
-    $rand = rand(0,4);
-    if ($rand ==1){
-        $profile_pic ="img/profile_pics/r1.png";
-    } else if ($rand ==2){
-        $profile_pic ="img/profile_pics/r2.png";
-    }else {
-        $profile_pic ="img/profile_pics/r3.png";
-    }
-
-    $query = mysqli_query($con,"INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone')" );
-
-    array_push($error_arrays,"<span style='color: black '>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>"); // felhasználónak egy értesítés hogy sikeresen regisztrált
-
-    $_SESSION['reg_fname'] = "";
-    $_SESSION['reg_lname'] = "";
-    $_SESSION['reg_email'] = "";
-    $_SESSION['reg_email2'] = "";
+        array_push($error_arrays,"<span style='color: black '>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>"); // felhasználónak egy értesítés hogy sikeresen regisztrált
+        $_SESSION['reg_fname'] = "";
+        $_SESSION['reg_lname'] = "";
+        $_SESSION['reg_email'] = "";
+        $_SESSION['reg_email2'] = "";
     }
 
 }
@@ -177,23 +176,18 @@ if (empty($error_arrays)){
 
 
     <div class="form-container sign-in-container">
-       <!-- <form action="" method="post"> -->
-            <h1>Bejelentkezés</h1>
+         <form id="fupForm">
+        <h1>Bejelentkezés</h1>
 
-            <input type="email" id="emailajax" name="log_email" placeholder="emailcímd"
-                   value="<?php
-                   if (isset($_SESSION['log_email'])){
-                       echo $_SESSION['log_email'];
-                   }
-                   ?>" required />
-            <input type="password"  name="log_password"  id="passwordajax" placeholder="jelszód" />
-            <a href="#">Elfelejtetted a jelszavad?</a>
-            <button name="login_button" id="btnLoginResponse"  >Bejelentkezés</button>
-            <?php
-            if (in_array("Emailcíme vagy a jelszava helytelen<br>",$error_arrays))
-                echo "Emailcíme vagy a jelszava helytelen<br>"; ?>
+        <input type="email" id="emailajax" name="log_email" placeholder="emailcímd"/>
+        <input type="password" id="passwordajax" name="log_password" placeholder="jelszód" />
+        <a href="#">Elfelejtetted a jelszavad?</a>
+        <button name="login_button" id="btnLoginResponse"  >Bejelentkezés</button>
+        <?php
+        if (in_array("Emailcíme vagy a jelszava helytelen<br>",$error_arrays))
+            echo "Emailcíme vagy a jelszava helytelen<br>"; ?>
 
-       <!-- </form> -->
+      </form>
     </div>
     <div class="overlay-container">
         <div class="overlay">
@@ -210,7 +204,7 @@ if (empty($error_arrays)){
         </div>
     </div>
 </div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
@@ -222,32 +216,43 @@ if (empty($error_arrays)){
     signInButton.addEventListener('click', () => {
         container.classList.remove("right-panel-active");
     });</script>
-
-<script type="text/javascript" src="filep/jquery.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('#btnLoginResponse').on('click', function() {
+            $("#btnLoginResponse").attr("disabled", "disabled");
+            var email = $('#emailajax').val();
+            var password = $('#passwordajax').val();
 
-    $("#btnLoginResponse").click( function() {
-        console.log("hello");
-        var password = $('#passwordajax').find('input[name="log_password"]').val();
-        var email = $('#emailajax').find('input[name="log_email"]').val();
-       // var login = $('#btnLoginResponse').find('input[name="login_button"]').val();
-        $.ajax({
-            type: "POST",
-            url: 'http://localhost:63342/untitled2/laptopallamvizsga/api.php',
-           // url: 'api.php',
-            data:{
-                password:password,
-                email:email,
-             //   action:login
-            },
-            success: function (response) {
-                // response = JSON.parse(response);
-                console.log(response);
-                console.log("Res=-=:" + response.$email, response.$responseresult);
+            if(email != "" && password != "" ){
+                $.ajax({
+                    url: "http://localhost:63342/untitled2/laptopallamvizsga/bejelentkezesAPI.php",
+                    type: "POST",
+                    data: {
+                        email: email,
+                        password: password
+                    },
+                    cache: false,
+
+                    success: function(dataResult){
+                        var dataResult = JSON.parse(dataResult);
+                        if(dataResult.Valasz==true){
+                            $("#btnLoginResponse").removeAttr("disabled");
+                            $('#fupForm').find('input:text').val('');
+                            $("#success").show();
+                            $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
+
+                        }
+                        else if(dataResult.Valasz==false){
+                            alert("Nem jol adta meg az adatokat");
+                        }
+
+                    }
+                });
             }
-        })
-
-
+            else{
+                alert("Toltsel ki minden mezot");
+            }
+        });
     });
 </script>
 

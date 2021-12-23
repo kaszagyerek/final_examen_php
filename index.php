@@ -176,17 +176,17 @@ if (empty($error_arrays)){
     </div>
 
 
-    <div class="form-container sign-in-container" id="bejelentkezesajax">
+    <div class="form-container sign-in-container">
        <!-- <form action="" method="post"> -->
             <h1>Bejelentkezés</h1>
 
-            <input type="email" name="log_email" placeholder="emailcímd"
+            <input type="email" id="emailajax" name="log_email" placeholder="emailcímd"
                    value="<?php
                    if (isset($_SESSION['log_email'])){
                        echo $_SESSION['log_email'];
                    }
-                   ?>" required >
-            <input type="password" name="log_password" placeholder="jelszód" />
+                   ?>" required />
+            <input type="password"  name="log_password"  id="passwordajax" placeholder="jelszód" />
             <a href="#">Elfelejtetted a jelszavad?</a>
             <button name="login_button" id="btnLoginResponse"  >Bejelentkezés</button>
             <?php
@@ -223,34 +223,30 @@ if (empty($error_arrays)){
         container.classList.remove("right-panel-active");
     });</script>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="filep/jquery.min.js"></script>
 <script>
 
     $("#btnLoginResponse").click( function() {
         console.log("hello");
-        var password = $('#bejelentkezesajax').find('input[name="log_password"]').val();
-        var email = $('#bejelentkezesajax').find('input[name="log_email"]').val();
-        var login = $('#btnLoginResponse').find('input[name="login_button"]').val();
+        var password = $('#passwordajax').find('input[name="log_password"]').val();
+        var email = $('#emailajax').find('input[name="log_email"]').val();
+       // var login = $('#btnLoginResponse').find('input[name="login_button"]').val();
         $.ajax({
             type: "POST",
-            url: 'api.php=true,
+            url: 'http://localhost:63342/untitled2/laptopallamvizsga/api.php',
+           // url: 'api.php',
             data:{
-            password:password,
-            email:email
-
+                password:password,
+                email:email,
+             //   action:login
             },
             success: function (response) {
-                response = JSON.parse(response);
+                // response = JSON.parse(response);
                 console.log(response);
                 console.log("Res=-=:" + response.$email, response.$responseresult);
             }
-        }).done(function(data) {
-            if(data == true){
-                alert("true");
-            } else {
-                alert("false");
-            }
-        });
+        })
+
 
     });
 </script>

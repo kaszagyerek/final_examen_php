@@ -1,118 +1,6 @@
 <?php
 session_start();
-require_once "connection.php";
-// létrehozni változokat hibák kiszűrésére
-$fname=""; // Vezetéknév
-$lname=""; // Keresztnév
-$em=""; // Mailcim
-$em2=""; // Mailcim2
-$password=""; // jelszo
-$password2=""; // jelszo2
-$date=""; //regisztracios ido
-$phone="";
-$error_arrays=array();
-if (isset($_POST['register_button'])){
-// Regisztracios form ertekek
-//vezeteknev
-    $fname = strip_tags($_POST['reg_fname']); //kitorli html tageket
-    $fname =str_replace(' ','',$fname); // kitorli feher karakterek
-    $fname = ucfirst(strtolower($fname)); //az elsp betut nagybetuve alakitja at
-    $_SESSION['reg_fname'] = $fname;
 
-//keresztnev
-    $lname = strip_tags($_POST['reg_lname']); //kitorli html tageket
-    $lname =str_replace(' ','',$lname); // kitorli feher karakterek
-    $lname = ucfirst(strtolower($lname)); //az elsp betut nagybetuve alakitja at
-    $_SESSION['reg_lname'] = $lname;
-
-//email
-    $em = strip_tags($_POST['reg_email']); //kitorli html tageket
-    $em =str_replace(' ','',$em); // kitorli feher karakterek
-    $em = strtolower($em); //minden betu kisbetű lessz
-    $_SESSION['reg_email'] = $em;
-
-//megerosito mail
-    $em2 = strip_tags($_POST['reg_email2']); //kitorli html tageket
-    $em2 =str_replace(' ','',$em2); // kitorli feher karakterek
-    $em2 = strtolower($em2); //minden betü kisbetű lessz
-    $_SESSION['reg_email2'] = $em2;
-//telefonszam
-    $phone =strip_tags($_POST['phone_number']);
-
-//jelszo
-    $password = strip_tags($_POST['reg_password']); //kitorli html tageket
-
-// megerosito jelszo
-    $password2 = strip_tags($_POST['reg_password2']); //kitorli html tageket
-
-    $date = date("Y-m-d"); // Jelenlegi ido
-
-    if ($em == $em2){
-        // elenorizni mail helyes e
-        if (filter_var($em, FILTER_VALIDATE_EMAIL)){
-            $em= filter_var($em,FILTER_VALIDATE_EMAIL);
-            // ellenőrizük az email cim létezik e
-            $e_check = mysqli_query($con, "SELECT email FROM users WHERE email = '$em'");
-            // megszamolja visszadott sorokat
-            $num_rows = mysqli_num_rows($e_check);
-
-            if ($num_rows > 0){
-                array_push($error_arrays,"Email cimet már használták<br>");
-            }
-
-        }else {
-            array_push($error_arrays,"Helytelen formátum<br>");
-        }
-    }else {
-        array_push($error_arrays,"Az email címek nem találnak<br>");
-    }
-    if (strlen($fname)>25 || strlen($fname)<2){
-        array_push($error_arrays,"Vezeték neve 2 és 25 karakter között kell legyen<br>");
-    }
-    if (strlen($lname)>25 || strlen($lname)<2){
-        array_push($error_arrays,"Kereszt neve 2 és 25 karakter között kell legyen<br>");
-    }
-    if ($password != $password2){
-        array_push($error_arrays,"A jelszavai nem egyeznek meg<br>");
-    } else { // mit tartalmaz a jelszo
-        if (preg_match('/[^A-Za-z0-9]/',$password)){
-            array_push($error_arrays,"Jelszava csak angol karaktereket tartalmazhat<br>");
-        }
-    }
-    if (strlen($password)>30 || strlen($password <5)){
-        array_push($error_arrays,"Jelszava nagyobb kell legyen mint 5 karakter és kisebb kell legyen mint 50 karakter<br>");
-
-    }
-
-    if (empty($error_arrays)){
-        $password = md5($password2); // Titokositas mielott elkuldi az adatbazisba
-        $username = strtolower($fname ."_".$lname);
-        $check_username_query = mysqli_query($con,"SELECT username FROM users WHERE username='$username'");
-        $usernameexits=0;
-        while(mysqli_num_rows($check_username_query)!=0){
-            $usernameexits++;
-            $username = $username . "_" . $usernameexits;
-            $check_username_query = mysqli_query($con,"SELECT username FROM users WHERE username='$username'");
-        }
-        $rand = rand(0,4);
-        if ($rand ==1){
-            $profile_pic ="img/profile_pics/r1.png";
-        } else if ($rand ==2){
-            $profile_pic ="img/profile_pics/r2.png";
-        }else {
-            $profile_pic ="img/profile_pics/r3.png";
-        }
-
-        $query = mysqli_query($con,"INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone')" );
-
-        array_push($error_arrays,"<span style='color: black '>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>"); // felhasználónak egy értesítés hogy sikeresen regisztrált
-        $_SESSION['reg_fname'] = "";
-        $_SESSION['reg_lname'] = "";
-        $_SESSION['reg_email'] = "";
-        $_SESSION['reg_email2'] = "";
-    }
-
-}
 
 ?>
 
@@ -131,47 +19,22 @@ if (isset($_POST['register_button'])){
 <div class="container" id="container">
     <div class="form-container sign-up-container">
 
-        <form action="" method="post">
+
+        <form id="regi">
             <h1>Regisztráció</h1>
-            <?php if (in_array("<span style='color: yellow'>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>",$error_arrays)) echo "<span style='color: yellow'>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>";   ?>
-
-            <input type="text" name="reg_fname" placeholder="Vezetéknév"
-                   value="<?php if(isset($_SESSION['reg_fname'])){
-                       echo $_SESSION['reg_fname'];
-                   }
-                   ?>"   required/>
-            <?php if (in_array("Vezeték neve 2 és 25 karakter között kell legyen<br>",$error_arrays)) echo "Email cimet már használták<br>";   ?>
 
 
-            <input type="text" name="reg_lname" placeholder="Keresztnév" value="<?php if(isset($_SESSION['reg_lname'])){
-                echo $_SESSION['reg_lname'];
-            }
-            ?>" required/>
-            <?php if (in_array("Kereszt neve 2 és 25 karakter között kell legyen<br>",$error_arrays)) echo "Kereszt neve 2 és 25 karakter között kell legyen<br>";   ?>
 
-            <input type="tel" name="phone_number" placeholder="Telefonszám" required/>
-            <input type="email" name="reg_email"  placeholder="Mailcím" value="<?php if(isset($_SESSION['reg_email'])){
-                echo $_SESSION['reg_email'];
-            }
-            ?>" required/>
-            <?php if (in_array("Email cimet már használták<br>",$error_arrays)) echo "Email cimet már használták<br>";
-            else if (in_array("Helytelen formátum<br>",$error_arrays)) echo "Helytelen formátum<br>";
-            else if (in_array("Az email címek nem találnak<br>",$error_arrays)) echo "Az email címek nem találnak<br>";
-
-            ?>
-
-            <input type="email" name="reg_email2"  placeholder="Mailcím megerősítés" value="<?php if(isset($_SESSION['reg_email2'])){
-                echo $_SESSION['reg_email2'];
-            }
-            ?>" required/>
-            <input type="password" name="reg_password"  placeholder="Jelszó" />
-            <input type="password" name="reg_password2"  placeholder="Jelszó megerősítés" />
-            <?php if (in_array("A jelszavai nem egyeznek meg<br>",$error_arrays)) echo "A jelszavai nem egyeznek meg<br>";
-            else if (in_array("Jelszava csak angol karaktereket tartalmazhat<br>",$error_arrays)) echo "Jelszava csak angol karaktereket tartalmazhat<br>";
-            else if (in_array("Jelszava nagyobb kell legyen mint 5 karakter és kisebb kell legyen mint 50 karakter<br>",$error_arrays)) echo "Jelszava nagyobb kell legyen mint 5 karakter és kisebb kell legyen mint 50 karakter<br>"; ?>
-
-            <input type="submit" name="register_button" value="Register">
+            <input type="text" name="reg_fname" id="fname"  placeholder="Vezetéknév" required/>
+            <input type="text" name="reg_lname" id="lname"   placeholder="Keresztnév"  required/>
+            <input type="tel" name="phone_number" id="phone"   placeholder="Telefonszám" required/>
+            <input type="email" name="reg_email" id="em"   placeholder="Mailcím"  required/>
+            <input type="email" name="reg_email2" id="em2"   placeholder="Mailcím megerősítés" required/>
+            <input type="password" name="reg_password" id="password"   placeholder="Jelszó" />
+            <input type="password" name="reg_password2" id="password2"   placeholder="Jelszó megerősítés" />
+            <button  name="register_button" id="regbut"  value="Register"> Regisztráció </button>
         </form>
+
     </div>
 
 
@@ -183,9 +46,7 @@ if (isset($_POST['register_button'])){
         <input type="password" id="passwordajax" name="log_password" placeholder="jelszód" />
         <a href="#">Elfelejtetted a jelszavad?</a>
         <button name="login_button" id="btnLoginResponse"  >Bejelentkezés</button>
-        <?php
-        if (in_array("Emailcíme vagy a jelszava helytelen<br>",$error_arrays))
-            echo "Emailcíme vagy a jelszava helytelen<br>"; ?>
+
 
       </form>
     </div>
@@ -216,6 +77,59 @@ if (isset($_POST['register_button'])){
     signInButton.addEventListener('click', () => {
         container.classList.remove("right-panel-active");
     });</script>
+<script>
+
+    $(document).ready(function() {
+        $('#regbut').on('click', function() {
+            $("#regbut").attr("disabled", "disabled");
+            var fname = $('#fname').val();
+            var lname = $('#lname').val();
+            var em = $('#em').val();
+            var em2 = $('#em2').val();
+            var password = $('#password').val();
+            var password2 = $('#password2').val();
+            var phone = $('#phone').val();
+
+
+            if(fname != "" && lname != "" && em != "" && em2 != "" && password != "" && password2 != "" && phone != "" ){
+                $.ajax({
+                    url: "http://localhost:63342/untitled2/laptopallamvizsga/regisztraciosAPI.php",
+                    type: "POST",
+                    data: {
+                        fname: fname,
+                        lname: lname,
+                        em: em,
+                        em2: em2,
+                        password: password,
+                        password2: password2,
+                        phone: phone,
+                    },
+                    cache: false,
+
+                    success: function(dataResult){
+                        var dataResult = JSON.parse(dataResult);
+                        if(dataResult.Valasz==true){
+                            $("#regbut").removeAttr("disabled");
+                            $('#regi').find('input:text').val('');
+                            $("#success").show();
+                            $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
+
+                        }
+                        else if(dataResult.Valasz==false){
+                            alert("Nem jol adta meg az adatokat");
+                        }
+
+                    }
+                });
+            }
+            else{
+                alert("Toltsel ki minden mezot");
+            }
+        });
+    });
+</script>
+
+
 <script>
     $(document).ready(function() {
         $('#btnLoginResponse').on('click', function() {
@@ -255,9 +169,6 @@ if (isset($_POST['register_button'])){
         });
     });
 </script>
-
-
-
 
 
 

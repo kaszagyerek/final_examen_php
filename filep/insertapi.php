@@ -11,7 +11,7 @@ if (mysqli_query($con, $sql)) {
     echo json_encode(array("Valasz"=>True, "Uzenet"=>"Sikeresen rogzitett adat"));
 }
 else {
-    echo json_encode(array("Valasz"=>False ,"Uzenet"=>"Sikertelenül rogzitett adat"));
+    echo json_encode(array("Valasz"=>False ,"Uzenet"=>"Sikertelenul rogzitett adat"));
 }
 mysqli_close($con);
 

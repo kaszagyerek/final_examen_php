@@ -23,7 +23,7 @@
 
         $.ajax({
             type: "GET",
-            url: 'http://localhost:63342/untitled2/laptopallamvizsga/filep/houseAPI.php/' + '?id=' + id2.value,
+            url: 'http://localhost:63342/untitled2/laptopallamvizsga/filep/houseAPI.php/' + '?'+id2,
             data: {
                 id: id2.value
             },

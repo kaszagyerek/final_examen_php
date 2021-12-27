@@ -1,8 +1,8 @@
 <?php
 require_once "connection.php";
 
-        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-        $password = md5($_POST['password']);
+        $email = mysqli_real_escape_string($con,filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
+        $password = mysqli_real_escape_string($con,md5($_POST['password']));
 
         $check_database_query = mysqli_query($con, "SELECT * FROM users WHERE email ='$email'
                                                     AND password ='$password'");

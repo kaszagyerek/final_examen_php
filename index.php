@@ -153,7 +153,7 @@ session_start();
                             $("#btnLoginResponse").removeAttr("disabled");
                             $('#fupForm').find('input:text').val('');
                             $("#success").show();
-                            $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
+                            $('#success').html('Sikeresen bejelentkezett');
 
                         }
                         else if(dataResult.Valasz==false){

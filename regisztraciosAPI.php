@@ -108,5 +108,4 @@ $_SESSION['em2'] = "";}
      $responsboolean = false;
  }
 $result = array("valasz" => $responsboolean, "uzenet" => $responseresult);
-$result = array("valasz" => $responsboolean, "uzenet" => $responseresult);
 die(json_encode($result));

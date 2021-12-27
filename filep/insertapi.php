@@ -1,10 +1,10 @@
 <?php
 require_once "connection.php";
-$addres = $_POST['utca'];
-$totalhprice = $_POST['ertek'];
-$ownPerson = $_POST['gondozo'];
-$ownMobil = $_POST['gtelefon'];
-$users_id = $_POST['id'];
+$addres = mysqli_real_escape_string ($con,$_POST['utca']);
+$totalhprice = mysqli_real_escape_string($con, $_POST['ertek']);
+$ownPerson = mysqli_real_escape_string($con,$_POST['gondozo']);
+$ownMobil = mysqli_real_escape_string($con,$_POST['gtelefon']);
+$users_id =mysqli_real_escape_string($con,$_POST['id']);
 $sql = "INSERT INTO `house` ( `users_id`,`addres`, `totalhprice`, `ownPerson`, `ownMobil`) VALUES ('$users_id','$addres','$totalhprice','$ownPerson','$ownMobil')";
 
 if (mysqli_query($con, $sql)) {

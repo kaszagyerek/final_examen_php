@@ -5,7 +5,8 @@ $action = isset($_GET['action']) ? $_GET['action'] : "";
 
 switch ($action) {
     default:
-        $keres = isset($_GET['id']) ? $_GET['id'] : "";
+
+        $keres = mysqli_real_escape_string($con,isset($_GET['id']) ? $_GET['id'] : "");
         if ($keres == "") {
             die('{	"success": false, "üzenet" : Érvénytelen lekérdezés"!"}');
         }

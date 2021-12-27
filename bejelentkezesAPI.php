@@ -10,14 +10,14 @@ require_once "connection.php";
         $responseresult = "";
         $responsboolean = "";
         if ($check_login_query > 0) {
-            $responseresult = "sikeres";
+            $responseresult = "sikeres bejelentkezes";
             $responsboolean = true;
             $row = mysqli_fetch_array($check_database_query);
             $_SESSION['username'] = $row['username'];
             $_SESSION['userid'] = $row['id'];
             //  header("Location: menu.php"); //   exit();
         } else {
-            $responseresult = "sikertelen";
+            $responseresult = "sikertelen felhasznalonev/jelszo hibas";
             $responsboolean = false;
         }
 

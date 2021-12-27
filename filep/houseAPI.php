@@ -14,9 +14,9 @@ switch ($action) {
             WHERE `house`.`users_id` = '$keres' ORDER BY `totalhprice`;";
         $rs = $con->query($sql);
         if ($rs->num_rows == 0) {
-            die('{	"success": false, "msg" : "Felhasználó nem létezik/ vagy nincsen háza a felhasználónak!"}');
+            die('{	"valasz": false, "msg" : "Felhasználó nem létezik/ vagy nincsen háza a felhasználónak!"}');
         }
-        $resp = array("success" => true, "response" => array());
+        $resp = array("valasz" => true, "response" => array());
         while ($row = $rs->fetch_assoc()) {
             $resp['response'][] = array(
                 "username" => $row['username'],

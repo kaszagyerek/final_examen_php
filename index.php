@@ -138,7 +138,7 @@ session_start();
 
             if (email != "" && password != "") {
                 $.ajax({
-                    url: "http://localhost:63342/untitled2/laptopallamvizsga/bejelentkezesAPI.php",
+                    url: "http://localhost:63342/untitled2/laptopallamvizsga/filep/bejelentkezesAPI.php",
                     type: "POST",
                     data: {
                         email: email,

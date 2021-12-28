@@ -106,14 +106,14 @@ session_start();
 
                     success: function(dataResult){
                         var dataResult = JSON.parse(dataResult);
-                        if(dataResult.Valasz==true){
+                        if(dataResult.valasz==true){
                             $("#regbut").removeAttr("disabled");
                             $('#regi').find('input:text').val('');
                             $("#success").show();
                             $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
 
                         }
-                        else if(dataResult.Valasz==false){
+                        else if(dataResult.valasz==false){
                             alert("Nem jol adta meg az adatokat");
                         }
 

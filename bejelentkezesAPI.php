@@ -15,15 +15,15 @@ require_once "connection.php";
             $row = mysqli_fetch_array($check_database_query);
             $_SESSION['username'] = $row['username'];
             $_SESSION['userid'] = $row['id'];
-            //  header("Location: menu.php"); //   exit();
+            //header("Location: menu.php"); //   exit();
         } else {
             $responseresult = "sikertelen felhasznalonev/jelszo hibas";
             $responsboolean = false;
         }
 
         $result = array("valasz" => $responsboolean, "uzenet" => $responseresult);
-        $result = array("valasz" => $responsboolean, "uzenet" => $responseresult);
         die(json_encode($result));
+
 
 
     ?>

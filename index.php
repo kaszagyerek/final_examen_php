@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-
 ?>
 
 
@@ -131,13 +129,14 @@ session_start();
 
 
 <script>
-    $(document).ready(function() {
-        $('#btnLoginResponse').on('click', function() {
+
+    $(document).ready(function () {
+        $('#btnLoginResponse').on('click', function () {
             $("#btnLoginResponse").attr("disabled", "disabled");
             var email = $('#emailajax').val();
             var password = $('#passwordajax').val();
 
-            if(email != "" && password != "" ){
+            if (email != "" && password != "") {
                 $.ajax({
                     url: "http://localhost:63342/untitled2/laptopallamvizsga/bejelentkezesAPI.php",
                     type: "POST",
@@ -147,29 +146,33 @@ session_start();
                     },
                     cache: false,
 
-                    success: function(dataResult){
-                        var dataResult = JSON.parse(dataResult);
-                        if(dataResult.Valasz==true){
-                            $("#btnLoginResponse").removeAttr("disabled");
-                            $('#fupForm').find('input:text').val('');
-                            $("#success").show();
-                            $('#success').html('Sikeresen bejelentkezett');
+                    success: function (dataResult) {
 
-                        }
-                        else if(dataResult.Valasz==false){
+                        var dataResult = JSON.parse(dataResult);
+                        console.log(dataResult);
+
+                        if (dataResult.valasz == true) {
+                            console.log("hello");
+
+                            window.location.href = "filep/datainsert.php";
+
+
+                            $("#btnLoginResponse").removeAttr("disabled");
+                            $("#success").show();
+                            $('#success').html('Sikeresen bejelentkezett')
+
+                        } else if (dataResult.valasz == false) {
                             alert("Nem jol adta meg az adatokat");
                         }
 
                     }
                 });
-            }
-            else{
+            } else {
                 alert("Toltsel ki minden mezot");
             }
         });
     });
 </script>
-
 
 
 </body>

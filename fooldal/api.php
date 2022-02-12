@@ -15,9 +15,17 @@ switch($action) {
             $res[] =$obj;}
         echo json_encode($res);
         break;
+    case "munkahelylistazas" :
+        $privateid = $_SESSION['userid'];
+
+        $sql="SELECT idworkplace, workplacename, workplaceaddres, users_id, workposition FROM workplace WHERE users_id = '$privateid' ";
+        $result = mysqli_query($con, $sql);
+        while($obj=$result->fetch_assoc()){
+            $res[] =$obj;}
+        echo json_encode($res);
+        break;
 
 }
-
 switch($action2){
     case "inserthouse":
         $addres = mysqli_real_escape_string ($con,$_POST['utca']);
@@ -38,6 +46,26 @@ switch($action2){
         mysqli_close($con);
 
         break;
+    case "insertworkplace":
+        $munka = mysqli_real_escape_string ($con,$_POST['munka']);
+        $cim = mysqli_real_escape_string($con, $_POST['cim']);
+        $beosztas = mysqli_real_escape_string($con, $_POST['beosztas']);
+
+
+        $privateid = $_SESSION['userid'];
+        $sql = "INSERT INTO `workplace` (`workplacename`, `workplaceaddres`, `users_id`,`workposition`) VALUES ('$munka', '$cim', '$privateid','$beosztas')";
+
+
+        if (mysqli_query($con, $sql)) {
+            echo json_encode(array("Valasz"=>True, "Uzenet"=>"Sikeresen rogzitett adat"));
+        }
+        else {
+            echo json_encode(array("Valasz"=>False ,"Uzenet"=>"Sikertelenul rogzitett adat"));
+        }
+        mysqli_close($con);
+
+        break;
+
 }
 
 

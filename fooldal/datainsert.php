@@ -1,8 +1,19 @@
 <?php
+session_start();
+require_once "connection.php";
+if (!isset($_SESSION['username'])){
+    header("Location:../log_reg/log_reg.php");
+    exit();
+}
+
+echo "<br>Felhasználó neve:" . $_SESSION['username'];
+echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -12,10 +23,10 @@
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
     </div>
     <form id="fupForm" name="form1" method="post">
-        <div class="form-group">
+       <!-- <div class="form-group">
             <label for="email">Tulajdonos egyedi ID ja:</label>
             <input type="text" class="form-control" id="fid" placeholder="id" name="id">
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="pwd">Utca:</label>
             <input type="email" class="form-control" id="futca" placeholder="utca" name="utca">
@@ -40,22 +51,20 @@
 
     </form>
 </div>
-
 <script>
     $(document).ready(function() {
         $('#butsave').on('click', function() {
             $("#butsave").attr("disabled", "disabled");
-            var id = $('#fid').val();
+         <!--   var id = $('#fid').val(); -->
             var utca = $('#futca').val();
             var ertek = $('#fhaz').val();
             var gondozo = $('#fgondozo').val();
             var gtelefon = $('#ftgondozo').val();
-            if(id!="" && utca!="" && ertek!="" && gondozo!="" && gtelefon!="" ){
+            if(utca!="" && ertek!="" && gondozo!="" && gtelefon!="" ){
                 $.ajax({
                     url: "insertapi.php",
                     type: "POST",
                     data: {
-                        id: id,
                         utca: utca,
                         ertek: ertek,
                         gondozo: gondozo,
@@ -65,13 +74,13 @@
 
                     success: function(dataResult){
                         var dataResult = JSON.parse(dataResult);
-                        if(dataResult.Valasz==true){
+                        if(dataResult.valasz==true){
                             $("#success").show();
                             $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
 
                         }
 
-                        else if(dataResult.Valasz==false){
+                        else if(dataResult.valasz==false){
                             $("#success").show();
                             $('#success').html('Sikertelenül adta meg az adatokat');
                         }

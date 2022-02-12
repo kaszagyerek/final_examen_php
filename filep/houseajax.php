@@ -15,7 +15,7 @@
 <div class="result">Eredmény ajax hívás után</div>
 
 </div>
-<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="../fooldal/jquery.min.js"></script>
 <script>
     $("#lajax").click(function () {
         console.log("hello");

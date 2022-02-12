@@ -9,7 +9,7 @@ session_start();
     <meta charset="utf-8">
     <title>login</title>
 
-    <link href="css/szepito.css" rel="stylesheet" type="text/css">
+    <link href="../css/szepito.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -138,7 +138,7 @@ session_start();
 
             if (email != "" && password != "") {
                 $.ajax({
-                    url: "http://localhost:63342/untitled2/laptopallamvizsga/filep/bejelentkezesAPI.php",
+                    url: "http://localhost:63342/allamvizsga/laptopallamvizsga/log_reg/bejelentkezesAPI.php",
                     type: "POST",
                     data: {
                         email: email,
@@ -154,7 +154,7 @@ session_start();
                         if (dataResult.valasz == true) {
                             console.log("hello");
 
-                            window.location.href = "filep/datainsert.php";
+                            window.location.href = "../fooldal/index.php";
 
 
                             $("#btnLoginResponse").removeAttr("disabled");
@@ -163,6 +163,7 @@ session_start();
 
                         } else if (dataResult.valasz == false) {
                             alert("Nem jol adta meg az adatokat");
+
                         }
 
                     }

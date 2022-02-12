@@ -1,5 +1,6 @@
 <?php
 require_once "connection.php";
+session_start();
 
         $email = mysqli_real_escape_string($con,filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
         $password = mysqli_real_escape_string($con,md5($_POST['password']));

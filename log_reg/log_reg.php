@@ -138,11 +138,12 @@ session_start();
 
             if (email != "" && password != "") {
                 $.ajax({
-                    url: "http://localhost:63342/allamvizsga/laptopallamvizsga/log_reg/bejelentkezesAPI.php",
+                    url: "api.php",
                     type: "POST",
                     data: {
                         email: email,
-                        password: password
+                        password: password,
+                        action:"bejelentkezes"
                     },
                     cache: false,
 

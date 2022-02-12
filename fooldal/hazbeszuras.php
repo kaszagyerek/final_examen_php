@@ -55,20 +55,20 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     $(document).ready(function() {
         $('#butsave').on('click', function() {
             $("#butsave").attr("disabled", "disabled");
-         <!--   var id = $('#fid').val(); -->
             var utca = $('#futca').val();
             var ertek = $('#fhaz').val();
             var gondozo = $('#fgondozo').val();
             var gtelefon = $('#ftgondozo').val();
             if(utca!="" && ertek!="" && gondozo!="" && gtelefon!="" ){
                 $.ajax({
-                    url: "insertapi.php",
+                    url: "api.php",
                     type: "POST",
                     data: {
                         utca: utca,
                         ertek: ertek,
                         gondozo: gondozo,
                         gtelefon: gtelefon,
+                        action:"inserthouse"
                     },
                     cache: false,
 

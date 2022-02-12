@@ -20,7 +20,8 @@ echo "<div class='felhasznalo'>" . "Az ID-ja " . $_SESSION['userid'] . "</div>";
 <h1>PORTFOLIÓ KÖVETÉSE</h1>
 
 <div class="vertical-menu">
-    <a href="datainsert.php" class="active">Home</a>
+    <a href="hazbeszuras.php" class="active">Házam rögzítése</a>
+    <a href="hazlekerdezes.php" class="active">Házaim listázása</a>
     <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>
 </div>
 

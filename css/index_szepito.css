@@ -18,16 +18,19 @@
     background-color: #04AA6D;
     color: white;
 }
+
 .felhasznalo {
     background-color: #04AA6D;
     color: black;
     margin: 0 auto;
 }
-.vertical-menu a.narancs{
+
+.vertical-menu a.narancs {
     background-color: orangered;
     color: black;
 }
-.vertical-menu a.lila{
+
+.vertical-menu a.lila {
     background-color: darkmagenta;
     color: white;
 }

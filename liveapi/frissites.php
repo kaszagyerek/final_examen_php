@@ -1,8 +1,9 @@
 <?php
 
-define("INTERVAL", 50 ); // 1 óra
+define("INTERVAL", 5000);
 
-function runIt() { // Your function to run every 5 seconds
+function runIt()
+{ // Your function to run every 5 seconds
     $url = 'https://api2.binance.com/api/v3/ticker/24hr';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPGET, true);
@@ -11,9 +12,8 @@ function runIt() { // Your function to run every 5 seconds
     curl_close($ch);
     $response = json_decode($response_json, true);
     $products = $response;
-    $con = mysqli_connect("localhost","root","","social");
-    if (mysqli_connect_errno())
-    {
+    $con = mysqli_connect("localhost", "root", "", "social");
+    if (mysqli_connect_errno()) {
         echo "Hibás csatlakozás" . mysqli_connect_errno();
     }
 
@@ -42,6 +42,7 @@ function runIt() { // Your function to run every 5 seconds
     }
 
 }
+
 function frisites()
 {
     $active = true;

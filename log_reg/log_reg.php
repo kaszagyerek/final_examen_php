@@ -22,31 +22,30 @@ session_start();
             <h1>Regisztráció</h1>
 
 
-
-            <input type="text" name="reg_fname" id="fname"  placeholder="Vezetéknév" required/>
-            <input type="text" name="reg_lname" id="lname"   placeholder="Keresztnév"  required/>
-            <input type="tel" name="phone_number" id="phone"   placeholder="Telefonszám" required/>
-            <input type="email" name="reg_email" id="em"   placeholder="Mailcím"  required/>
-            <input type="email" name="reg_email2" id="em2"   placeholder="Mailcím megerősítés" required/>
-            <input type="password" name="reg_password" id="password"   placeholder="Jelszó" />
-            <input type="password" name="reg_password2" id="password2"   placeholder="Jelszó megerősítés" />
-            <button  name="register_button" id="regbut"  value="Register"> Regisztráció </button>
+            <input type="text" name="reg_fname" id="fname" placeholder="Vezetéknév" required/>
+            <input type="text" name="reg_lname" id="lname" placeholder="Keresztnév" required/>
+            <input type="tel" name="phone_number" id="phone" placeholder="Telefonszám" required/>
+            <input type="email" name="reg_email" id="em" placeholder="Mailcím" required/>
+            <input type="email" name="reg_email2" id="em2" placeholder="Mailcím megerősítés" required/>
+            <input type="password" name="reg_password" id="password" placeholder="Jelszó"/>
+            <input type="password" name="reg_password2" id="password2" placeholder="Jelszó megerősítés"/>
+            <button name="register_button" id="regbut" value="Register"> Regisztráció</button>
         </form>
 
     </div>
 
 
     <div class="form-container sign-in-container">
-         <form id="fupForm">
-        <h1>Bejelentkezés</h1>
+        <form id="fupForm">
+            <h1>Bejelentkezés</h1>
 
-        <input type="email" id="emailajax" name="log_email" placeholder="emailcímd"/>
-        <input type="password" id="passwordajax" name="log_password" placeholder="jelszód" />
-        <a href="#">Elfelejtetted a jelszavad?</a>
-        <button name="login_button" id="btnLoginResponse"  >Bejelentkezés</button>
+            <input type="email" id="emailajax" name="log_email" placeholder="emailcímd"/>
+            <input type="password" id="passwordajax" name="log_password" placeholder="jelszód"/>
+            <a href="#">Elfelejtetted a jelszavad?</a>
+            <button name="login_button" id="btnLoginResponse">Bejelentkezés</button>
 
 
-      </form>
+        </form>
     </div>
     <div class="overlay-container">
         <div class="overlay">
@@ -77,8 +76,8 @@ session_start();
     });</script>
 <script>
 
-    $(document).ready(function() {
-        $('#regbut').on('click', function() {
+    $(document).ready(function () {
+        $('#regbut').on('click', function () {
             $("#regbut").attr("disabled", "disabled");
             var fname = $('#fname').val();
             var lname = $('#lname').val();
@@ -89,7 +88,7 @@ session_start();
             var phone = $('#phone').val();
 
 
-            if(fname != "" && lname != "" && em != "" && em2 != "" && password != "" && password2 != "" && phone != "" ){
+            if (fname != "" && lname != "" && em != "" && em2 != "" && password != "" && password2 != "" && phone != "") {
                 $.ajax({
                     url: "http://localhost:63342/untitled2/laptopallamvizsga/regisztraciosAPI.php",
                     type: "POST",
@@ -104,23 +103,21 @@ session_start();
                     },
                     cache: false,
 
-                    success: function(dataResult){
+                    success: function (dataResult) {
                         var dataResult = JSON.parse(dataResult);
-                        if(dataResult.valasz==true){
+                        if (dataResult.valasz == true) {
                             $("#regbut").removeAttr("disabled");
                             $('#regi').find('input:text').val('');
                             $("#success").show();
                             $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
 
-                        }
-                        else if(dataResult.valasz==false){
+                        } else if (dataResult.valasz == false) {
                             alert("Nem jol adta meg az adatokat");
                         }
 
                     }
                 });
-            }
-            else{
+            } else {
                 alert("Toltsel ki minden mezot");
             }
         });
@@ -143,7 +140,7 @@ session_start();
                     data: {
                         email: email,
                         password: password,
-                        action:"bejelentkezes"
+                        action: "bejelentkezes"
                     },
                     cache: false,
 

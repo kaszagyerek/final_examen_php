@@ -4,10 +4,10 @@ require_once "connection.php";
 $action = isset($_GET['action']) ? $_GET['action'] : "";
 $action2 = isset($_POST['action']) ? $_POST['action'] : "";
 
-switch($action2) {
+switch ($action2) {
     case "bejelentkezes" :
-        $email = mysqli_real_escape_string($con,filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
-        $password = mysqli_real_escape_string($con,md5($_POST['password']));
+        $email = mysqli_real_escape_string($con, filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
+        $password = mysqli_real_escape_string($con, md5($_POST['password']));
 
         $check_database_query = mysqli_query($con, "SELECT * FROM users WHERE email ='$email'
                                                     AND password ='$password'");

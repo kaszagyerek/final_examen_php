@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "connection.php";
-if (!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     header("Location:../log_reg/log_reg.php");
     exit();
 }
@@ -15,7 +15,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
     <link href="../css/szepito_hazlekerdezes.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -29,19 +29,19 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
         <div class="form-group">
             <label for="pwd">Munkahelyem neve:</label>
-            <input type="text" class="form-control" id="fmunka"  name="munka">
+            <input type="text" class="form-control" id="fmunka" name="munka">
         </div>
         <div class="form-group">
             <label for="pwd">Munkahelyem címe:</label>
-            <input type="text" class="form-control" id="fcim"  name="cim">
+            <input type="text" class="form-control" id="fcim" name="cim">
         </div>
         <div class="form-group">
             <label for="pwd">Munkahelyi pozició:</label>
-            <input type="text" class="form-control" id="beosztas"  name="beosztas">
+            <input type="text" class="form-control" id="beosztas" name="beosztas">
         </div>
         <div class="form-group">
             <label for="pwd">Munkahelyi fizetés:</label>
-            <input type="text" class="form-control" id="fizetes"  name="fizetes">
+            <input type="text" class="form-control" id="fizetes" name="fizetes">
         </div>
 
 
@@ -53,15 +53,15 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     </form>
 </div>
 <script>
-    $(document).ready(function() {
-        $('#butsave').on('click', function() {
+    $(document).ready(function () {
+        $('#butsave').on('click', function () {
             $("#butsave").attr("disabled", "disabled");
             var munka = $('#fmunka').val();
             var fizetes = $('#fizetes').val();
             var cim = $('#fcim').val();
             var beosztas = $('#beosztas').val();
 
-            if(munka!="" && cim!="" && beosztas!="" && fizetes!="" ){
+            if (munka != "" && cim != "" && beosztas != "" && fizetes != "") {
                 $.ajax({
                     url: "api.php",
                     type: "POST",
@@ -70,27 +70,24 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
                         cim: cim,
                         beosztas: beosztas,
                         fizetes: fizetes,
-                        action:"insertworkplace"
+                        action: "insertworkplace"
                     },
                     cache: false,
 
-                    success: function(dataResult){
+                    success: function (dataResult) {
                         var dataResult = JSON.parse(dataResult);
-                        if(dataResult.valasz==true){
+                        if (dataResult.valasz == true) {
                             $("#success").show();
                             $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
 
-                        }
-
-                        else if(dataResult.valasz==false){
+                        } else if (dataResult.valasz == false) {
                             $("#success").show();
                             $('#success').html('Sikertelenül adta meg az adatokat');
                         }
 
                     }
                 });
-            }
-            else{
+            } else {
                 alert("Toltsel ki minden mezot");
             }
         });

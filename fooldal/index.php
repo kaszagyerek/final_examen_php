@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     header("Location:../log_reg/log_reg.php");
     exit();
 }
@@ -14,7 +14,8 @@ echo "<div class='felhasznalo'>" . "Az ID-ja " . $_SESSION['userid'] . "</div>";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
 
-    <link href="../css/index_szepito.css" rel="stylesheet" type="text/css"></head>
+    <link href="../css/index_szepito.css" rel="stylesheet" type="text/css">
+</head>
 <body>
 
 <h1>PORTFOLIÓ KÖVETÉSE</h1>
@@ -26,6 +27,7 @@ echo "<div class='felhasznalo'>" . "Az ID-ja " . $_SESSION['userid'] . "</div>";
     <a href="munkahelylistazasa.php" class="narancs">Munkahelyem listázása</a>
     <a href="kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
     <a href="kiadaslistazasa.php" class="lila">Kiadásaim listázása</a>
+    <a href="elokereses.php" class="active">Élő keresés</a>
     <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>
 </div>
 

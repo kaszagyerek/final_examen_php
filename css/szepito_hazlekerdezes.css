@@ -13,11 +13,12 @@ body {
     margin: -20px 0 50px;
 }
 
-.haz{
+.haz {
     background-color: #04AA6D;
     font-size: 15px;
 }
-#fupForm{
+
+#fupForm {
     width: 290px;
     margin: 0 auto;
     background-color: #fcfcfc;

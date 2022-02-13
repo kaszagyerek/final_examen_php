@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "connection.php";
-if (!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     header("Location:../log_reg/log_reg.php");
     exit();
 }
@@ -24,18 +24,17 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
 <form method="GET" action="">
     <h2>Kilistázás</h2>
-    <div class="input-group" >
-        <button type="button" class="btn" id="butsave" onclick="listazas()" >Kilistazas</button>
+    <div class="input-group">
+        <button type="button" class="btn" id="butsave" onclick="listazas()">Kilistazas</button>
     </div>
 </form>
 <div id="hazak">
 
 
 </div>
-<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <script>
-    function listazas()
-    {
+    function listazas() {
         document.getElementById('butsave').onclick = function () {
             this.disabled = true;
         }
@@ -44,34 +43,32 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
             {
                 url: "api.php",
                 type: "GET",
-                data:{
-                    "action":"listazas"
+                data: {
+                    "action": "listazas"
                 },
                 contentType: "application/json",
                 complete: adatfeldolgoz
             });
     }
 
-    var adatfeldolgoz = function(data){
+    var adatfeldolgoz = function (data) {
 
         console.log(data);
         console.log(data.status);
         console.log(data.responseText);
 
-        if(data.status != 200)
-        {
-            console.error("Hiba tortent:" + data.statusText );
+        if (data.status != 200) {
+            console.error("Hiba tortent:" + data.statusText);
             return;
         }
         var adat = JSON.parse(data.responseText);
-        if(adat == null)
+        if (adat == null)
             console.error("Hiba");
 
 
-        for (var i = 0; i < adat.length; i++)
-        {
+        for (var i = 0; i < adat.length; i++) {
             var elem = adat[i];
-            $('#hazak').append('<div class="haz" style="margin-bottom: 20px;">Házaim:<br>Címem: '+elem.addres+'<br>Gondozó személy neve : '+elem.ownPerson+'<br>Gondozó telefonszáma : '+elem.ownMobil+'<br>A házam teljes értéke : '+elem.totalhprice+'</div>');
+            $('#hazak').append('<div class="haz" style="margin-bottom: 20px;">Házaim:<br>Címem: ' + elem.addres + '<br>Gondozó személy neve : ' + elem.ownPerson + '<br>Gondozó telefonszáma : ' + elem.ownMobil + '<br>A házam teljes értéke : ' + elem.totalhprice + '</div>');
         }
 
     }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "connection.php";
-if (!isset($_SESSION['username'])){
+if (!isset($_SESSION['username'])) {
     header("Location:../log_reg/log_reg.php");
     exit();
 }
@@ -15,7 +15,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
     <link href="../css/szepito_hazlekerdezes.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -25,10 +25,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
     </div>
     <form id="fupForm" name="form1" method="post">
-       <!-- <div class="form-group">
-            <label for="email">Tulajdonos egyedi ID ja:</label>
-            <input type="text" class="form-control" id="fid" placeholder="id" name="id">
-        </div> -->
+
         <div class="form-group">
             <label for="pwd">Utca:</label>
             <input type="email" class="form-control" id="futca" placeholder="utca" name="utca">
@@ -54,14 +51,14 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     </form>
 </div>
 <script>
-    $(document).ready(function() {
-        $('#butsave').on('click', function() {
+    $(document).ready(function () {
+        $('#butsave').on('click', function () {
             $("#butsave").attr("disabled", "disabled");
             var utca = $('#futca').val();
             var ertek = $('#fhaz').val();
             var gondozo = $('#fgondozo').val();
             var gtelefon = $('#ftgondozo').val();
-            if(utca!="" && ertek!="" && gondozo!="" && gtelefon!="" ){
+            if (utca != "" && ertek != "" && gondozo != "" && gtelefon != "") {
                 $.ajax({
                     url: "api.php",
                     type: "POST",
@@ -70,27 +67,24 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
                         ertek: ertek,
                         gondozo: gondozo,
                         gtelefon: gtelefon,
-                        action:"inserthouse"
+                        action: "inserthouse"
                     },
                     cache: false,
 
-                    success: function(dataResult){
+                    success: function (dataResult) {
                         var dataResult = JSON.parse(dataResult);
-                        if(dataResult.valasz==true){
+                        if (dataResult.valasz == true) {
                             $("#success").show();
                             $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
 
-                        }
-
-                        else if(dataResult.valasz==false){
+                        } else if (dataResult.valasz == false) {
                             $("#success").show();
                             $('#success').html('Sikertelenül adta meg az adatokat');
                         }
 
                     }
                 });
-            }
-            else{
+            } else {
                 alert("Toltsel ki minden mezot");
             }
         });

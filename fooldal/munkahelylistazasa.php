@@ -25,7 +25,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <form method="GET" action="">
     <h2>Kilistázás</h2>
     <div class="input-group" >
-        <button type="button" class="btn" onclick="listazas()" >Kilistazas</button>
+        <button type="button" class="btn" id="butsave" onclick="listazas()" >Kilistazas</button>
     </div>
 </form>
 <div id="hazak">
@@ -36,6 +36,10 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <script>
     function listazas()
     {
+        document.getElementById('butsave').onclick = function () {
+            this.disabled = true;
+        }
+
         $.ajax(
             {
                 url: "api.php",
@@ -50,7 +54,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
     var adatfeldolgoz = function(data){
 
-        console.log(data);
+            console.log(data);
         console.log(data.status);
         console.log(data.responseText);
 
@@ -67,7 +71,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
         for (var i = 0; i < adat.length; i++)
         {
             var elem = adat[i];
-            $('#hazak').append('<div class="haz" style="margin-bottom: 20px;">Munkahelyem(iem):<br>Munkahelyem neve : '+elem.workplacename+'<br>Munkahelyem címe : '+elem.workplaceaddres+'<br>Munkahelyemen a beosztásom : '+elem.workposition+'</div>');
+            $('#hazak').append('<div class="haz" style="margin-bottom: 20px;">Munkahelyem(iem):<br>Munkahelyem neve : '+elem.workplacename+'<br>Munkahelyem címe : '+elem.workplaceaddres+'<br>Munkahelyemen a beosztásom : '+elem.position+'<br>Munkahelyi fizetésem/hó : '+elem.salary+'</div>');
         }
 
     }

@@ -37,6 +37,10 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
             <label for="pwd">Munkahelyi pozició:</label>
             <input type="text" class="form-control" id="beosztas"  name="beosztas">
         </div>
+        <div class="form-group">
+            <label for="pwd">Munkahelyi fizetés:</label>
+            <input type="text" class="form-control" id="fizetes"  name="fizetes">
+        </div>
 
 
         <input type="button" name="save" class="btn btn-primary" value="Save to database" id="butsave">
@@ -51,10 +55,11 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
         $('#butsave').on('click', function() {
             $("#butsave").attr("disabled", "disabled");
             var munka = $('#fmunka').val();
+            var fizetes = $('#fizetes').val();
             var cim = $('#fcim').val();
             var beosztas = $('#beosztas').val();
 
-            if(munka!="" && cim!="" && beosztas!="" ){
+            if(munka!="" && cim!="" && beosztas!="" && fizetes!="" ){
                 $.ajax({
                     url: "api.php",
                     type: "POST",
@@ -62,6 +67,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
                         munka: munka,
                         cim: cim,
                         beosztas: beosztas,
+                        fizetes: fizetes,
                         action:"insertworkplace"
                     },
                     cache: false,

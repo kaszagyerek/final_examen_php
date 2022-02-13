@@ -18,7 +18,7 @@ switch($action) {
     case "munkahelylistazas" :
         $privateid = $_SESSION['userid'];
 
-        $sql="SELECT idworkplace, workplacename, workplaceaddres, users_id, workposition FROM workplace WHERE users_id = '$privateid' ";
+        $sql="SELECT idworkplace, workplacename, workplaceaddres, users_id, position,salary FROM workplace WHERE users_id = '$privateid' ";
         $result = mysqli_query($con, $sql);
         while($obj=$result->fetch_assoc()){
             $res[] =$obj;}
@@ -50,10 +50,11 @@ switch($action2){
         $munka = mysqli_real_escape_string ($con,$_POST['munka']);
         $cim = mysqli_real_escape_string($con, $_POST['cim']);
         $beosztas = mysqli_real_escape_string($con, $_POST['beosztas']);
+        $salary = mysqli_real_escape_string($con, $_POST['fizetes']);
 
 
         $privateid = $_SESSION['userid'];
-        $sql = "INSERT INTO `workplace` (`workplacename`, `workplaceaddres`, `users_id`,`workposition`) VALUES ('$munka', '$cim', '$privateid','$beosztas')";
+        $sql = "INSERT INTO `workplace` (`workplacename`, `workplaceaddres`, `users_id`,`position` ,`salary`) VALUES ('$munka', '$cim', '$privateid','$beosztas','$salary')";
 
 
         if (mysqli_query($con, $sql)) {

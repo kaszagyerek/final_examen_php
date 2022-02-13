@@ -25,7 +25,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <form method="GET" action="">
     <h2>Kilistázás</h2>
     <div class="input-group" >
-        <button type="button" class="btn" onclick="listazas()" >Kilistazas</button>
+        <button type="button" class="btn" id="butsave" onclick="listazas()" >Kilistazas</button>
     </div>
 </form>
 <div id="hazak">
@@ -36,6 +36,10 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <script>
     function listazas()
     {
+        document.getElementById('butsave').onclick = function () {
+            this.disabled = true;
+        }
+
         $.ajax(
             {
                 url: "api.php",

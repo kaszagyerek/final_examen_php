@@ -25,23 +25,23 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
     </div>
     <form id="fupForm" name="form1" method="post">
-
-
+<!--       , hrenovationname, hrenovation, users_id
+-->
         <div class="form-group">
-            <label for="pwd">Munkahelyem neve:</label>
-            <input type="text" class="form-control" id="fmunka"  name="munka">
+            <label for="pwd">Brókerem neve:</label>
+            <input type="text" class="form-control" id="brokername"  name="brokername">
         </div>
         <div class="form-group">
-            <label for="pwd">Munkahelyem címe:</label>
-            <input type="text" class="form-control" id="fcim"  name="cim">
+            <label for="pwd">Brókerem díja havonta:</label>
+            <input type="text" class="form-control" id="broker"  name="broker">
         </div>
         <div class="form-group">
-            <label for="pwd">Munkahelyi pozició:</label>
-            <input type="text" class="form-control" id="beosztas"  name="beosztas">
+            <label for="pwd">Havi befizetni való adóm:</label>
+            <input type="text" class="form-control" id="tax"  name="tax">
         </div>
         <div class="form-group">
-            <label for="pwd">Munkahelyi fizetés:</label>
-            <input type="text" class="form-control" id="fizetes"  name="fizetes">
+            <label for="pwd">Havi házfelújítási költség:</label>
+            <input type="text" class="form-control" id="hrenovation"  name="hrenovation">
         </div>
 
 
@@ -56,21 +56,21 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     $(document).ready(function() {
         $('#butsave').on('click', function() {
             $("#butsave").attr("disabled", "disabled");
-            var munka = $('#fmunka').val();
-            var fizetes = $('#fizetes').val();
-            var cim = $('#fcim').val();
-            var beosztas = $('#beosztas').val();
+            var brokername = $('#brokername').val();
+            var broker = $('#broker').val();
+            var tax = $('#tax').val();
+            var hrenovation = $('#hrenovation').val();
 
-            if(munka!="" && cim!="" && beosztas!="" && fizetes!="" ){
+            if(brokername!="" && broker!="" && tax!="" && hrenovation!="" ){
                 $.ajax({
                     url: "api.php",
                     type: "POST",
                     data: {
-                        munka: munka,
-                        cim: cim,
-                        beosztas: beosztas,
-                        fizetes: fizetes,
-                        action:"insertworkplace"
+                        brokername: brokername,
+                        broker: broker,
+                        tax: tax,
+                        hrenovation: hrenovation,
+                        action:"insertexpense"
                     },
                     cache: false,
 

@@ -1,9 +1,16 @@
 <?php
 session_start();
 require_once "connection.php";
+if (!isset($_SESSION['username'])){
+    header("Location:../log_reg/log_reg.php");
+    exit();
+}
+
 $action = isset($_GET['action']) ? $_GET['action'] : "";
 $action2 = isset($_POST['action']) ? $_POST['action'] : "";
-
+if (isset($con)) {
+    $con;
+}
 switch($action) {
 
     case "listazas" :
@@ -25,6 +32,15 @@ switch($action) {
         echo json_encode($res);
         break;
 
+    case "kiadaslistazasa" :
+        $privateid = $_SESSION['userid'];
+
+        $sql="SELECT idexpense, broker, brokername, tax, hrenovation, users_id FROM expense WHERE users_id = '$privateid' ";
+        $result = mysqli_query($con, $sql);
+        while($obj=$result->fetch_assoc()){
+            $res[] =$obj;}
+        echo json_encode($res);
+        break;
 }
 switch($action2){
     case "inserthouse":
@@ -57,6 +73,27 @@ switch($action2){
         $sql = "INSERT INTO `workplace` (`workplacename`, `workplaceaddres`, `users_id`,`position` ,`salary`) VALUES ('$munka', '$cim', '$privateid','$beosztas','$salary')";
 
 
+        if (mysqli_query($con, $sql)) {
+            echo json_encode(array("Valasz"=>True, "Uzenet"=>"Sikeresen rogzitett adat"));
+        }
+        else {
+            echo json_encode(array("Valasz"=>False ,"Uzenet"=>"Sikertelenul rogzitett adat"));
+        }
+        mysqli_close($con);
+
+        break;
+
+    case "insertexpense":
+        $brokername = mysqli_real_escape_string ($con,$_POST['brokername']);
+        $broker = mysqli_real_escape_string($con, $_POST['broker']);
+        $tax = mysqli_real_escape_string($con, $_POST['tax']);
+        $hrenovation = mysqli_real_escape_string($con, $_POST['hrenovation']);
+
+
+        $privateid = $_SESSION['userid'];
+        $sql = "INSERT INTO `expense` ( broker, brokername, tax, hrenovation, users_id) VALUES ('$broker', '$brokername', '$tax','$hrenovation', '$privateid')";
+
+        var_dump($sql);
         if (mysqli_query($con, $sql)) {
             echo json_encode(array("Valasz"=>True, "Uzenet"=>"Sikeresen rogzitett adat"));
         }

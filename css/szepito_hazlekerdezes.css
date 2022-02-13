@@ -17,3 +17,11 @@ body {
     background-color: #04AA6D;
     font-size: 15px;
 }
+#fupForm{
+    width: 290px;
+    margin: 0 auto;
+    background-color: #fcfcfc;
+    padding: 20px 50px 40px;
+    box-shadow: 1px 4px 10px 1px #aaa;
+    font-family: sans-serif;
+}

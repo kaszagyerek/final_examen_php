@@ -24,6 +24,8 @@ echo "<div class='felhasznalo'>" . "Az ID-ja " . $_SESSION['userid'] . "</div>";
     <a href="hazlekerdezes.php" class="active">Házaim listázása</a>
     <a href="munkahelybeszuras.php" class="narancs">Munkahelyem rögzítése</a>
     <a href="munkahelylistazasa.php" class="narancs">Munkahelyem listázása</a>
+    <a href="kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
+    <a href="kiadaslistazasa.php" class="lila">Kiadásaim listázása</a>
     <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>
 </div>
 

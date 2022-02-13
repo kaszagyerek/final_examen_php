@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Feb 13. 10:15
+-- Létrehozás ideje: 2022. Feb 13. 11:43
 -- Kiszolgáló verziója: 10.4.21-MariaDB
 -- PHP verzió: 8.0.12
 
@@ -63,11 +63,16 @@ CREATE TABLE `expense` (
   `broker` decimal(8,2) DEFAULT NULL,
   `brokername` varchar(45) DEFAULT NULL,
   `tax` decimal(8,2) DEFAULT NULL,
-  `taxname` varchar(45) DEFAULT NULL,
-  `hrenovationname` varchar(45) DEFAULT NULL,
   `hrenovation` decimal(8,2) DEFAULT NULL,
   `users_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `expense`
+--
+
+INSERT INTO `expense` (`idexpense`, `broker`, `brokername`, `tax`, `hrenovation`, `users_id`) VALUES
+(1, '250.00', 'Nagy Attila', '350.00', '450.00', 36);
 
 -- --------------------------------------------------------
 
@@ -333,6 +338,12 @@ ALTER TABLE `crypto`
   MODIFY `idcrypto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT a táblához `expense`
+--
+ALTER TABLE `expense`
+  MODIFY `idexpense` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT a táblához `house`
 --
 ALTER TABLE `house`
@@ -366,7 +377,7 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT a táblához `workplace`

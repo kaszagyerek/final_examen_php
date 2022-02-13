@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2021. Dec 29. 13:51
+-- Létrehozás ideje: 2022. Feb 13. 10:15
 -- Kiszolgáló verziója: 10.4.21-MariaDB
 -- PHP verzió: 8.0.12
 
@@ -104,7 +104,11 @@ INSERT INTO `house` (`idhouse`, `addres`, `totalhprice`, `ownPerson`, `ownMobil`
 (30, 'Kattos', 150000, 'Kis Jeno', '075555454', 29),
 (35, 'Kalacs', 65000, 'Illyes Laszlo', '0755548887', 28),
 (39, 'Sajt', 25000, 'Illyes Laszlo', '0745874558', 28),
-(41, 'Perec', 30000, 'Filep Levente', '07554444', 28);
+(41, 'Perec', 30000, 'Filep Levente', '07554444', 28),
+(49, 'Perec', 30000, 'Filep Levente', '07554444', 28),
+(51, 'eqwewqwq', 312312312, 'weewqeqw', '321321321', 36),
+(52, 'kalap', 23232, 'kaara rada', '0700001', 36),
+(53, 'galamb', 15000, 'Kis Geza', '14050505', 36);
 
 -- --------------------------------------------------------
 
@@ -157,21 +161,8 @@ CREATE TABLE `prouser` (
   `prouserlicence` varchar(45) DEFAULT NULL,
   `creatorid` int(20) NOT NULL,
   `admin_idadmin` int(11) NOT NULL,
-  `users_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `salary`
---
-
-CREATE TABLE `salary` (
-  `idsalary` int(11) NOT NULL,
-  `salaryron` decimal(6,2) DEFAULT NULL,
-  `startwork` date DEFAULT NULL,
-  `endwork` date DEFAULT NULL,
-  `workplace_idworkplace` int(11) NOT NULL
+  `users_id` int(11) NOT NULL,
+  `salary` decimal(50,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -236,8 +227,17 @@ CREATE TABLE `workplace` (
   `idworkplace` int(11) NOT NULL,
   `workplacename` varchar(45) DEFAULT NULL,
   `workplaceaddres` varchar(45) DEFAULT NULL,
-  `users_id` int(11) NOT NULL
+  `users_id` int(11) NOT NULL,
+  `salary` decimal(8,2) DEFAULT NULL,
+  `position` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `workplace`
+--
+
+INSERT INTO `workplace` (`idworkplace`, `workplacename`, `workplaceaddres`, `users_id`, `salary`, `position`) VALUES
+(8, 'OLX', 'pictor nagy istvan', 36, '25000.00', 'call center ');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -295,13 +295,6 @@ ALTER TABLE `prouser`
   ADD KEY `fk_prouser_users1_idx` (`users_id`);
 
 --
--- A tábla indexei `salary`
---
-ALTER TABLE `salary`
-  ADD PRIMARY KEY (`idsalary`),
-  ADD KEY `fk_salary_workplace1_idx` (`workplace_idworkplace`);
-
---
 -- A tábla indexei `stocks`
 --
 ALTER TABLE `stocks`
@@ -343,7 +336,7 @@ ALTER TABLE `crypto`
 -- AUTO_INCREMENT a táblához `house`
 --
 ALTER TABLE `house`
-  MODIFY `idhouse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idhouse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT a táblához `houserent`
@@ -364,12 +357,6 @@ ALTER TABLE `prouser`
   MODIFY `idprouser` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT a táblához `salary`
---
-ALTER TABLE `salary`
-  MODIFY `idsalary` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT a táblához `stocks`
 --
 ALTER TABLE `stocks`
@@ -385,7 +372,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `workplace`
 --
 ALTER TABLE `workplace`
-  MODIFY `idworkplace` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idworkplace` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Megkötések a kiírt táblákhoz
@@ -427,12 +414,6 @@ ALTER TABLE `metals`
 ALTER TABLE `prouser`
   ADD CONSTRAINT `fk_prouser_admin1` FOREIGN KEY (`admin_idadmin`) REFERENCES `admin` (`idadmin`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_prouser_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Megkötések a táblához `salary`
---
-ALTER TABLE `salary`
-  ADD CONSTRAINT `fk_salary_workplace1` FOREIGN KEY (`workplace_idworkplace`) REFERENCES `workplace` (`idworkplace`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Megkötések a táblához `stocks`

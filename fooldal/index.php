@@ -27,7 +27,9 @@ echo "<div class='felhasznalo'>" . "Az ID-ja " . $_SESSION['userid'] . "</div>";
     <a href="munkahelylistazasa.php" class="narancs">Munkahelyem listázása</a>
     <a href="kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
     <a href="kiadaslistazasa.php" class="lila">Kiadásaim listázása</a>
-    <a href="elokereses.php" class="active">Élő keresés</a>
+    <a href="elokereses.php" class="active">Kriptó élő keresés</a>
+    <a href="stockelokereses.php" class="active">Részvény élő keresés</a>
+    <a href="metalskereses.php" class="active">Nemesfém élő keresés</a>
     <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>
 </div>
 

@@ -118,13 +118,75 @@ switch ($action2) {
 	<div class="table-responsive">
 	<table class="table table bordered">
 	<tr>
-		<th>Cryptosymbol</th>
+		<th>Kriptók</th>
 	
 	</tr>';
             while ($row1 = mysqli_fetch_array($result)) {
                 $return .= '
 		<tr>
 		<td>' . $row1["cryptosymbol"] . '</td>
+	
+		</tr>';
+            }
+            echo $return;
+        } else {
+            echo 'Nem található eredmény';
+        }
+
+        break;
+    case "stocksearch":
+        $return = '';
+        if (isset($_POST["query"])) {
+            $search = mysqli_real_escape_string($con, $_POST["query"]);
+            $query = "SELECT * FROM stocks
+	WHERE stockname LIKE '%" . $search . "%' ";
+        } else {
+            $query = "SELECT * FROM stocks";
+        }
+        $result = mysqli_query($con, $query);
+        if (mysqli_num_rows($result) > 0) {
+            $return .= '
+	<div class="table-responsive">
+	<table class="table table bordered">
+	<tr>
+		<th>Részvények:</th>
+	
+	</tr>';
+            while ($row1 = mysqli_fetch_array($result)) {
+                $return .= '
+		<tr>
+		<td>' . $row1["stockname"] . '</td>
+	
+		</tr>';
+            }
+            echo $return;
+        } else {
+            echo 'Nem található eredmény';
+        }
+
+        break;
+    case "metalsearch":
+        $return = '';
+        if (isset($_POST["query"])) {
+            $search = mysqli_real_escape_string($con, $_POST["query"]);
+            $query = "SELECT * FROM stocks
+	WHERE metalname LIKE '%" . $search . "%' ";
+        } else {
+            $query = "SELECT * FROM metals";
+        }
+        $result = mysqli_query($con, $query);
+        if (mysqli_num_rows($result) > 0) {
+            $return .= '
+	<div class="table-responsive">
+	<table class="table table bordered">
+	<tr>
+		<th>Nemesfémek:</th>
+	
+	</tr>';
+            while ($row1 = mysqli_fetch_array($result)) {
+                $return .= '
+		<tr>
+		<td>' . $row1["metalname"] . '</td>
 	
 		</tr>';
             }

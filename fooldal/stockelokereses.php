@@ -9,14 +9,13 @@ require_once "connection.php";
     <script>
         $(document).ready(function () {
             load_data();
-
             function load_data(query) {
                 $.ajax({
                     url: "api.php",
                     method: "POST",
                     data: {
                         query: query,
-                        action: "searchresult"
+                        action: "stocksearch"
 
                     },
                     success: function (data) {

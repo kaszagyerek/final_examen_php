@@ -68,7 +68,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
         for (var i = 0; i < adat.length; i++) {
             var elem = adat[i];
-            $('#hazak').append('<div class="haz" style="margin-bottom: 20px;">Házaim:<br>Címem: ' + elem.addres + '<br>Gondozó személy neve : ' + elem.ownPerson + '<br>Gondozó telefonszáma : ' + elem.ownMobil + '<br>A házam teljes értéke : ' + elem.totalhprice + '</div>');
+            $('#hazak').append('<div class="haz" style="margin-bottom: 20px;">Házaim:<br>Címem: ' + elem.addres + '<br>Gondozó személy neve : ' + elem.ownPerson + '<br>Gondozó telefonszáma : ' + elem.ownMobil + '<br>A házam teljes értéke : ' + elem.totalhprice + '<br>A házamamat amikor rögzitettem : ' + elem.housedate + '</div>');
         }
 
     }

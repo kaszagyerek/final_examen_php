@@ -3,13 +3,32 @@ require_once "../log_reg/connection.php";
 
 
 if (isset($_POST['lekerdezi'])) {
-    $url = 'https://www.goldapi.io/api/';
-    $apiKey = 'goldapi-bztpzctkvr8im3j-io'; // should match with Server key
+    /*
+         $GCM_SERVER_API_KEY = $_ENV["GCM_SERVER_API_KEY"];
+    $url = 'https://fcm.googleapis.com/fcm/send';
+    $fields = array('registration_ids' => $registration_ids, 'data' => $message);
+    // Update your Google Cloud Messaging API Key
+    if (!defined('GOOGLE_API_KEY')) {
+        define("GOOGLE_API_KEY", $GCM_SERVER_API_KEY);
+    }
+    $headers = array('Authorization: key=' . GOOGLE_API_KEY, 'Content-Type: application/json');
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+    $result = curl_exec($ch);
+     */
+    $url = 'https://www.goldapi.io/api//XAU/USD';
+    $apiKey = 'goldapi-bztpzctkvr8im3j-io';
     $headers = array(
         'Authorization: '.$apiKey
     );
     $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_HTTPGET, true);
+    curl_setopt($ch, CURLOPT_HTTPGET, $headers);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response_json = curl_exec($ch);
     curl_close($ch);
@@ -41,49 +60,6 @@ if (isset($_POST['torli'])) {
 
 }
 
-/*
-define("INTERVAL", 50 ); // 1 óra
-
-function runIt() { // Your function to run every 5 seconds
-    $url = 'https://api2.binance.com/api/v3/ticker/24hr';
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_HTTPGET, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response_json = curl_exec($ch);
-    curl_close($ch);
-    $response = json_decode($response_json, true);
-    $products = $response;
-
-    foreach ($products as $product) {
-        $sym = $product["symbol"];
-        $price = $product["lastPrice"];
-        $sql = "UPDATE `crypto` SET `cryptosymbol`='$sym',`lastprice`='$price'";
-
-        if ($con->query($sql) === TRUE) {
-        } else {
-            echo "Error: " . $sql . "<br>" . $con->error;
-        }
-
-    }
-
-}
-function frisites()
-{
-    $active = true;
-    $nextTime = microtime(true) + INTERVAL; // Set initial delay
-
-    while ($active) {
-        usleep(1000); // optional, if you want to be considerate
-
-        if (microtime(true) >= $nextTime) {
-            runIt();
-            $nextTime = microtime(true) + INTERVAL;
-        }
-    }
-}
-
-frisites();
-*/
 ?>
 
 

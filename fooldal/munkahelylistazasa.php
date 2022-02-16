@@ -26,10 +26,11 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <h2>Kilistázás</h2>
     <div class="input-group">
         <button type="button" class="btn" id="butsave" onclick="listazas()">Kilistazas</button>
+        <button type="button" class="btn" name="visszahozas" id="visszahozas">Visszahoztam</button><br><br>
+
     </div>
 </form>
 <div id="hazak">
-
 
 </div>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
@@ -49,6 +50,34 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
                 contentType: "application/json",
                 complete: adatfeldolgoz
             });
+        $(document).ready(function(){
+            $('#visszahozas').click(function(){
+                var visszahozott=$("#visszahozott").val();
+                if(visszahozott!=''){
+                    $.ajax({
+                        url:"api.php",
+                        type:"GET",
+                        data:{visszahozott:visszahozott,action:"visszahozas"
+                        },
+                        success:function(response)
+                        {
+                            if(response=="Nincs ilyen berelt biciklije!")
+                            { $('#error').html(response);
+                            }
+
+                            else
+                            { $('#bicikli').html(response);
+                            }
+                        }
+                    });
+                }
+                else
+                {alert("Kerem toltse ki a mezot!");}
+
+            });
+
+        });
+
     }
 
     var adatfeldolgoz = function (data) {
@@ -68,7 +97,14 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
         for (var i = 0; i < adat.length; i++) {
             var elem = adat[i];
-            $('#hazak').append('<div class="haz" style="margin-bottom: 20px;">Munkahelyem(iem):<br>Munkahelyem neve : ' + elem.workplacename + '<br>Munkahelyem címe : ' + elem.workplaceaddres + '<br>Munkahelyemen a beosztásom : ' + elem.position + '<br>Munkahelyi fizetésem/hó : ' + elem.salary + '</div>');
+            $('#hazak').append('<div class="haz" style="margin-bottom: 20px;">' +
+            'Munkahelyem(iem):<br>Munkahelyem neve : ' + elem.workplacename +
+            '<br>Munkahelyem címe : ' + elem.workplaceaddres +
+            '<br>Munkahelyemen a beosztásom : ' + elem.position +
+            '<br>Munkahelyi fizetésem/hó : ' + elem.salary +
+            '<br>Amikor rögzitettem : ' + elem.workdate +
+            '</div>');
+
         }
 
     }

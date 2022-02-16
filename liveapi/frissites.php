@@ -49,7 +49,7 @@ function frisites()
     $nextTime = microtime(true) + INTERVAL; // Set initial delay
 
     while ($active) {
-        usleep(1000); // optional, if you want to be considerate
+        usleep(20); // optional, if you want to be considerate
 
         if (microtime(true) >= $nextTime) {
             runIt();

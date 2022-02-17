@@ -61,7 +61,7 @@ if (!isset($_SESSION['username'])) {
 
             </aside>
         </div>
-        <div class="column is-9">
+        <div class="column is-9" id="9clc">
             <nav class="breadcrumb" aria-label="breadcrumbs">
                 <ul>
                     <li class="is-active"><a href="#" aria-current="page">Admin</a></li>
@@ -110,7 +110,7 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </section>
             <div class="columns">
-                <div class="column is-6">
+                <div class="column is-6" id="userlista">
                     <div class="card events-card">
                         <header class="card-header">
                             <p class="card-header-title">
@@ -126,110 +126,50 @@ if (!isset($_SESSION['username'])) {
                             <div class="content">
                                 <table class="table is-fullwidth is-striped">
                                     <tbody>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="5%"><i class="fa fa-bell-o"></i></td>
-                                        <td>Lorum ipsum dolem aire</td>
-                                        <td class="level-right"><a class="button is-small is-primary" href="#">Action</a></td>
-                                    </tr>
+                                    <?php
+
+                                    $sql = "SELECT * FROM users";
+                                    $result = $con->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        echo "<table border=1>";
+                                        echo "<tr>";
+                                        echo "<th> id </th>";
+                                        echo "<th> firs_name </th>";
+                                        echo "<th> last_name </th>";
+                                        echo "<th> username </th>";
+                                        echo "<th> email </th>";
+                                        echo "<th> signup_date </th>";
+                                        echo "<th> phone_number </th>";
+                                        echo "<th> delete </th>";
+
+
+                                        echo "</tr>";
+                                        while($row = $result->fetch_assoc()) {
+                                            echo "<tr>";
+                                            echo "<td>". $row["id"]."</td>";
+                                            echo "<td>". $row["firs_name"]."</td>";
+                                            echo "<td>". $row["last_name"]."</td>";
+                                            echo "<td>". $row["username"]."</td>";
+                                            echo "<td>". $row["email"]."</td>";
+                                            echo "<td>". $row["signup_date"]."</td>";
+                                            echo "<td>". $row["phone_number"]."</td>";
+                                            echo "<td class='level-right' ><a class='button is-small is-primary' href=\"delete.php?id=" . $row["id"] . "\">Törlés</a></td>";
+
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    $con->close();
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <footer class="card-footer">
-                            <a href="#" class="card-footer-item">View All</a>
-                        </footer>
-                    </div>
-                </div>
-                <div class="column is-6">
-                    <div class="card">
-                        <header class="card-header">
-                            <p class="card-header-title">
-                                Inventory Search
-                            </p>
-                            <a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                            </a>
-                        </header>
-                        <div class="card-content">
-                            <div class="content">
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input is-large" type="text" placeholder="">
-                                    <span class="icon is-medium is-left">
-                      <i class="fa fa-search"></i>
-                    </span>
-                                    <span class="icon is-medium is-right">
-                      <i class="fa fa-check"></i>
-                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <header class="card-header">
-                            <p class="card-header-title">
-                                User Search
-                            </p>
-                            <a href="#" class="card-header-icon" aria-label="more options">
-                  <span class="icon">
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                            </a>
-                        </header>
-                        <div class="card-content">
-                            <div class="content">
-                                <div class="control has-icons-left has-icons-right">
-                                    <input class="input is-large" type="text" placeholder="">
-                                    <span class="icon is-medium is-left">
-                      <i class="fa fa-search"></i>
-                    </span>
-                                    <span class="icon is-medium is-right">
-                      <i class="fa fa-check"></i>
-                    </span>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

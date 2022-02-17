@@ -98,19 +98,59 @@ if (mysqli_connect_errno()) {
                         $password = $_POST['password'];
                         $password2 = $_POST['password2'];
 
+                        if (isset($username) && isset($email) && isset($password) && isset($password2) && !empty($username) && !empty($email) && !empty($password) && !empty($password2)
+                        && strlen($username)>=5  && strlen($email)>=7){
+                            if ($password == $password2){
+                                $query = mysqli_query($con, "SELECT `username`, `email`, `password` FROM `admin` WHERE '$username' = username OR '$email' = email");
+                                if(!(mysqli_num_rows($query) > 0)) {
+                                    $sql = "INSERT INTO `admin`( `username`, `email`, `password`) VALUES ('$username','$email','$password')";
+                                    if ($con->query($sql) === TRUE) {
+                                        $con->close();
+                                        echo "Köszönjük! Az adatokat elmentettük.<br>";
+                                        header("Location:beszurasadmin.php");
+                                    }
+                                } else {
+                                    echo "Az email cím vagy a felhasználonév már foglalt";
+                                }
 
-
-                        if ($con->connect_error) {
-                            die("Connection failed: " . $con->connect_error);
+                            } else {
+                                echo "A 2 jelszó nem egyezik meg<br>";
+                            }
                         }
-                        $sql = "INSERT INTO `admin`( `username`, `email`, `password`) VALUES ('$username','$email','$password')";
+                         else {
+                             if (empty($username)){
+                                 echo "A felhasználonév nem lehet üres<br> ";
+                             } else  if(!empty($username) && strlen($username)<5){
+                                 echo "A felhasználonév legalább 6 karakter hosszú<br>";
+                             }
+                             if (empty($email)){
+                                 echo "Az emailcím nem lehet üres<br>";
+                             } else if(!empty($email) && strlen($email)<7){
+                                 echo "Az emailcím minimum 7 karakter kell legyen<br>";
+                             }
+                             if(empty($password)){
+                                 echo "A jelszó nem lehet üres<br>";
+                             } else if (!empty($password) && strlen($password)<5){
+                                 echo "A jelszó minimum 5 karakter kell legyen<br>";
+                             }
+                             if(empty($password2)){
+                                 echo "A megerősítő jelszó nem lehet üres<br>";
+                             } else if (!empty($password2) && strlen($password2)<5){
+                                 echo "A megerősítő jelszó minimum 5 karakter kell legyen<br>";
+                             }
+                        }
+                    }
+
+
+
+                    if (isset($_GET['idadmin'])) {
+                        $idadmin = $_GET['idadmin'];
+                        $sql = "DELETE FROM admin WHERE idadmin=$idadmin";
 
                         if ($con->query($sql) === TRUE) {
-                            $con->close();
-                            echo "Köszönjük! Az adatokat elmentettük.<br>";
-                            header("Location:beszurasadmin.php");
+                            header("Location: beszurasadmin.php");
                         } else {
-                            echo "Muveleti hiba.\n";
+                            echo "Hiba történt: " . $con->error;
                         }
                     }
 
@@ -120,10 +160,10 @@ if (mysqli_connect_errno()) {
                         <article class="tile is-child box">
                          <form method="post" action="">
 <!--                             idadmin, username, email, password-->
-                            Username: <input type="text" name="username"> <br>
-                           Email:  <input type="email" name="email"> <br>
-                           Password  <input type="password" name="password"> <br>
-                           Password2  <input type="password" name="password2"> <br>
+                            Felhasználónév: <input type="text" name="username"> <br>
+                           Emailcím:  <input type="email" name="email"> <br>
+                           Jelszó:  <input type="password" name="password"> <br>
+                           Megerősítő jelszó:  <input type="password" name="password2"> <br>
                              <input type="submit" name="submit" value="Elküld">
                          </form>
                         </article>
@@ -154,7 +194,6 @@ if (mysqli_connect_errno()) {
                                     $result = $con->query($sql);
 
                                     if ($result->num_rows > 0) {
-                                        // output data of each row
                                         echo "<table border=1>";
                                         echo "<tr>";
                                         echo "<th> idadmin </th>";
@@ -169,7 +208,7 @@ if (mysqli_connect_errno()) {
                                             echo "<td>". $row["idadmin"]."</td>";
                                             echo "<td>". $row["username"]."</td>";
                                             echo "<td>". $row["email"]."</td>";
-                                            echo "<td class='level-right' ><a class='button is-small is-primary' href=\"delete.php?id=" . $row["idadmin"] . "\">Törlés</a></td>";
+                                            echo "<td class='level-right' ><a class='button is-small is-primary' href=\"beszurasadmin.php?idadmin=" . $row["idadmin"] . "\">Törlés</a></td>";
 
                                             echo "</tr>";
                                         }

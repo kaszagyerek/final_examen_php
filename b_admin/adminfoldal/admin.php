@@ -38,7 +38,7 @@ if (!isset($_SESSION['username'])) {
 <!-- END NAV -->
 <div class="container">
     <div class="columns">
-        <div class="column is-3 ">
+        <div class="column is-3 " id="cl3">
             <aside class="menu is-hidden-mobile">
                 <ul class="menu-list">
                     <li>

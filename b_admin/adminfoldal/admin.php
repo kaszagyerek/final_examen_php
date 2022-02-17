@@ -2,10 +2,9 @@
 session_start();
 require_once "../log/connection.php";
 if (!isset($_SESSION['username'])) {
-    header("Location:log.php");
+    header("Location:../log/log.php");
     exit();
 }
-
 
 ?>
 
@@ -31,7 +30,7 @@ if (!isset($_SESSION['username'])) {
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item brand-text">
-                Portfolio admin felület
+                Portfolio admin felület <?php echo "<br>Felhasználó neve:   " . $_SESSION['username']; ?>
             </a>
         </div>
     </div>
@@ -84,13 +83,27 @@ if (!isset($_SESSION['username'])) {
                 <div class="tile is-ancestor has-text-centered">
                     <div class="tile is-parent">
                         <article class="tile is-child box">
-                            <p class="title">439k</p>
-                            <p class="subtitle">Felhasználók</p>
+                            <p class="title">
+                                <?php
+                                $sql="SELECT count(username) as total from users";
+                                $result=mysqli_query($con,$sql);
+                                $data=mysqli_fetch_assoc($result);
+                                echo $data['total'];
+                                ?>
+                            </p>
+                            <p class="subtitle">Az összes felhasználója eddig az oldalnak</p>
                         </article>
                     </div>
                     <div class="tile is-parent">
                         <article class="tile is-child box">
-                            <p class="title">59k</p>
+                            <p class="title">
+                                <?php
+                                $sql="SELECT (SELECT SUM(salary) FROM workplace) + (SELECT SUM(totalhprice) FROM house) -  (SELECT SUM(broker+tax+hrenovation) FROM expense)AS sum;";                              $result=mysqli_query($con,$sql);
+                                $data=mysqli_fetch_assoc($result);
+                                echo $data['sum'];
+                                ?>
+                                ron
+                            </p>
                             <p class="subtitle">Teljes vagyona a felhasználóknak</p>
                         </article>
                     </div>

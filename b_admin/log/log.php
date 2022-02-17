@@ -1,11 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location:../b_admin/log/log.php");
-    exit();
-}
-echo "<div class='felhasznalo'>" . "Üdvözöllek " . $_SESSION['username'] . "</div>";
-echo "<div class='felhasznalo'>" . "Az ID-ja " . $_SESSION['userid'] . "</div>";
+
 ?>
 
 
@@ -34,8 +29,7 @@ echo "<div class='felhasznalo'>" . "Az ID-ja " . $_SESSION['userid'] . "</div>";
         </form>
     </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
 
 <script>
 
@@ -64,7 +58,7 @@ echo "<div class='felhasznalo'>" . "Az ID-ja " . $_SESSION['userid'] . "</div>";
                         if (dataResult.valasz == true) {
                             console.log("hello");
 
-                            window.location.href = "../b_admin/admin.php";
+                            window.location.href = "../adminfoldal/admin.php";
 
 
                             $("#btnLoginResponse").removeAttr("disabled");

@@ -157,7 +157,7 @@ session_start();
 
                             $("#btnLoginResponse").removeAttr("disabled");
                             $("#success").show();
-                            $('#success').html('Sikeresen bejelentkezett')
+                            $('#success').html('Sikeresen bejelentkezett');
 
                         } else if (dataResult.valasz == false) {
                             alert("Nem jol adta meg az adatokat");

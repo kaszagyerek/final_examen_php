@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "log/connection.php";
+require_once "../log/connection.php";
 if (!isset($_SESSION['username'])) {
     header("Location:log.php");
     exit();
@@ -54,6 +54,7 @@ if (!isset($_SESSION['username'])) {
                         <ul>
                             <li><a>Admin törlése</a></li>
                             <li><a>Admin hozzáadása</a></li>
+                            <li><a href="destroyadmin.php">Kijelentkezés</a></li>
                         </ul>
                     </li>
 
@@ -222,7 +223,7 @@ if (!isset($_SESSION['username'])) {
         </div>
     </div>
 </div>
-<script async type="text/javascript" src="../js/bulma.js"></script>
+<script async type="text/javascript" src="bulma.js"></script>
 </body>
 
 </html>

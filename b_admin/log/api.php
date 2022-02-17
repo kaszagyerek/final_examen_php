@@ -1,12 +1,8 @@
 <?php
 session_start();
 require_once "connection.php";
-if (!isset($_SESSION['username'])) {
-    header("Location:log.php");
-    exit();
-}
 
-$action = isset($_GET['action']) ? $_GET['action'] : "";
+
 $action2 = isset($_POST['action']) ? $_POST['action'] : "";
 
 switch ($action2) {
@@ -24,7 +20,7 @@ switch ($action2) {
             $responsboolean = true;
             $row = mysqli_fetch_array($check_database_query);
             $_SESSION['username'] = $row['username'];
-            $_SESSION['userid'] = $row['id'];
+            $_SESSION['userid'] = $row['idadmin'];
         } else {
             $responseresult = "sikertelen felhasznalonev/jelszo hibas";
             $responsboolean = false;

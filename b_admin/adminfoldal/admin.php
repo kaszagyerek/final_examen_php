@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../log/connection.php";
+require_once "../connect.php";
 if (!isset($_SESSION['username'])) {
     header("Location:../log/log.php");
     exit();
@@ -30,7 +30,17 @@ if (!isset($_SESSION['username'])) {
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item brand-text">
-                Portfolio admin felület <?php echo "<br>Admin neve:   " . $_SESSION['username']; ?>
+                Portfolio admin felület <?php
+                if ($_SESSION['username'] == 'ksandor'){
+                    echo "<div style='color: #FF416C'>";
+                    echo "   Az egyetlen superadmin " . $_SESSION['username'];
+                    echo "</div>";
+
+                } else {
+                    echo "   Üdvözölek kedves admin :  " . $_SESSION['username'];
+                }
+
+                ?>
             </a>
         </div>
     </div>
@@ -44,17 +54,15 @@ if (!isset($_SESSION['username'])) {
                     <li>
                         <p>Felhasználók</p>
                         <ul>
-                            <li><a>Felhasználó részletes adatok</a></li>
+                            <li><a href="admin.php">Felhasználó részletes adatok</a></li>
                             <li><a>Vip felhasználók</a></li>
                         </ul>
                     </li>
                     <li>
-                        <p>Adminok kezelése</p>
+                        <p>Admin</p>
                         <ul>
-                            <li><a>Admin törlése</a></li>
-                            <li><a>Admin hozzáadása</a></li>
-                            <li><a>Admin listázása</a></li>
-                            <li><a href="destroyadmin.php">Kijelentkezés</a></li>
+                            <li><a href="crudadmin/beszurasadmin.php">Admin crud</a></li>
+                            <li><a href="../adminfoldal/destroyadmin.php">Kijelentkezés</a></li>
                         </ul>
                     </li>
 

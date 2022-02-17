@@ -1,7 +1,11 @@
 <?php
+session_start();
 $con = mysqli_connect("localhost", "root", "", "social");
 if (mysqli_connect_errno()) {
     echo "Hibás csatlakozás" . mysqli_connect_errno();
+}if (!isset($_SESSION['username'])) {
+    header("Location:../log/log.php");
+    exit();
 }
 ?>
 
@@ -29,7 +33,17 @@ if (mysqli_connect_errno()) {
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item brand-text">
-<!--                Portfolio admin felület --><?php /*echo "<br>Admin neve:   " . $_SESSION['username']; */?>
+                Portfolio admin felület <?php
+                if ($_SESSION['username'] == 'ksandor'){
+                    echo "<div style='color: #FF416C'>";
+                    echo "  Az egyetlen superadmin " . $_SESSION['username'];
+                    echo "</div>";
+
+                } else {
+                    echo "   Üdvözölek kedves admin :  " . $_SESSION['username'];
+                }
+
+                ?>
             </a>
         </div>
     </div>
@@ -43,16 +57,14 @@ if (mysqli_connect_errno()) {
                     <li>
                         <p>Felhasználók</p>
                         <ul>
-                            <li><a>Felhasználó részletes adatok</a></li>
+                            <li><a href="../admin.php">Felhasználó részletes adatok</a></li>
                             <li><a>Vip felhasználók</a></li>
                         </ul>
                     </li>
                     <li>
-                        <p>Adminok kezelése</p>
+                        <p>Admin</p>
                         <ul>
-                            <li><a>Admin törlése</a></li>
-                            <li><a>Admin hozzáadása</a></li>
-                            <li><a>Admin listázása</a></li>
+                            <li><a href="beszurasadmin.php">Admin crud</a></li>
                             <li><a href="../destroyadmin.php">Kijelentkezés</a></li>
                         </ul>
                     </li>
@@ -81,7 +93,7 @@ if (mysqli_connect_errno()) {
                         <article class="tile is-child box">
                             <p class="title">
                                 <?php
-                                $sql="SELECT count(username) as total from admin";
+                                $sql="SELECT count(username) as total from admin WHERE NOT username='ksandor';";
                                 $result=mysqli_query($con,$sql);
                                 $data=mysqli_fetch_assoc($result);
                                 echo $data['total'];
@@ -190,7 +202,8 @@ if (mysqli_connect_errno()) {
                                     <?php
 
                                     /* idadmin, username, email, password */
-                                    $sql = "SELECT * FROM admin";
+                                    /*'1', 'ksandor', 'kasza@kasza.com', 'admin' */
+                                    $sql = "SELECT * FROM admin WHERE NOT username='ksandor';";
                                     $result = $con->query($sql);
 
                                     if ($result->num_rows > 0) {

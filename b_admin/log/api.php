@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "connection.php";
+require_once "../connect.php";
 
 
 $action2 = isset($_POST['action']) ? $_POST['action'] : "";

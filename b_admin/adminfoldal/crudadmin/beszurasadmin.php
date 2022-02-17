@@ -1,11 +1,8 @@
 <?php
-session_start();
-require_once "../log/connection.php";
-if (!isset($_SESSION['username'])) {
-    header("Location:../log/log.php");
-    exit();
+$con = mysqli_connect("localhost", "root", "", "social");
+if (mysqli_connect_errno()) {
+    echo "Hibás csatlakozás" . mysqli_connect_errno();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +17,9 @@ if (!isset($_SESSION['username'])) {
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <!-- Bulma Version 0.9.0-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="admin.css">
+    <link rel="stylesheet" type="text/css" href="../admin.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -30,7 +29,7 @@ if (!isset($_SESSION['username'])) {
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item brand-text">
-                Portfolio admin felület <?php echo "<br>Admin neve:   " . $_SESSION['username']; ?>
+<!--                Portfolio admin felület --><?php /*echo "<br>Admin neve:   " . $_SESSION['username']; */?>
             </a>
         </div>
     </div>
@@ -54,7 +53,7 @@ if (!isset($_SESSION['username'])) {
                             <li><a>Admin törlése</a></li>
                             <li><a>Admin hozzáadása</a></li>
                             <li><a>Admin listázása</a></li>
-                            <li><a href="destroyadmin.php">Kijelentkezés</a></li>
+                            <li><a href="../destroyadmin.php">Kijelentkezés</a></li>
                         </ul>
                     </li>
 
@@ -82,26 +81,51 @@ if (!isset($_SESSION['username'])) {
                         <article class="tile is-child box">
                             <p class="title">
                                 <?php
-                                $sql="SELECT count(username) as total from users";
+                                $sql="SELECT count(username) as total from admin";
                                 $result=mysqli_query($con,$sql);
                                 $data=mysqli_fetch_assoc($result);
                                 echo $data['total'];
                                 ?>
                             </p>
-                            <p class="subtitle">Az összes felhasználója eddig az oldalnak</p>
+                            <p class="subtitle">Adminok száma</p>
                         </article>
                     </div>
+                    <?php
+
+                    if (isset($_POST['submit'])) {
+                        $username = $_POST['username'];
+                        $email = $_POST['email'];
+                        $password = $_POST['password'];
+                        $password2 = $_POST['password2'];
+
+
+
+                        if ($con->connect_error) {
+                            die("Connection failed: " . $con->connect_error);
+                        }
+                        $sql = "INSERT INTO `admin`( `username`, `email`, `password`) VALUES ('$username','$email','$password')";
+
+                        if ($con->query($sql) === TRUE) {
+                            $con->close();
+                            echo "Köszönjük! Az adatokat elmentettük.<br>";
+                            header("Location:beszurasadmin.php");
+                        } else {
+                            echo "Muveleti hiba.\n";
+                        }
+                    }
+
+
+                    ?>
                     <div class="tile is-parent">
                         <article class="tile is-child box">
-                            <p class="title">
-                                <?php
-                                $sql="SELECT (SELECT SUM(salary) FROM workplace) + (SELECT SUM(totalhprice) FROM house) -  (SELECT SUM(broker+tax+hrenovation) FROM expense)AS sum;";                              $result=mysqli_query($con,$sql);
-                                $data=mysqli_fetch_assoc($result);
-                                echo $data['sum'];
-                                ?>
-                                ron
-                            </p>
-                            <p class="subtitle">Teljes vagyona a felhasználóknak</p>
+                         <form method="post" action="">
+<!--                             idadmin, username, email, password-->
+                            Username: <input type="text" name="username"> <br>
+                           Email:  <input type="email" name="email"> <br>
+                           Password  <input type="password" name="password"> <br>
+                           Password2  <input type="password" name="password2"> <br>
+                             <input type="submit" name="submit" value="Elküld">
+                         </form>
                         </article>
                     </div>
                 </div>
@@ -125,34 +149,27 @@ if (!isset($_SESSION['username'])) {
                                     <tbody>
                                     <?php
 
-                                    $sql = "SELECT * FROM users";
+                                    /* idadmin, username, email, password */
+                                    $sql = "SELECT * FROM admin";
                                     $result = $con->query($sql);
 
                                     if ($result->num_rows > 0) {
                                         // output data of each row
                                         echo "<table border=1>";
                                         echo "<tr>";
-                                        echo "<th> id </th>";
-                                        echo "<th> firs_name </th>";
-                                        echo "<th> last_name </th>";
+                                        echo "<th> idadmin </th>";
                                         echo "<th> username </th>";
                                         echo "<th> email </th>";
-                                        echo "<th> signup_date </th>";
-                                        echo "<th> phone_number </th>";
                                         echo "<th> delete </th>";
 
 
                                         echo "</tr>";
                                         while($row = $result->fetch_assoc()) {
                                             echo "<tr>";
-                                            echo "<td>". $row["id"]."</td>";
-                                            echo "<td>". $row["firs_name"]."</td>";
-                                            echo "<td>". $row["last_name"]."</td>";
+                                            echo "<td>". $row["idadmin"]."</td>";
                                             echo "<td>". $row["username"]."</td>";
                                             echo "<td>". $row["email"]."</td>";
-                                            echo "<td>". $row["signup_date"]."</td>";
-                                            echo "<td>". $row["phone_number"]."</td>";
-                                            echo "<td class='level-right' ><a class='button is-small is-primary' href=\"delete.php?id=" . $row["id"] . "\">Törlés</a></td>";
+                                            echo "<td class='level-right' ><a class='button is-small is-primary' href=\"delete.php?id=" . $row["idadmin"] . "\">Törlés</a></td>";
 
                                             echo "</tr>";
                                         }

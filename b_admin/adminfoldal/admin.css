@@ -40,7 +40,7 @@ nav.navbar {
     font-weight: 700;
 }
 .menu-list a:hover {
-    background-color: transparent;
+    background-color: #0F1D38;
     color: #276cda;
 }
 .menu-list a.is-active {
@@ -63,28 +63,7 @@ nav.navbar {
     font-weight: 300;
     color: #8F99A3;
 }
-.hero.welcome.is-info {
-    background: #36D1DC;
-    background: -webkit-linear-gradient(to right, #5B86E5, #36D1DC);
-    background: linear-gradient(to right, #5B86E5, #36D1DC);
-}
+
 .hero.welcome .title, .hero.welcome .subtitle {
     color: hsl(120, 25%, 13%);
-}
-.card .content {
-    font-size: 14px;
-}
-.card-footer-item {
-    font-size: 14px;
-    font-weight: 700;
-    color: #8F99A3;
-}
-.card-footer-item:hover {
-}
-.card-table .table {
-    margin-bottom: 0;
-}
-.events-card .card-table {
-    max-height: 250px;
-    overflow-y: scroll;
 }

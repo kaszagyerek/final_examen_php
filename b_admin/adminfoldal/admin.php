@@ -1,14 +1,13 @@
 <?php
+ob_start();
 session_start();
 require_once "../connect.php";
 if (!isset($_SESSION['username'])) {
     header("Location:../log/log.php");
     exit();
 }
-
 ?>
 
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -19,7 +18,7 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <!-- Bulma Version 0.9.0-->
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"/>
     <link rel="stylesheet" type="text/css" href="admin.css">
 </head>
 
@@ -31,7 +30,7 @@ if (!isset($_SESSION['username'])) {
         <div class="navbar-brand">
             <a class="navbar-item brand-text">
                 Portfolio admin felület <?php
-                if ($_SESSION['username'] == 'ksandor'){
+                if ($_SESSION['username'] == 'ksandor') {
                     echo "<div style='color: #FF416C'>";
                     echo "   Az egyetlen superadmin " . $_SESSION['username'];
                     echo "</div>";
@@ -90,9 +89,9 @@ if (!isset($_SESSION['username'])) {
                         <article class="tile is-child box">
                             <p class="title">
                                 <?php
-                                $sql="SELECT count(username) as total from users";
-                                $result=mysqli_query($con,$sql);
-                                $data=mysqli_fetch_assoc($result);
+                                $sql = "SELECT count(username) as total from users";
+                                $result = mysqli_query($con, $sql);
+                                $data = mysqli_fetch_assoc($result);
                                 echo $data['total'];
                                 ?>
                             </p>
@@ -103,8 +102,9 @@ if (!isset($_SESSION['username'])) {
                         <article class="tile is-child box">
                             <p class="title">
                                 <?php
-                                $sql="SELECT (SELECT SUM(salary) FROM workplace) + (SELECT SUM(totalhprice) FROM house) -  (SELECT SUM(broker+tax+hrenovation) FROM expense)AS sum;";                              $result=mysqli_query($con,$sql);
-                                $data=mysqli_fetch_assoc($result);
+                                $sql = "SELECT (SELECT SUM(salary) FROM workplace) + (SELECT SUM(totalhprice) FROM house) -  (SELECT SUM(broker+tax+hrenovation) FROM expense)AS sum;";
+                                $result = mysqli_query($con, $sql);
+                                $data = mysqli_fetch_assoc($result);
                                 echo $data['sum'];
                                 ?>
                                 ron
@@ -132,7 +132,16 @@ if (!isset($_SESSION['username'])) {
                                 <table class="table is-fullwidth is-striped">
                                     <tbody>
                                     <?php
+                                    if (isset($_GET['id'])) {
+                                        $id = $_GET['id'];
+                                        $sql = "DELETE FROM users WHERE id=$id";
 
+                                        if ($con->query($sql) === TRUE) {
+                                            header("Location: admin.php");
+                                        } else {
+                                            echo "Hiba történt: " . $con->error;
+                                        }
+                                    }
                                     $sql = "SELECT * FROM users";
                                     $result = $con->query($sql);
 
@@ -151,17 +160,16 @@ if (!isset($_SESSION['username'])) {
 
 
                                         echo "</tr>";
-                                        while($row = $result->fetch_assoc()) {
+                                        while ($row = $result->fetch_assoc()) {
                                             echo "<tr>";
-                                            echo "<td>". $row["id"]."</td>";
-                                            echo "<td>". $row["firs_name"]."</td>";
-                                            echo "<td>". $row["last_name"]."</td>";
-                                            echo "<td>". $row["username"]."</td>";
-                                            echo "<td>". $row["email"]."</td>";
-                                            echo "<td>". $row["signup_date"]."</td>";
-                                            echo "<td>". $row["phone_number"]."</td>";
-                                            echo "<td class='level-right' ><a class='button is-small is-primary' href=\"delete.php?id=" . $row["id"] . "\">Törlés</a></td>";
-
+                                            echo "<td>" . $row["id"] . "</td>";
+                                            echo "<td>" . $row["firs_name"] . "</td>";
+                                            echo "<td>" . $row["last_name"] . "</td>";
+                                            echo "<td>" . $row["username"] . "</td>";
+                                            echo "<td>" . $row["email"] . "</td>";
+                                            echo "<td>" . $row["signup_date"] . "</td>";
+                                            echo "<td>" . $row["phone_number"] . "</td>";
+                                            echo "<td class='level-right' ><a class='button is-small is-primary' href=\"admin.php?id=" . $row["id"] . "\">Törlés</a></td>";
                                             echo "</tr>";
                                         }
                                         echo "</table>";

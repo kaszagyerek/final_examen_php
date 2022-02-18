@@ -4,7 +4,7 @@ $con = mysqli_connect("localhost", "root", "", "social");
 if (mysqli_connect_errno()) {
     echo "Hibás csatlakozás" . mysqli_connect_errno();
 }if (!isset($_SESSION['username'])) {
-    header("Location:../log/log.php");
+    header("Location:adminfoldal/log/log.php");
     exit();
 }
 ?>

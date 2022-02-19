@@ -48,6 +48,20 @@ if (!isset($_SESSION['username'])) {
             <img src="../img/fooldal/logo.png" alt="" style="height: 100px;">
         </p>
         <p class="level-item has-text-centered">
+            <?php
+            $privateid = $_SESSION['userid'];
+            $sql = "SELECT profile_pic FROM users WHERE id = '$privateid' ";
+            $result = $con->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $kep = $row["profile_pic"];
+                    echo "<img src=../img/profile_pics/$kep width='100' height='100''>" ;
+                }
+            }
+            ?>
+        </p>
+        <p class="level-item has-text-centered">
             <a class="link is-info">Személyes adatok módosítása</a>
         </p>
         <p class="level-item has-text-centered">
@@ -268,6 +282,7 @@ if (!isset($_SESSION['username'])) {
                 <div class="content">
                     <p class="title">Hírek</p>
                     <p class="subtitle">Statisztikák</p>
+
                     <div class="content">
                         <!-- Content -->
                     </div>

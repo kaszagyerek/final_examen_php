@@ -91,7 +91,7 @@ session_start();
 
             if (fname != "" && lname != "" && em != "" && em2 != "" && password != "" && password2 != "" && phone != "") {
                 $.ajax({
-                    url: "http://localhost:63342/untitled2/laptopallamvizsga/regisztraciosAPI.php",
+                    url: "api.php",
                     type: "POST",
                     data: {
                         fname: fname,
@@ -101,6 +101,8 @@ session_start();
                         password: password,
                         password2: password2,
                         phone: phone,
+                        action: "regisztracio"
+
                     },
                     cache: false,
 
@@ -110,7 +112,6 @@ session_start();
                             $("#regbut").removeAttr("disabled");
                             $('#regi').find('input:text').val('');
                             $("#success").show();
-                            $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
 
                         } else if (dataResult.valasz == false) {
                             alert("Nem jol adta meg az adatokat");

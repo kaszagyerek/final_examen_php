@@ -83,6 +83,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
                         } else if (dataResult.valasz == false) {
                             $("#success").show();
                             $('#success').html('Sikertelenül adta meg az adatokat');
+
                         }
 
                     }

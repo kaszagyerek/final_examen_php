@@ -76,7 +76,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
                         if (dataResult.valasz == true) {
                             $("#success").show();
                             $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
-
+                            window.location.href = 'index.php';
                         } else if (dataResult.valasz == false) {
                             $("#success").show();
                             $('#success').html('Sikertelenül adta meg az adatokat');

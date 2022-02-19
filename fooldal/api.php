@@ -45,22 +45,7 @@ switch ($action) {
         }
         echo json_encode($res);
         break;
-    case "visszahozas":
-        $visszahozott = mysqli_real_escape_string($con, $_GET['visszahozott']);
-        $sql = "SELECT* FROM workplace WHERE bidworkplace='$visszahozott'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $visszahozott_bicikli = $row['bicikli_id'];
-                $sql = "DELETE FROM workplace where idworkplace=$visszahozott";
-                $conn->query($sql);
 
-            }
-            echo "Sikeresen torolte a berlesi kozul a visszahozott biciklit!";
-        } else {
-            echo "Nincs ilyen berelt biciklije!";
-        };
-        break;
 }
 switch ($action2) {
     case "inserthouse":

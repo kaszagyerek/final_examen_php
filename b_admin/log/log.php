@@ -12,6 +12,7 @@ require_once "../connect.php";
     <title>login</title>
 
     <link href="szepitoadmin.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -24,6 +25,8 @@ require_once "../connect.php";
         <input type="email" id="emailajax" name="log_email" placeholder="emailcímd"/>
         <input type="password" id="passwordajax" name="log_password" placeholder="jelszód"/>
         <button name="login_button" id="btnLoginResponse">Bejelentkezés</button>
+        <a  class="visszafelh" href="/laptopallamvizsga/log_reg/log_reg.php"> Felhasználó bejelentkezés </a>
+
 
 
     </form>

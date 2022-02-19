@@ -22,6 +22,7 @@ h1 {
     margin: 0;
 }
 
+
 h2 {
     text-align: center;
 }
@@ -102,6 +103,17 @@ input {
     width: 768px;
     max-width: 100%;
     min-height: 480px;
+}
+
+.visszadm{
+    border-radius: 20px;
+    border: 3px solid #081236;
+    background-color: #03348d;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px;
+    letter-spacing: 1px;
 }
 
 .form-container {

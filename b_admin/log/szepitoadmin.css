@@ -100,3 +100,14 @@ input {
         z-index: 5;
     }
 }
+
+.visszafelh{
+    border-radius: 20px;
+    border: 3px solid #081236;
+    background-color: #e83651;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px;
+    letter-spacing: 1px;
+}

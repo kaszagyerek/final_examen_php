@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 require_once "connection.php";
 if (!isset($_SESSION['username'])) {
@@ -28,10 +29,16 @@ if (!isset($_SESSION['username'])) {
         <p class="link is-info">
             Jelenlegi vagyona :
             <?php
-            $sql = "SELECT (SELECT SUM(salary) FROM workplace WHERE users_id = '$_SESSION[userid]') + (SELECT SUM(totalhprice) FROM house WHERE users_id = '$_SESSION[userid]') -  (SELECT SUM(broker+tax+hrenovation) FROM expense WHERE users_id = '$_SESSION[userid]' )AS sum;";
-            $result = mysqli_query($con, $sql);
+            $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
+            $sql2=  "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
+            $sql3=  "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
+            $result = mysqli_query($con, $sql1);
+            $result2 = mysqli_query($con, $sql2);
+            $result3 = mysqli_query($con, $sql3);
             $data = mysqli_fetch_assoc($result);
-            echo $data['sum'];
+            $data2 = mysqli_fetch_assoc($result2);
+            $data3 = mysqli_fetch_assoc($result3);
+            echo $data['sum1']+$data2['sum2'] +$data3['sum3'];
             ?>
             ron
 
@@ -41,51 +48,235 @@ if (!isset($_SESSION['username'])) {
             <img src="../img/fooldal/logo.png" alt="" style="height: 100px;">
         </p>
         <p class="level-item has-text-centered">
-            <a class="link is-info">Reservations</a>
+            <a class="link is-info"></a>
         </p>
         <p class="level-item has-text-centered">
-            <a class="link is-info">Contact</a>
+            <a class="link is-info">Kapcsolat</a>
         </p>
     </nav>
     <div class="vertical-menu">
         <a href="hazbeszuras.php" class="active">Házam rögzítése</a>
-        <a href="hazlekerdezes.php" class="active">Házaim listázása</a>
+        <a href="oldaltlistazas/hazlekerdezes.php" class="active">Házaim listázása</a>
         <a href="munkahelybeszuras.php" class="narancs">Munkahelyem rögzítése</a>
-        <a href="munkahelylistazasa.php" class="narancs">Munkahelyem listázása</a>
+        <a href="oldaltlistazas/munkahelylistazasa.php" class="narancs">Munkahelyem listázása</a>
         <a href="kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
-        <a href="kiadaslistazasa.php" class="lila">Kiadásaim listázása</a>
+        <a href="oldaltlistazas/kiadaslistazasa.php" class="lila">Kiadásaim listázása</a>
         <a href="elokereses.php" class="active">Kriptó élő keresés</a>
         <a href="stockelokereses.php" class="active">Részvény élő keresés</a>
         <a href="metalskereses.php" class="active">Nemesfém élő keresés</a>
         <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>
     </div>
     <div class="tile is-ancestor">
-        <div class="tile is-4 is-vertical is-parent">
-            <div class="tile is-child box">
-                <p class="title">One</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque
-                    tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+        <div class="tile is-vertical is-8">
+            <div class="tile">
+                <div class="tile is-parent is-vertical">
+                    <article class="tile is-child notification is-danger">
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                    <?php
+                                    if (isset($_GET['idhouse'])) {
+                                        $idhouse = $_GET['idhouse'];
+                                        $sql = "DELETE FROM house WHERE idhouse=$idhouse";
+
+                                        if ($con->query($sql) === TRUE) {
+                                            header("Location: index.php");
+                                        } else {
+                                            echo "Hiba történt: " . $con->error;
+                                        }
+                                    }
+
+                                    $privateid = $_SESSION['userid'];
+                                    $sql = "SELECT idhouse, addres, totalhprice, ownPerson, ownMobil, users_id ,housedate FROM house WHERE users_id = '$privateid' ";
+                                    $result = $con->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        echo "<table border=1 >";
+                                        echo "<tr>";
+                                        echo "<th> Háza címe </th>";
+                                        echo "<th> Háza teljes összege </th>";
+                                        echo "<th> Háza gondozója </th>";
+                                        echo "<th> Gondozó telefonszáma </th>";
+                                        echo "<th> Házat rögzitette </th>";
+
+                                        echo "<th> Törlés </th>";
+
+                                        /*idhouse, addres, totalhprice, ownPerson, ownMobil, users_id, housedate */
+                                        echo "</tr>";
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row["addres"] . "</td>";
+                                            echo "<td>" . $row["totalhprice"] . "</td>";
+                                            echo "<td>" . $row["ownPerson"] . "</td>";
+                                            echo "<td>" . $row["ownMobil"] . "</td>";
+                                            echo "<td>" . $row["housedate"] . "</td>";
+                                            echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idhouse=" . $row["idhouse"] . "\">Törlés</a></td>";
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
+                                    } else {
+                                        echo "Még nem rögzitette a kiadó házát ha szeretné" . "<a href='hazbeszuras.php'> kattintson ide </a>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </article>
+                    <article class="tile is-child notification is-warning">
+                            <div class="card-table">
+                                <div class="content">
+                                    <table class="table is-fullwidth is-striped">
+                                        <tbody>
+                                        <?php
+                                        if (isset($_GET['idworkplace'])) {
+                                            $idworkplace = $_GET['idworkplace'];
+                                            $sql = "DELETE FROM workplace WHERE idworkplace=$idworkplace";
+
+                                            if ($con->query($sql) === TRUE) {
+                                                header("Location: index.php");
+                                            } else {
+                                                echo "Hiba történt: " . $con->error;
+                                            }
+                                        }
+
+                                        $privateid = $_SESSION['userid'];
+                                        $sql = "SELECT idworkplace, workplacename, workplaceaddres, users_id, position,salary,workdate FROM workplace WHERE users_id = '$privateid' ";
+                                        $result = $con->query($sql);
+
+                                        if ($result->num_rows > 0) {
+                                            // output data of each row
+                                            echo "<table border=1 >";
+                                            echo "<tr>";
+                                            echo "<th> Munkahelye neve </th>";
+                                            echo "<th> Munkahelye címe </th>";
+                                            echo "<th> Munkahelyi poziciója </th>";
+                                            echo "<th> Munkahelyi fizetése </th>";
+                                            echo "<th> Rögzítés dátuma  </th>";
+
+                                            echo "<th> Törlés </th>";
+
+                                            echo "</tr>";
+                                            while ($row = $result->fetch_assoc()) {
+                                                echo "<tr>";
+                                                echo "<td>" . $row["workplacename"] . "</td>";
+                                                echo "<td>" . $row["workplaceaddres"] . "</td>";
+                                                echo "<td>" . $row["position"] . "</td>";
+                                                echo "<td>" . $row["salary"] . "</td>";
+                                                echo "<td>" . $row["workdate"] . "</td>";
+                                                echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idworkplace=" . $row["idworkplace"] . "\">Törlés</a></td>";
+                                                echo "</tr>";
+                                            }
+                                            echo "</table>";
+                                        } else {
+                                            echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='munkahelybeszuras.php'> kattintson ide </a>";
+                                        }
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </article>
+                    <article class="tile is-child notification is-warning">
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                    <?php
+                                    if (isset($_GET['idexpense'])) {
+                                        $idexpense = $_GET['idexpense'];
+                                        $sql = "DELETE FROM expense WHERE idexpense=$idexpense";
+
+                                        if ($con->query($sql) === TRUE) {
+                                            header("Location: index.php");
+                                        } else {
+                                            echo "Hiba történt: " . $con->error;
+                                        }
+                                    }
+
+                                    $privateid = $_SESSION['userid'];
+                                    $sql = "SELECT idexpense, broker, brokername, tax, hrenovation, users_id,expensedate FROM expense WHERE users_id = '$privateid' ";
+                                    $result = $con->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        echo "<table border=1 >";
+                                        echo "<tr>";
+                                        echo "<th> Brókere neve </th>";
+                                        echo "<th> Brókere díja/hó </th>";
+                                        echo "<th> Havi adó </th>";
+                                        echo "<th> Havi lakásfelújítás </th>";
+                                        echo "<th> Rögzítés dátuma  </th>";
+
+                                        echo "<th> Törlés </th>";
+
+                                        echo "</tr>";
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row["brokername"] . "</td>";
+                                            echo "<td>" . $row["broker"] . "</td>";
+                                            echo "<td>" . $row["tax"] . "</td>";
+                                            echo "<td>" . $row["hrenovation"] . "</td>";
+                                            echo "<td>" . $row["expensedate"] . "</td>";
+                                            echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idexpense=" . $row["idexpense"] . "\">Törlés</a></td>";
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
+                                    } else {
+                                        echo "Még nem rögzitette a kiadásait ha szeretné" . "<a href='kiadasbeszuras.php'> kattintson ide </a>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </article>
+
+                </div>
             </div>
-            <div class="tile is-child box">
-                <p class="title">Two</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque
-                    tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+            <div class="tile is-parent">
+                <article class="tile is-child notification is-danger">
+                    <p class="title">Részvény</p>
+                    <p class="subtitle"></p>
+                    <div class="content">
+                        <!-- Content -->
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification is-danger">
+                    <p class="title">Kriptóvaluta</p>
+                    <p class="subtitle"></p>
+                    <div class="content">
+                        <!-- Content -->
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification is-danger">
+                    <p class="title">Nemesfém</p>
+                    <p class="subtitle"></p>
+                    <div class="content">
+                        <!-- Content -->
+                    </div>
+                </article>
             </div>
         </div>
         <div class="tile is-parent">
-            <div class="tile is-child box">
-                <p class="title">Three</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at
-                    pulvinar felis blandit. Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut. Morbi
-                    maximus, leo sit amet vehicula eleifend, nunc dui porta orci, quis semper odio felis ut quam.</p>
-                <p>Suspendisse varius ligula in molestie lacinia. Maecenas varius eget ligula a sagittis. Pellentesque
-                    interdum, nisl nec interdum maximus, augue diam porttitor lorem, et sollicitudin felis neque sit
-                    amet erat. Maecenas imperdiet felis nisi, fringilla luctus felis hendrerit sit amet. Aenean vitae
-                    gravida diam, finibus dignissim turpis. Sed eget varius ligula, at volutpat tortor.</p>
-                <p>Integer sollicitudin, tortor a mattis commodo, velit urna rhoncus erat, vitae congue lectus dolor
-                    consequat libero. Donec leo ligula, maximus et pellentesque sed, gravida a metus. Cras ullamcorper a
-                    nunc ac porta. Aliquam ut aliquet lacus, quis faucibus libero. Quisque non semper leo.</p>
-            </div>
+            <article class="tile is-child notification is-success">
+                <div class="content">
+                    <p class="title">Hírek</p>
+                    <p class="subtitle">Statisztikák</p>
+                    <div class="content">
+                        <!-- Content -->
+                    </div>
+                </div>
+            </article>
         </div>
     </div>
 </div>

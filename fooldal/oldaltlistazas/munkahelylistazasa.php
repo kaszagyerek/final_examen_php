@@ -15,7 +15,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <head>
     <meta charset="utf-8">
     <title>Untitled Document</title>
-    <link href="../css/szepito_hazlekerdezes.css" rel="stylesheet" type="text/css">
+    <link href="../../css/szepito_hazlekerdezes.css" rel="stylesheet" type="text/css">
 
 
 </head>
@@ -26,7 +26,6 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <h2>Kilistázás</h2>
     <div class="input-group">
         <button type="button" class="btn" id="butsave" onclick="listazas()">Kilistazas</button>
-        <button type="button" class="btn" name="visszahozas" id="visszahozas">Visszahoztam</button>
         <br><br>
 
     </div>
@@ -34,7 +33,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <div id="hazak">
 
 </div>
-<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
 <script>
     function listazas() {
         document.getElementById('butsave').onclick = function () {

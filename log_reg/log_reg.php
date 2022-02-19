@@ -43,6 +43,7 @@ session_start();
             <input type="password" id="passwordajax" name="log_password" placeholder="jelszód"/>
             <a href="#">Elfelejtetted a jelszavad?</a>
             <button name="login_button" id="btnLoginResponse">Bejelentkezés</button>
+            <a class="visszadm" href="../b_admin/log/log.php"> Admin bejelentkezés </a>
 
 
         </form>

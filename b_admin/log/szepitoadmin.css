@@ -15,6 +15,7 @@ body {
     font-family: 'Montserrat', sans-serif;
 
 }
+
 #fupForm {
     margin: 0 auto;
     width: 500px;
@@ -63,7 +64,6 @@ button {
 }
 
 
-
 button:active {
     transform: scale(0.95);
 }
@@ -78,7 +78,6 @@ button.ghost {
     background-color: #454141;
     border-color: #232222;
 }
-
 
 
 input {

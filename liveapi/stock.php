@@ -14,7 +14,7 @@ if (isset($_POST['lekerdezi'])) {
     foreach ($products as $product) {
 
         $tikcer = $product["ticker"];
-        $asset_description= $product["asset_description"];
+        $asset_description = $product["asset_description"];
         $amount = $product["amount"];
 
         $sql = "INSERT INTO `stocks` (stockname, stocksymbol, newPrice) VALUES ( '$asset_description','$ticker','$amount');";

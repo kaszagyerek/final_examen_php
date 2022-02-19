@@ -30,7 +30,6 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 </form>
 <div id="hazak">
 
-
 </div>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script>

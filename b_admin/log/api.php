@@ -8,7 +8,7 @@ $action2 = isset($_POST['action']) ? $_POST['action'] : "";
 switch ($action2) {
     case "admin" :
         $email = mysqli_real_escape_string($con, filter_var($_POST['email'], FILTER_VALIDATE_EMAIL));
-        $password = mysqli_real_escape_string($con,$_POST['password']);
+        $password = mysqli_real_escape_string($con, $_POST['password']);
 
         $check_database_query = mysqli_query($con, "SELECT * FROM admin WHERE email ='$email'
                                                     AND password ='$password'");

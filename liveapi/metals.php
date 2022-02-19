@@ -25,7 +25,7 @@ if (isset($_POST['lekerdezi'])) {
     $url = 'https://www.goldapi.io/api//XAU/USD';
     $apiKey = 'goldapi-bztpzctkvr8im3j-io';
     $headers = array(
-        'Authorization: '.$apiKey
+        'Authorization: ' . $apiKey
     );
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPGET, $headers);

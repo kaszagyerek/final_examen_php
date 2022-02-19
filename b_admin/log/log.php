@@ -17,19 +17,19 @@ require_once "../connect.php";
 <body>
 
 
-    <div class="form-container sign-in-container">
-        <form id="fupForm">
-            <h1>Admin bejelentkezés</h1>
+<div class="form-container sign-in-container">
+    <form id="fupForm">
+        <h1>Admin bejelentkezés</h1>
 
-            <input type="email" id="emailajax" name="log_email" placeholder="emailcímd"/>
-            <input type="password" id="passwordajax" name="log_password" placeholder="jelszód"/>
-            <button name="login_button" id="btnLoginResponse">Bejelentkezés</button>
+        <input type="email" id="emailajax" name="log_email" placeholder="emailcímd"/>
+        <input type="password" id="passwordajax" name="log_password" placeholder="jelszód"/>
+        <button name="login_button" id="btnLoginResponse">Bejelentkezés</button>
 
 
-        </form>
-    </div>
+    </form>
+</div>
 
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 
 <script>
 

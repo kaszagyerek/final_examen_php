@@ -38,7 +38,7 @@ if (!isset($_SESSION['username'])) {
             $data = mysqli_fetch_assoc($result);
             $data2 = mysqli_fetch_assoc($result2);
             $data3 = mysqli_fetch_assoc($result3);
-            echo $data['sum1']+$data2['sum2'] +$data3['sum3'];
+            echo $data['sum1']+$data2['sum2'] -$data3['sum3'];
             ?>
             ron
 
@@ -48,19 +48,16 @@ if (!isset($_SESSION['username'])) {
             <img src="../img/fooldal/logo.png" alt="" style="height: 100px;">
         </p>
         <p class="level-item has-text-centered">
-            <a class="link is-info"></a>
+            <a class="link is-info">Személyes adatok módosítása</a>
         </p>
         <p class="level-item has-text-centered">
             <a class="link is-info">Kapcsolat</a>
         </p>
     </nav>
     <div class="vertical-menu">
-        <a href="hazbeszuras.php" class="active">Házam rögzítése</a>
-        <a href="oldaltlistazas/hazlekerdezes.php" class="active">Házaim listázása</a>
+        <a href="hazbeszuras.php" class="dark">Házam rögzítése</a>
         <a href="munkahelybeszuras.php" class="narancs">Munkahelyem rögzítése</a>
-        <a href="oldaltlistazas/munkahelylistazasa.php" class="narancs">Munkahelyem listázása</a>
         <a href="kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
-        <a href="oldaltlistazas/kiadaslistazasa.php" class="lila">Kiadásaim listázása</a>
         <a href="elokereses.php" class="active">Kriptó élő keresés</a>
         <a href="stockelokereses.php" class="active">Részvény élő keresés</a>
         <a href="metalskereses.php" class="active">Nemesfém élő keresés</a>
@@ -100,7 +97,6 @@ if (!isset($_SESSION['username'])) {
                                         echo "<th> Háza gondozója </th>";
                                         echo "<th> Gondozó telefonszáma </th>";
                                         echo "<th> Házat rögzitette </th>";
-
                                         echo "<th> Törlés </th>";
 
                                         /*idhouse, addres, totalhprice, ownPerson, ownMobil, users_id, housedate */
@@ -112,7 +108,7 @@ if (!isset($_SESSION['username'])) {
                                             echo "<td>" . $row["ownPerson"] . "</td>";
                                             echo "<td>" . $row["ownMobil"] . "</td>";
                                             echo "<td>" . $row["housedate"] . "</td>";
-                                            echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idhouse=" . $row["idhouse"] . "\">Törlés</a></td>";
+                                            echo "<td class='level-right' ><a class='button is-dark ' href=\"index.php?idhouse=" . $row["idhouse"] . "\">Törlés</a></td>";
                                             echo "</tr>";
                                         }
                                         echo "</table>";
@@ -126,7 +122,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
 
                     </article>
-                    <article class="tile is-child notification is-warning">
+                    <article class="tile is-child notification is-danger">
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
@@ -181,7 +177,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                         </article>
-                    <article class="tile is-child notification is-warning">
+                    <article class="tile is-child notification is-danger">
                         <div class="card-table">
                             <div class="content">
                                 <table class="table is-fullwidth is-striped">
@@ -240,7 +236,7 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </div>
             <div class="tile is-parent">
-                <article class="tile is-child notification is-danger">
+                <article class="tile is-child notification is-info">
                     <p class="title">Részvény</p>
                     <p class="subtitle"></p>
                     <div class="content">

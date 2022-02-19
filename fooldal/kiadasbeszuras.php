@@ -17,6 +17,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <title></title>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <link href="../css/szepito_hazlekerdezes.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/bulma.min.css">
 
 </head>
 <body>
@@ -27,27 +28,26 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <form id="fupForm" name="form1" method="post">
         <!--       , hrenovationname, hrenovation, users_id
         -->
-        <div class="form-group">
+        <div class="control">
             <label for="pwd">Brókerem neve:</label>
             <input type="text" class="form-control" id="brokername" name="brokername">
         </div>
-        <div class="form-group">
+        <div class="control">
             <label for="pwd">Brókerem díja havonta:</label>
             <input type="text" class="form-control" id="broker" name="broker">
         </div>
-        <div class="form-group">
+        <div class="control">
             <label for="pwd">Havi befizetni való adóm:</label>
             <input type="text" class="form-control" id="tax" name="tax">
         </div>
-        <div class="form-group">
+        <div class="control">
             <label for="pwd">Havi házfelújítási költség:</label>
             <input type="text" class="form-control" id="hrenovation" name="hrenovation">
         </div>
 
-
-        <input type="button" name="save" class="btn btn-primary" value="Save to database" id="butsave">
-
-        <div class="result">Eredmény ajax hívás után</div>
+        <div class="control">
+            <input type="button" value="Save to database" id="butsave">
+        </div>
 
 
     </form>

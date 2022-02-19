@@ -35,3 +35,7 @@
     background-color: darkmagenta;
     color: white;
 }
+.vertical-menu a.dark {
+    background-color: darkcyan;
+    color: white;
+}

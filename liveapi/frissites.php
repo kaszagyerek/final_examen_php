@@ -3,7 +3,7 @@
 define("INTERVAL", 5000);
 
 function runIt()
-{ // Your function to run every 5 seconds
+{
     $url = 'https://api2.binance.com/api/v3/ticker/24hr';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPGET, true);
@@ -21,13 +21,13 @@ function runIt()
 
     if ($con->query($sql1) === TRUE) {
     } else {
-        echo "Error: " . $sql . "<br>" . $con->error;
+        echo "Error: " . $sql1 . "<br>" . $con->error;
     }
     $sql1 = "ALTER TABLE  crypto AUTO_INCREMENT = 1";
 
     if ($con->query($sql1) === TRUE) {
     } else {
-        echo "Error: " . $sql . "<br>" . $con->error;
+        echo "Error: " . $sql1 . "<br>" . $con->error;
     }
     foreach ($products as $product) {
         $sym = $product["symbol"];

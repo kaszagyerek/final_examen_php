@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "connection.php";
+require_once "../connection.php";
 if (!isset($_SESSION['username'])) {
     header("Location:../log_reg/log_reg.php");
     exit();
@@ -15,7 +15,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <head>
     <meta charset="utf-8">
     <title>Untitled Document</title>
-    <link href="../../css/szepito_hazlekerdezes.css" rel="stylesheet" type="text/css">
+    <link href="../../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
 
 
 </head>
@@ -40,7 +40,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
         $.ajax(
             {
-                url: "api.php",
+                url: "../api.php",
                 type: "GET",
                 data: {
                     action: "kiadaslistazasa"

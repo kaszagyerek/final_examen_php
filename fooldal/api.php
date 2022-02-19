@@ -60,6 +60,7 @@ switch ($action2) {
 
         if (mysqli_query($con, $sql)) {
             echo json_encode(array("Valasz" => True, "Uzenet" => "Sikeresen rogzitett adat"));
+            header("Location:/laptopallamvizsga/fooldal/index.php");
         } else {
             echo json_encode(array("Valasz" => False, "Uzenet" => "Sikertelenul rogzitett adat"));
         }

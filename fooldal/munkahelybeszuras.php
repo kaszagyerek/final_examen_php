@@ -16,14 +16,12 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <meta charset="UTF-8">
     <title></title>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <link href="../css/szepito_hazlekerdezes.css" rel="stylesheet" type="text/css">
+    <link href="../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
 <div style="margin: auto;width: 60%;">
-    <div class="alert alert-success alert-dismissible" id="success" style="display:none;">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-    </div>
+
     <form id="fupForm" name="form1" method="post">
 
 
@@ -45,7 +43,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
         </div>
 
 
-        <input type="button" name="save" class="btn btn-primary" value="Save to database" id="butsave">
+        <input type="button" class="hero is-danger" value="Save to database" id="butsave">
 
         <div class="result">Eredmény ajax hívás után</div>
 

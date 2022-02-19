@@ -16,7 +16,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <meta charset="UTF-8">
     <title></title>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <link href="../css/szepito_hazlekerdezes.css" rel="stylesheet" type="text/css">
+    <link href="../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>

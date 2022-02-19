@@ -3,43 +3,34 @@ require_once "../log_reg/connection.php";
 
 
 if (isset($_POST['lekerdezi'])) {
-    /*
-         $GCM_SERVER_API_KEY = $_ENV["GCM_SERVER_API_KEY"];
-    $url = 'https://fcm.googleapis.com/fcm/send';
-    $fields = array('registration_ids' => $registration_ids, 'data' => $message);
-    // Update your Google Cloud Messaging API Key
-    if (!defined('GOOGLE_API_KEY')) {
-        define("GOOGLE_API_KEY", $GCM_SERVER_API_KEY);
-    }
-    $headers = array('Authorization: key=' . GOOGLE_API_KEY, 'Content-Type: application/json');
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-    $result = curl_exec($ch);
-     */
-    $url = 'https://www.goldapi.io/api//XAU/USD';
-    $apiKey = 'goldapi-bztpzctkvr8im3j-io';
-    $headers = array(
-        'Authorization: ' . $apiKey
-    );
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_HTTPGET, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response_json = curl_exec($ch);
-    curl_close($ch);
-    $response = json_decode($response_json, true);
-    $products = $response;
+   $curl = curl_init();
+
+curl_setopt_array($curl, [
+	CURLOPT_URL => "https://www.metals-api.com/api/latest?access_key=89j70sw8fp5atnw6q4v2uk7yyqurtmi2t4wy6l040jjlmjx1y2ohhe5vy1jj&base=USD&symbols=XAU%2CXAG%2CXPD%2CXPT%2CXRH",
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_FOLLOWLOCATION => true,
+	CURLOPT_ENCODING => "",
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 30,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => "GET",
+
+]);
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+    $response1 = json_decode($response, true);
+    $products = $response1;
+    var_dump($products);
+
+
     foreach ($products as $product) {
         $metal = $product["metal"];
-        $symbol = $product["symbol"];
         $price = $product["price"];
 
-        $sql = "INSERT INTO `metals` (metalname, metalsymbol, newPrice) VALUES ( '$metal','$symbol','$price');";
+        $sql = "INSERT INTO `metals` (metalsymbol, newPrice) VALUES ( '$metal','$price');";
 
         if ($con->query($sql) === TRUE) {
         } else {

@@ -1,27 +1,54 @@
 <?php
 require_once "../log_reg/connection.php";
-
+/*
+ */
 
 if (isset($_POST['lekerdezi'])) {
-    $url = 'https://api2.binance.com/api/v3/ticker/24hr';
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_HTTPGET, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response_json = curl_exec($ch);
-    curl_close($ch);
-    $response = json_decode($response_json, true);
-    $products = $response;
+
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_URL => "https://api.coinranking.com/v2/coins/",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+            "x-api-key: coinranking75ff28e7df9b412035d559c3ff9dab9ea9e4f95ce351aa94"
+        ],
+    ]);
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    curl_close($curl);
+    /*if ($err) {
+        echo "cURL Error #:" . $err;
+    } else {
+        echo $response;
+    }*/
+
+    $data = json_decode($response, TRUE);
+    $products = $data;
+
     foreach ($products as $product) {
-        $sym = $product["symbol"];
-        $price = $product["lastPrice"];
+            $cryptosymbol = $product["cryptosymbol"];
+            $lastprice = $product["lastprice"];
+            $cryptoimg = $product["cryptoimg"];
+            $marketCap = $product["marketCap"];
+            $rank = $product["rank"];
+            $cryptoname = $product["cryptoname"];
+            $color = $product["color"];
 
-        $sql = "INSERT INTO `crypto` (cryptosymbol, lastprice) VALUES ( '$sym','$price');";
 
-        if ($con->query($sql) === TRUE) {
-        } else {
-            echo "Error: " . $sql . "<br>" . $con->error;
+            $sql = "INSERT INTO `crypto` (cryptosymbol, lastprice, cryptoimg, marketCap, rank, cryptoname, color) VALUES
+                 ( '$cryptosymbol','$lastprice','$cryptoimg','$marketCap','$rank','$cryptoname','$color');";
+
+            if ($con->query($sql) === TRUE) {
+            } else {
+                echo "Error: " . $sql . "<br>" . $con->error;
+            }
         }
-    }
 }
 
 if (isset($_POST['torli'])) {

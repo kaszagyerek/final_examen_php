@@ -30,15 +30,15 @@ if (!isset($_SESSION['username'])) {
             Jelenlegi vagyona :
             <?php
             $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
-            $sql2=  "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
-            $sql3=  "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
+            $sql2 = "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
+            $sql3 = "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
             $result = mysqli_query($con, $sql1);
             $result2 = mysqli_query($con, $sql2);
             $result3 = mysqli_query($con, $sql3);
             $data = mysqli_fetch_assoc($result);
             $data2 = mysqli_fetch_assoc($result2);
             $data3 = mysqli_fetch_assoc($result3);
-            echo $data['sum1']+$data2['sum2'] -$data3['sum3'];
+            echo $data['sum1'] + $data2['sum2'] - $data3['sum3'];
             ?>
             ron
 
@@ -56,7 +56,7 @@ if (!isset($_SESSION['username'])) {
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $kep = $row["profile_pic"];
-                    echo "<img src=../img/profile_pics/$kep width='100' height='100''>" ;
+                    echo "<img src=../img/profile_pics/$kep width='100' height='100''>";
                 }
             }
             ?>
@@ -137,60 +137,60 @@ if (!isset($_SESSION['username'])) {
 
                     </article>
                     <article class="tile is-child notification is-danger">
-                            <div class="card-table">
-                                <div class="content">
-                                    <table class="table is-fullwidth is-striped">
-                                        <tbody>
-                                        <?php
-                                        if (isset($_GET['idworkplace'])) {
-                                            $idworkplace = $_GET['idworkplace'];
-                                            $sql = "DELETE FROM workplace WHERE idworkplace=$idworkplace";
+                        <div class="card-table">
+                            <div class="content">
+                                <table class="table is-fullwidth is-striped">
+                                    <tbody>
+                                    <?php
+                                    if (isset($_GET['idworkplace'])) {
+                                        $idworkplace = $_GET['idworkplace'];
+                                        $sql = "DELETE FROM workplace WHERE idworkplace=$idworkplace";
 
-                                            if ($con->query($sql) === TRUE) {
-                                                header("Location: index.php");
-                                            } else {
-                                                echo "Hiba történt: " . $con->error;
-                                            }
-                                        }
-
-                                        $privateid = $_SESSION['userid'];
-                                        $sql = "SELECT idworkplace, workplacename, workplaceaddres, users_id, position,salary,workdate FROM workplace WHERE users_id = '$privateid' ";
-                                        $result = $con->query($sql);
-
-                                        if ($result->num_rows > 0) {
-                                            // output data of each row
-                                            echo "<table border=1 >";
-                                            echo "<tr>";
-                                            echo "<th> Munkahelye neve </th>";
-                                            echo "<th> Munkahelye címe </th>";
-                                            echo "<th> Munkahelyi poziciója </th>";
-                                            echo "<th> Munkahelyi fizetése </th>";
-                                            echo "<th> Rögzítés dátuma  </th>";
-
-                                            echo "<th> Törlés </th>";
-
-                                            echo "</tr>";
-                                            while ($row = $result->fetch_assoc()) {
-                                                echo "<tr>";
-                                                echo "<td>" . $row["workplacename"] . "</td>";
-                                                echo "<td>" . $row["workplaceaddres"] . "</td>";
-                                                echo "<td>" . $row["position"] . "</td>";
-                                                echo "<td>" . $row["salary"] . "</td>";
-                                                echo "<td>" . $row["workdate"] . "</td>";
-                                                echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idworkplace=" . $row["idworkplace"] . "\">Törlés</a></td>";
-                                                echo "</tr>";
-                                            }
-                                            echo "</table>";
+                                        if ($con->query($sql) === TRUE) {
+                                            header("Location: index.php");
                                         } else {
-                                            echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='munkahelybeszuras.php'> kattintson ide </a>";
+                                            echo "Hiba történt: " . $con->error;
                                         }
-                                        ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                    }
 
-                        </article>
+                                    $privateid = $_SESSION['userid'];
+                                    $sql = "SELECT idworkplace, workplacename, workplaceaddres, users_id, position,salary,workdate FROM workplace WHERE users_id = '$privateid' ";
+                                    $result = $con->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        echo "<table border=1 >";
+                                        echo "<tr>";
+                                        echo "<th> Munkahelye neve </th>";
+                                        echo "<th> Munkahelye címe </th>";
+                                        echo "<th> Munkahelyi poziciója </th>";
+                                        echo "<th> Munkahelyi fizetése </th>";
+                                        echo "<th> Rögzítés dátuma  </th>";
+
+                                        echo "<th> Törlés </th>";
+
+                                        echo "</tr>";
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row["workplacename"] . "</td>";
+                                            echo "<td>" . $row["workplaceaddres"] . "</td>";
+                                            echo "<td>" . $row["position"] . "</td>";
+                                            echo "<td>" . $row["salary"] . "</td>";
+                                            echo "<td>" . $row["workdate"] . "</td>";
+                                            echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idworkplace=" . $row["idworkplace"] . "\">Törlés</a></td>";
+                                            echo "</tr>";
+                                        }
+                                        echo "</table>";
+                                    } else {
+                                        echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='munkahelybeszuras.php'> kattintson ide </a>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </article>
                     <article class="tile is-child notification is-danger">
                         <div class="card-table">
                             <div class="content">

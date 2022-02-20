@@ -33,13 +33,13 @@ switch ($action2) {
         die(json_encode($result));
     case "regisztracio" :
 
-                      /* fname: fname,
-                        lname: lname,
-                        em: em,
-                        em2: em2,
-                        password: password,
-                        password2: password2,
-                        phone: phone,*/
+        /* fname: fname,
+          lname: lname,
+          em: em,
+          em2: em2,
+          password: password,
+          password2: password2,
+          phone: phone,*/
 
 // Regisztracios form ertekek
 //vezeteknev
@@ -84,51 +84,50 @@ switch ($action2) {
             }
 
 
-
-                if (strlen($fname) > 25 || strlen($fname) < 2) {
-                    array_push($error_arrays, "Vezeték neve 2 és 25 karakter között kell legyen<br>");
+            if (strlen($fname) > 25 || strlen($fname) < 2) {
+                array_push($error_arrays, "Vezeték neve 2 és 25 karakter között kell legyen<br>");
+            }
+            if (strlen($lname) > 25 || strlen($lname) < 2) {
+                array_push($error_arrays, "Kereszt neve 2 és 25 karakter között kell legyen<br>");
+            }
+            if ($password != $password2) {
+                array_push($error_arrays, "A jelszavai nem egyeznek meg<br>");
+            } else { // mit tartalmaz a jelszo
+                if (preg_match('/[^A-Za-z0-9]/', $password)) {
+                    array_push($error_arrays, "Jelszava csak angol karaktereket tartalmazhat<br>");
                 }
-                if (strlen($lname) > 25 || strlen($lname) < 2) {
-                    array_push($error_arrays, "Kereszt neve 2 és 25 karakter között kell legyen<br>");
-                }
-                if ($password != $password2) {
-                    array_push($error_arrays, "A jelszavai nem egyeznek meg<br>");
-                } else { // mit tartalmaz a jelszo
-                    if (preg_match('/[^A-Za-z0-9]/', $password)) {
-                        array_push($error_arrays, "Jelszava csak angol karaktereket tartalmazhat<br>");
-                    }
-                }
-                if (strlen($password) > 30 || strlen($password < 5)) {
-                    array_push($error_arrays, "Jelszava nagyobb kell legyen mint 5 karakter és kisebb kell legyen mint 50 karakter<br>");
+            }
+            if (strlen($password) > 30 || strlen($password < 5)) {
+                array_push($error_arrays, "Jelszava nagyobb kell legyen mint 5 karakter és kisebb kell legyen mint 50 karakter<br>");
 
-                }
+            }
 
-                $password = md5($password2); // Titokositas mielott elkuldi az adatbazisba
-                $username = strtolower($fname . "_" . $lname);
+            $password = md5($password2); // Titokositas mielott elkuldi az adatbazisba
+            $username = strtolower($fname . "_" . $lname);
 
 
+            $check_username_query = mysqli_query($con, "SELECT username FROM users WHERE username='$username'");
+            $usernameexits = 0;
+            while (mysqli_num_rows($check_username_query) != 0) {
+                $usernameexits++;
+                $username = $username . "_" . $usernameexits;
                 $check_username_query = mysqli_query($con, "SELECT username FROM users WHERE username='$username'");
-                $usernameexits = 0;
-                while (mysqli_num_rows($check_username_query) != 0) {
-                    $usernameexits++;
-                    $username = $username . "_" . $usernameexits;
-                    $check_username_query = mysqli_query($con, "SELECT username FROM users WHERE username='$username'");
-                }
-                $rand = rand(0, 4);
-                if ($rand == 1) {
-                    $profile_pic = "r1.png";
-                } else if ($rand == 2) {
-                    $profile_pic = "r2.png";
-                } else {
-                    $profile_pic = "r3.png";
-                }
+            }
+            $rand = rand(0, 4);
+            if ($rand == 1) {
+                $profile_pic = "r1.png";
+            } else if ($rand == 2) {
+                $profile_pic = "r2.png";
+            } else {
+                $profile_pic = "r3.png";
+            }
 
-                $query = mysqli_query($con, "INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone')");
+            $query = mysqli_query($con, "INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone')");
 
-                $_SESSION['fname'] = "";
-                $_SESSION['lname'] = "";
-                $_SESSION['em'] = "";
-                $_SESSION['em2'] = "";
+            $_SESSION['fname'] = "";
+            $_SESSION['lname'] = "";
+            $_SESSION['em'] = "";
+            $_SESSION['em2'] = "";
 
             $responseresult = "sikeres";
             $responsboolean = true;

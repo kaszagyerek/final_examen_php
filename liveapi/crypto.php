@@ -32,23 +32,23 @@ if (isset($_POST['lekerdezi'])) {
     $products = $data;
 
     foreach ($products as $product) {
-            $cryptosymbol = $product["cryptosymbol"];
-            $lastprice = $product["lastprice"];
-            $cryptoimg = $product["cryptoimg"];
-            $marketCap = $product["marketCap"];
-            $rank = $product["rank"];
-            $cryptoname = $product["cryptoname"];
-            $color = $product["color"];
+        $cryptosymbol = $product["cryptosymbol"];
+        $lastprice = $product["lastprice"];
+        $cryptoimg = $product["cryptoimg"];
+        $marketCap = $product["marketCap"];
+        $rank = $product["rank"];
+        $cryptoname = $product["cryptoname"];
+        $color = $product["color"];
 
 
-            $sql = "INSERT INTO `crypto` (cryptosymbol, lastprice, cryptoimg, marketCap, rank, cryptoname, color) VALUES
+        $sql = "INSERT INTO `crypto` (cryptosymbol, lastprice, cryptoimg, marketCap, rank, cryptoname, color) VALUES
                  ( '$cryptosymbol','$lastprice','$cryptoimg','$marketCap','$rank','$cryptoname','$color');";
 
-            if ($con->query($sql) === TRUE) {
-            } else {
-                echo "Error: " . $sql . "<br>" . $con->error;
-            }
+        if ($con->query($sql) === TRUE) {
+        } else {
+            echo "Error: " . $sql . "<br>" . $con->error;
         }
+    }
 }
 
 if (isset($_POST['torli'])) {

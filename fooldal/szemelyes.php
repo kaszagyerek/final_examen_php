@@ -25,21 +25,21 @@ if (!isset($_SESSION['username'])) {
                 echo "Üdvözöllek " . $_SESSION['username'];
                 ?></b>
         </p>
-    <p class="level-item has-text-centered">         </p>
+        <p class="level-item has-text-centered"></p>
 
         <p class="link is-info">
             Jelenlegi vagyona :
             <?php
             $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
-            $sql2=  "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
-            $sql3=  "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
+            $sql2 = "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
+            $sql3 = "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
             $result = mysqli_query($con, $sql1);
             $result2 = mysqli_query($con, $sql2);
             $result3 = mysqli_query($con, $sql3);
             $data = mysqli_fetch_assoc($result);
             $data2 = mysqli_fetch_assoc($result2);
             $data3 = mysqli_fetch_assoc($result3);
-            echo $data['sum1']+$data2['sum2'] -$data3['sum3'];
+            echo $data['sum1'] + $data2['sum2'] - $data3['sum3'];
             ?>
             ron
 
@@ -56,7 +56,7 @@ if (!isset($_SESSION['username'])) {
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $kep = $row["profile_pic"];
-                    echo "<img src=../img/profile_pics/$kep width='100' height='100''>" ;
+                    echo "<img src=../img/profile_pics/$kep width='100' height='100''>";
                 }
             }
             ?>
@@ -88,18 +88,18 @@ if (!isset($_SESSION['username'])) {
                                 $privateid = $_SESSION['userid'];
                                 if (isset($_POST['vezeteknev'])) {
                                     $vnev = $_POST['vnev'];
-                                    if (isset($vnev) && !empty($vnev) && strlen($vnev)>=3){
+                                    if (isset($vnev) && !empty($vnev) && strlen($vnev) >= 3) {
                                         $sql = "UPDATE `users` SET `firs_name`='$vnev' WHERE id = '$privateid' ";
 
                                         if ($con->query($sql) === TRUE) {
                                             header("Location: szemelyes.php");
-                                        }else {
+                                        } else {
                                             echo "Hiba történt: " . $con->error;
                                         }
                                     } else {
-                                        if (empty($vnev)){
+                                        if (empty($vnev)) {
                                             echo "A vezetéknév nem lehet üres<br>";
-                                        } else  if (!empty($vnev) && strlen($vnev)<3){
+                                        } else if (!empty($vnev) && strlen($vnev) < 3) {
                                             echo "A vezetéknév minimum 4 karakter hosszú kell legyen<br>";
                                         }
                                     }
@@ -139,18 +139,18 @@ if (!isset($_SESSION['username'])) {
                                 $privateid = $_SESSION['userid'];
                                 if (isset($_POST['keresztnev'])) {
                                     $knev = $_POST['knev'];
-                                    if (isset($knev) && !empty($knev) && strlen($knev)>=3){
+                                    if (isset($knev) && !empty($knev) && strlen($knev) >= 3) {
                                         $sql = "UPDATE `users` SET `last_name`='$knev' WHERE id = '$privateid' ";
 
                                         if ($con->query($sql) === TRUE) {
                                             header("Location: szemelyes.php");
-                                        }else {
+                                        } else {
                                             echo "Hiba történt: " . $con->error;
                                         }
                                     } else {
-                                        if (empty($knev)){
+                                        if (empty($knev)) {
                                             echo "A keresztnév nem lehet üres<br>";
-                                        } else  if (!empty($knev) && strlen($knev)<3){
+                                        } else if (!empty($knev) && strlen($knev) < 3) {
                                             echo "A keresztnév minimum 4 karakter hosszú kell legyen<br>";
                                         }
                                     }
@@ -196,17 +196,17 @@ if (!isset($_SESSION['username'])) {
                         if (isset($_POST['em'])) {
                             $email = $_POST['email'];
                             $email2 = $_POST['email2'];
-                            if (isset($email) && !empty($email) && strlen($email)>=6
-                            && isset($email2) && !empty($email2) && strlen($email2)>=6 ){
-                                if($email == $email2){
+                            if (isset($email) && !empty($email) && strlen($email) >= 6
+                                && isset($email2) && !empty($email2) && strlen($email2) >= 6) {
+                                if ($email == $email2) {
                                     $query = mysqli_query($con, "SELECT  `email` FROM `users` WHERE  '$email' = email");
                                     if (!(mysqli_num_rows($query) > 0)) {
-                                    $sql = "UPDATE `users` SET `email`='$email' WHERE id = '$privateid' ";
+                                        $sql = "UPDATE `users` SET `email`='$email' WHERE id = '$privateid' ";
 
-                                    if ($con->query($sql) === TRUE) {
-                                        header("Location: szemelyes.php");
-                                    }else {
-                                        echo "Hiba történt: " . $con->error;
+                                        if ($con->query($sql) === TRUE) {
+                                            header("Location: szemelyes.php");
+                                        } else {
+                                            echo "Hiba történt: " . $con->error;
                                         }
                                     } else {
                                         echo "Ez a mail cím már foglalt";
@@ -216,14 +216,14 @@ if (!isset($_SESSION['username'])) {
                                 }
 
                             } else {
-                                if (empty($email)){
+                                if (empty($email)) {
                                     echo "A email nem lehet üres<br>";
-                                } else  if (!empty($email) && strlen($email)<6){
+                                } else if (!empty($email) && strlen($email) < 6) {
                                     echo "Az email minimum 6 karakter hosszú kell legyen<br>";
                                 }
-                                if (empty($email2)){
+                                if (empty($email2)) {
                                     echo "Az email2 nem lehet üres<br>";
-                                } else  if (!empty($email2) && strlen($email2)<6){
+                                } else if (!empty($email2) && strlen($email2) < 6) {
                                     echo "A email2 minimum 6 karakter hosszú kell legyen<br>";
                                 }
                             }
@@ -262,48 +262,49 @@ if (!isset($_SESSION['username'])) {
                         <?php
                         $privateid = $_SESSION['userid'];
                         if (isset($_POST['pas'])) {
-                            $password = mysqli_real_escape_string($con,$_POST['password']);
-                            $password2 = mysqli_real_escape_string($con,$_POST['password2']);
-//                            $jelenlegi = mysqli_real_escape_string($con,$_POST['jelenlegi']);
+                            $password = mysqli_real_escape_string($con, $_POST['password']);
+                            $password2 = mysqli_real_escape_string($con, $_POST['password2']);
+                            /*                           $jelenlegi = mysqli_real_escape_string($con,$_POST['jelenlegi']);*/
 
-                            if (isset($password) && !empty($password) && strlen($password)>=5
-                                && isset($password2) && !empty($password2) && strlen($password2)>=5
-                            ){
-                                if($password == $password2){
+                            if (isset($password) && !empty($password) && strlen($password) >= 5
+                                && isset($password2) && !empty($password2) && strlen($password2) >= 5) {
+//                               /* && isset($jelenlegi) && !empty($jelenlegi) && strlen($jelenlegi) >= 4*/
+                                if ($password == $password2) {
                                     $password = md5($password);
-                                   /* $query = mysqli_query($con, "SELECT `password` FROM `users` WHERE  '$jelenlegi' = $pr ");
-                                    if (mysqli_num_rows($query) > 0) {*/
-                                        $sql = "UPDATE `users` SET `password`='$password' WHERE id = '$privateid' ";
+                                    /* $query = mysqli_query($con, "SELECT `password` FROM `users` WHERE  '$jelenlegi' = $pr ");
+                                     if (mysqli_num_rows($query) > 0) {*/
+                                    $sql = "UPDATE `users` SET `password`='$password' WHERE id = '$privateid' ";
 
-                                        if ($con->query($sql) === TRUE) {
-                                            echo "<br>sikeresen megváltozott a jelszava<br>";
-                                        }else {
-                                            echo "Hiba történt: " . $con->error;
-                                        }
+                                    if ($con->query($sql) === TRUE) {
+                                        echo "<br>sikeresen megváltozott a jelszava<br>";
                                     } else {
+                                        echo "Hiba történt: " . $con->error;
+                                    }
+                                } else {
                                     echo "a 2 jelszó nem egyezik";
                                 }
-                                } /*else {
+                            } /* else {
 }
                                         echo "Nem jól adta meg a jelszavát";
-                                    }*/
-                                } else {
-                                if (empty($password)){
+                            }*/
+                            else {
+                                if (empty($password)) {
                                     echo "A jelszó nem lehet üres<br>";
-                                } else  if (!empty($password) && strlen($password)<5){
+                                } else if (!empty($password) && strlen($password) < 5) {
                                     echo "A jelszó minimum 6 karakter hosszú kell legyen<br>";
                                 }
-                                if (empty($password2)){
+                                if (empty($password2)) {
                                     echo "A megerősítő jelszó nem lehet üres<br>";
-                                } else  if (!empty($password2) && strlen($password2)<5){
+                                } else if (!empty($password2) && strlen($password2) < 5) {
                                     echo "A megerőstő jelszó minimum 6 karakter hosszú kell legyen<br>";
                                 }
                             }
+                        }
 
                         echo "Jelszó megváltoztatása:<br>";
                         ?>
                         <form method="post" action="">
-<!--                            Jelenlegi jelszava:<input type="text" name="jelenlegi"><br>-->
+                            <!--                            Jelenlegi jelszava:<input type="text" name="jelenlegi"><br>-->
                             Új jelszó:<input type="password" name="password"><br>
                             Jelszó megerősítés:<input type="password" name="password2"><br>
                             <input class="button is-black" type="submit" name="pas" value="szerkeszt">
@@ -318,50 +319,121 @@ if (!isset($_SESSION['username'])) {
                     <div class="content">
                         <?php
                         $privateid = $_SESSION['userid'];
-                        if (isset($_POST['vezeteknev'])) {
-                            $vnev = $_POST['vnev'];
-                            if (isset($vnev) && !empty($vnev) && strlen($vnev)>=3){
-                                $sql = "UPDATE `users` SET `firs_name`='$vnev' WHERE id = '$privateid' ";
+                        if (isset($_POST['vtelefon'])) {
+                            $telefon = mysqli_real_escape_string($con,$_POST['telefon']);
+                            if (isset($telefon) && !empty($telefon) && strlen($telefon) >= 8 && is_numeric($telefon)) {
+                                $sql = "UPDATE `users` SET `phone_number`='$telefon' WHERE id = '$privateid' ";
 
                                 if ($con->query($sql) === TRUE) {
-                                    header("Location: szemelyes.php");
-                                }else {
+                                    echo "sikeresen rögzitettük a telefonszámát<br>";
+                                } else {
                                     echo "Hiba történt: " . $con->error;
                                 }
                             } else {
-                                if (empty($vnev)){
-                                    echo "A vezetéknév nem lehet üres<br>";
-                                } else  if (!empty($vnev) && strlen($vnev)<3){
-                                    echo "A vezetéknév minimum 4 karakter hosszú kell legyen<br>";
+                                if (empty($telefon)) {
+                                    echo "A telefonszám nem lehet üres<br>";
+                                } else if (!empty($telefon) && strlen($telefon) < 8) {
+                                    echo "A telefonszám minimum 8 számot  kell legyen<br>";
                                 }
                             }
                         }
-                        $sql = "SELECT firs_name FROM users WHERE id = '$privateid' ";
+                        $sql = "SELECT phone_number FROM users WHERE id = '$privateid' ";
                         $result = $con->query($sql);
 
                         if ($result->num_rows > 0) {
                             // output data of each row
                             echo "<table border=1 >";
                             echo "<tr>";
-                            echo "<th> Vezetékneve </th>";
+                            echo "<th> Telefonszáma </th>";
 
 
-                            /*idhouse, addres, totalhprice, ownPerson, ownMobil, users_id, housedate */
                             echo "</tr>";
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>";
-                                echo "<td>" . $row["firs_name"] . "</td>";
+                                echo "<td>" . $row["phone_number"] . "</td>";
                                 echo "</tr>";
                             }
                             echo "</table>";
                         }
                         ?>
                         <form method="post" action="">
-                            Úk vezetékneve:<input type="Text" name="vnev"><br>
-                            <input class="button is-black" type="submit" name="vezeteknev" value="szerkeszt">
-                        </form>                    </div>
+                            Új telefonszáma:<input type="Text" name="telefon"><br>
+                            <input class="button is-black" type="submit" name="vtelefon" value="szerkeszt">
+                        </form>
+                    </div>
                 </article>
             </div>
+            <div class="tile is-parent">
+                <article class="tile is-child notification is-danger">
+                    <p class="title"></p>
+                    <p class="subtitle"></p>
+                    <div class="content">
+                        <?php
+
+                        $privateid = $_SESSION['userid'];
+/*                        if (isset($_POST['submit'])) {
+                            $valid_formats = array("image/jpg", "image/jpeg","image/png", "image/bmp");
+                            if(!in_array($_FILES["kep"]["type"], $valid_formats)) {
+                                die("Csak JPG, PNG vagy BMP!");
+                            }
+
+                            if ($_FILES["kep"]["error"] != 0){
+                                die("Hiba a feltöltés során");
+                            }
+
+
+                            if($_FILES["kep"]["size"] > 10*1024*1024) {
+                                die("Túl nagy méretű fájl");
+                            }
+                            move_uploaded_file($_FILES["kep"]["tmp_name"], "laptopallamvizsga/img/profile_pics/" . $_FILES["kep"]["name"]);
+
+
+                            $fenykep = mysqli_real_escape_string($con,$_POST['img']);
+                            if (isset($fenykep) && !empty($fenykep)) {
+                                $image = file_get_contents($fenykep);
+                                file_put_contents('laptopallamvizsga/img/profile_pics', $image);
+
+                                $sql = "UPDATE `users` SET `profile_pic`='$fenykep' WHERE id = '$privateid' ";
+
+                                if ($con->query($sql) === TRUE) {
+                                    echo "sikeresen rögzitettük a fényképét<br>";
+                                } else {
+                                    echo "Hiba történt: " . $con->error;
+                                }
+                            } else {
+                                if (empty($fenykep)) {
+                                    echo "A fényképet üresen nem lehet beküldeni<br>";
+                                }
+                            }
+                        }*/
+                        $sql = "SELECT profile_pic FROM users WHERE id = '$privateid' ";
+                        $result = $con->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            echo "<table border=1 >";
+                            echo "<tr>";
+                            echo "<th> Profilképe </th>";
+
+
+                            echo "</tr>";
+                            while ($row = $result->fetch_assoc()) {
+                                $kep = $row["profile_pic"];
+                                echo "<tr>";
+                                echo "<td>" . "<img src=../img/profile_pics/$kep width='100' height='100''>" . "</td>";
+                                echo "</tr>";
+
+                            }
+                            echo "</table>";
+                        }
+                        ?>
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <input type="file" name="kep" />
+                            <input type="submit" value="Upload!" />
+                        </form>
+                    </div>
+                </article>
+            </div>
+
         </div>
         <div class="tile is-parent">
             <article class="tile is-child notification is-success">

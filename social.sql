@@ -5821,7 +5821,8 @@ ALTER TABLE `prouser`
     ADD CONSTRAINT `fk_prouser_admin1` FOREIGN KEY (`admin_idadmin`) REFERENCES `admin` (`idadmin`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_prouser_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON
 DELETE
-NO ACTION ON UPDATE NO ACTION;
+NO ACTION ON
+UPDATE NO ACTION;
 
 --
 -- Megkötések a táblához `workplace`

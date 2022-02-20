@@ -1,7 +1,7 @@
 .vertical-menu {
     width: 200px;
     float: left;
-   }
+}
 
 .vertical-menu a {
     background-color: #eee;
@@ -35,6 +35,7 @@
     background-color: darkmagenta;
     color: white;
 }
+
 .vertical-menu a.dark {
     background-color: darkcyan;
     color: white;

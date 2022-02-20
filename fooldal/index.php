@@ -62,7 +62,7 @@ if (!isset($_SESSION['username'])) {
             ?>
         </p>
         <p class="level-item has-text-centered">
-            <a class="link is-info">Személyes adatok módosítása</a>
+            <a class="link is-info" href="szemelyes.php">Személyes adatok módosítása</a>
         </p>
         <p class="level-item has-text-centered">
             <a class="link is-info">Kapcsolat</a>

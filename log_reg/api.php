@@ -125,7 +125,6 @@ switch ($action2) {
 
                 $query = mysqli_query($con, "INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$password', '$date', '$profile_pic', '$phone')");
 
-                array_push($error_arrays, "<span style='color: black '>Sikerült regiszrálni! Most már bejelentkezhet!</span><br>"); // felhasználónak egy értesítés hogy sikeresen regisztrált
                 $_SESSION['fname'] = "";
                 $_SESSION['lname'] = "";
                 $_SESSION['em'] = "";

@@ -65,7 +65,7 @@ if (!isset($_SESSION['username'])) {
             <a class="link is-info" href="index.php" style="color:red">Vissza a főmenüre</a>
         </p>
         <p class="level-item has-text-centered">
-            <a class="link is-info">Kapcsolat</a>
+            <a class="link is-info" href="kapcsolat.php">Kapcsolat</a>
         </p>
     </nav>
     <div class="vertical-menu">

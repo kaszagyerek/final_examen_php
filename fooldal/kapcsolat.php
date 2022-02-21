@@ -125,7 +125,6 @@ if (!isset($_SESSION['username'])) {
                                 <form action="https://www.paypal.com" method="post">
 
                                     <input type="hidden" name="cmd" value="_s-xclick">
-
                                     <input type="hidden" name="hosted_button_id" value="221">
 
                                     <input type="image" name="submit"
@@ -142,6 +141,7 @@ if (!isset($_SESSION['username'])) {
                         <div class="content">
                             <br>
                             <p class="subtitle">Ha szeretne meglátogatni minket</p>
+
                             <div class="mapsk">
                                 <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29128.52628189388!2d25.779858691974738!3d46.34996840640623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474b2a11ee2d0f9b%3A0x8c9a52dac2586a4b!2sSapientia%20Erd%C3%A9lyi%20Magyar%20Tudom%C3%A1nyegyetem!5e1!3m2!1shu!2sro!4v1645439682001!5m2!1shu!2sro" width="450" height="800" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                             </div>

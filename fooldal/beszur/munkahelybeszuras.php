@@ -15,8 +15,8 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <link href="../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <link href="../../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -61,7 +61,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
             if (munka != "" && cim != "" && beosztas != "" && fizetes != "") {
                 $.ajax({
-                    url: "api.php",
+                    url: "beszurapi.php",
                     type: "POST",
                     data: {
                         munka: munka,

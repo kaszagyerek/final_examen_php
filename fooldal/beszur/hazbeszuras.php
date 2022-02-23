@@ -15,8 +15,8 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <link href="../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <link href="../../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -60,7 +60,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
             var gtelefon = $('#ftgondozo').val();
             if (utca != "" && ertek != "" && gondozo != "" && gtelefon != "") {
                 $.ajax({
-                    url: "api.php",
+                    url: "beszurapi.php",
                     type: "POST",
                     data: {
                         utca: utca,

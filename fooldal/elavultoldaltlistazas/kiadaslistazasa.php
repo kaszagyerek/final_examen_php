@@ -40,7 +40,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
         $.ajax(
             {
-                url: "../api.php",
+                url: "lekerdezapi.php",
                 type: "GET",
                 data: {
                     action: "kiadaslistazasa"

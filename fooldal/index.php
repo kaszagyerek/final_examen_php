@@ -6,7 +6,6 @@ if (!isset($_SESSION['username'])) {
     header("Location:../log_reg/log_reg.php");
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,12 +72,12 @@ if (!isset($_SESSION['username'])) {
     </div>
     <div>
         <div class="vertical-menu">
-            <a href="hazbeszuras.php" class="dark">Házam rögzítése</a>
-            <a href="munkahelybeszuras.php" class="narancs">Munkahelyem rögzítése</a>
-            <a href="kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
-            <a href="elokereses.php" class="active">Kriptó élő keresés</a>
-            <a href="stockelokereses.php" class="active">Részvény élő keresés</a>
-            <a href="metalskereses.php" class="active">Nemesfém élő keresés</a>
+            <a href="beszur/hazbeszuras.php" class="dark">Házam rögzítése</a>
+            <a href="beszur/munkahelybeszuras.php" class="narancs">Munkahelyem rögzítése</a>
+            <a href="beszur/kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
+            <a href="kereses/kriptokereses.php" class="active">Kriptó élő keresés</a>
+            <a href="kereses/stockelokereses.php" class="active">Részvény élő keresés</a>
+            <a href="kereses/metalskereses.php" class="active">Nemesfém élő keresés</a>
             <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>
         </div>
 
@@ -134,7 +133,7 @@ if (!isset($_SESSION['username'])) {
                                             }
                                             echo "</table>";
                                         } else {
-                                            echo "Még nem rögzitette a kiadó házát ha szeretné" . "<a href='hazbeszuras.php'> kattintson ide </a>";
+                                            echo "Még nem rögzitette a kiadó házát ha szeretné" . "<a href='beszur/hazbeszuras.php'> kattintson ide </a>";
                                         }
                                         ?>
                                         </tbody>
@@ -189,7 +188,7 @@ if (!isset($_SESSION['username'])) {
                                             }
                                             echo "</table>";
                                         } else {
-                                            echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='munkahelybeszuras.php'> kattintson ide </a>";
+                                            echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='beszur/munkahelybeszuras.php'> kattintson ide </a>";
                                         }
                                         ?>
                                         </tbody>
@@ -244,7 +243,7 @@ if (!isset($_SESSION['username'])) {
                                             }
                                             echo "</table>";
                                         } else {
-                                            echo "Még nem rögzitette a kiadásait ha szeretné" . "<a href='kiadasbeszuras.php'> kattintson ide </a>";
+                                            echo "Még nem rögzitette a kiadásait ha szeretné" . "<a href='beszur/kiadasbeszuras.php'> kattintson ide </a>";
                                         }
                                         ?>
                                         </tbody>

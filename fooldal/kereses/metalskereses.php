@@ -3,7 +3,7 @@ require_once "connection.php";
 ?>
 <html>
 <head>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     <script>
@@ -12,11 +12,11 @@ require_once "connection.php";
 
             function load_data(query) {
                 $.ajax({
-                    url: "api.php",
+                    url: "keresesapi.php",
                     method: "POST",
                     data: {
                         query: query,
-                        action: "stocksearch"
+                        action: "metalsearch"
 
                     },
                     success: function (data) {
@@ -40,7 +40,7 @@ require_once "connection.php";
 <div class="container-fluid">
     <div class="content-wrapper">
         <div class="container">
-            <h1>Részvények közti keresés</h1>
+            <h1>Nemesfémek közti keresés</h1>
             <div class="row">
                 <div class="col-xs-12">
                     <input type="text" name="search" id="search" placeholder="Search" class="form-control"/>

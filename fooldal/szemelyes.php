@@ -69,12 +69,12 @@ if (!isset($_SESSION['username'])) {
         </p>
     </nav>
     <div class="vertical-menu">
-        <a href="hazbeszuras.php" class="dark">Házam rögzítése</a>
-        <a href="munkahelybeszuras.php" class="narancs">Munkahelyem rögzítése</a>
-        <a href="kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
-        <a href="elokereses.php" class="active">Kriptó élő keresés</a>
-        <a href="stockelokereses.php" class="active">Részvény élő keresés</a>
-        <a href="metalskereses.php" class="active">Nemesfém élő keresés</a>
+        <a href="beszur/hazbeszuras.php" class="dark">Házam rögzítése</a>
+        <a href="beszur/munkahelybeszuras.php" class="narancs">Munkahelyem rögzítése</a>
+        <a href="beszur/kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
+        <a href="kereses/kriptokereses.php" class="active">Kriptó élő keresés</a>
+        <a href="kereses/stockelokereses.php" class="active">Részvény élő keresés</a>
+        <a href="kereses/metalskereses.php" class="active">Nemesfém élő keresés</a>
         <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>
     </div>
     <div class="tile is-ancestor">

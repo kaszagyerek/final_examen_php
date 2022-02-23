@@ -1,5 +1,5 @@
 <?php
-require_once "../log_reg/connection.php";
+require_once "connection.php";
 
 
 if (isset($_POST['lekerdezi'])) {
@@ -15,9 +15,8 @@ if (isset($_POST['lekerdezi'])) {
 
         $tikcer = $product["ticker"];
         $asset_description = $product["asset_description"];
-        $amount = $product["amount"];
 
-        $sql = "INSERT INTO `stocks` (stockname, stocksymbol, newPrice) VALUES ( '$asset_description','$tikcer','$amount');";
+        $sql = "INSERT INTO `stocks` (stockname, stocksymbol) VALUES ( '$asset_description','$tikcer');";
 
         if ($con->query($sql) === TRUE) {
         } else {

@@ -1,5 +1,5 @@
 <?php
-require_once "../log_reg/connection.php";
+require_once "connection.php";
 
 
 if (isset($_POST['lekerdezi'])) {

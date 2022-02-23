@@ -3,7 +3,7 @@ require_once "connection.php";
 ?>
 <html>
 <head>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     <script>
@@ -12,11 +12,11 @@ require_once "connection.php";
 
             function load_data(query) {
                 $.ajax({
-                    url: "api.php",
+                    url: "keresesapi.php",
                     method: "POST",
                     data: {
                         query: query,
-                        action: "searchresult"
+                        action: "stocksearch"
 
                     },
                     success: function (data) {

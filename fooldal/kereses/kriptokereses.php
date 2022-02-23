@@ -4,8 +4,8 @@ require_once "connection.php";
 <html>
 <head>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bulma.min.css">
+
     <script>
         $(document).ready(function () {
             load_data();
@@ -40,10 +40,10 @@ require_once "connection.php";
 <div class="container-fluid">
     <div class="content-wrapper">
         <div class="container">
-            <h1>Kriptóvaluták közti keresés</h1>
+            <h1>Kriptóvalutáim rögzítése</h1>
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="text" name="search" id="search" placeholder="Search" class="form-control"/>
+                    <input type="text" name="search" id="search" placeholder="keresés" class="input is-info"/>
                     <div id="result"></div>
                 </div>
             </div>

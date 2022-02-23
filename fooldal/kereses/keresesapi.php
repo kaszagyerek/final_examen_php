@@ -116,32 +116,38 @@ switch ($action2) {
         $result = mysqli_query($con, $query);
         if (mysqli_num_rows($result) > 0) {
             $return .= '
-	<div class="table-responsive">
-	<table class="table table bordered">
-	<tr>
-        <th>rank</th>
-		<th>cryptosymbol</th>
-        <th>cryptoname</th>
-		<th>lastprice</th>
-		<th>cryptoimg</th>
-		<th>marketCap</th>
+	<div >
+	<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+	<tr  style="background-color:whitesmoke">
+        <th>rangsor</th>
+        <th>kép</th>
+		<th>simbolúm</th>
+        <th>kriptó neve</th>
+		<th>ára</th>
+		<th>piaci kapitalizáció</th>
+		<th>darabszám</th>
+		<th>az ár amiben vásárolta</th>
+		<th>beszurás</th>
 	
 	</tr>';
+        $colors = 'green';
+        echo "<form method='post' action=''>";
         while ($row1 = mysqli_fetch_array($result)) {
         $kep = $row1["cryptoimg"];
-
-            $return .= '
-		<tr>
-		<td >' . $row1["rank"] . '</td>
+        $return .= '
+        <tr  style="background-color:rgba(223,204,65,0.1)">
+		<td >' . $row1["rank"] .  '</td>
+	    <td>' . "<img src=$kep alt='nem betölthető a kép' width='35' height='35'>" . '</td>
 		<td>' . $row1["cryptosymbol"] . '</td>
         <td>' . $row1["cryptoname"] . '</td>
         <td>' . $row1["lastprice"] . '</td>
-		<td>' . "<img src=$kep alt='nem betölthető a kép' width='150' height='150'>" . '</td>
 		<td>' . $row1["marketCap"] . '</td>
-
-	
+		<td>  <input class="input is-warning" type="text" name="alma" maxlength="6" size="6" placeholder="ide darab">  </td>
+		<td>  <input  class="input is-warning" type="text" name="alma" maxlength="6" size="6" placeholder="ide régi ár" >  </td>
+		<td>  <input class="button is-warning" type="submit" name="alma" value="beszurás" >  </td>
 		</tr>';
             }
+        echo "</form>";
             echo $return;
         } else {
             echo 'Nem található eredmény';

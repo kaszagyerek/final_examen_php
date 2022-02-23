@@ -75,7 +75,7 @@ if (!isset($_SESSION['username'])) {
             <a href="beszur/hazbeszuras.php" class="dark">Házam rögzítése</a>
             <a href="beszur/munkahelybeszuras.php" class="narancs">Munkahelyem rögzítése</a>
             <a href="beszur/kiadasbeszuras.php" class="lila">Kiadásaim rögzítése</a>
-            <a href="kereses/kriptokereses.php" class="active">Kriptó élő keresés</a>
+            <a href="kereses/kriptokereses.php" class="active">Kriptó élő beszurás</a>
             <a href="kereses/stockelokereses.php" class="active">Részvény élő keresés</a>
             <a href="kereses/metalskereses.php" class="active">Nemesfém élő keresés</a>
             <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>

@@ -11,6 +11,22 @@ $action2 = isset($_POST['action']) ? $_POST['action'] : "";
 if (isset($con)) {
     $con;
 }
+if(isset($_POST['kriptokuldes'])){
+    $kriptodarab = mysqli_real_escape_string($con, $_POST['kriptodarab']);
+    $kriptoar = mysqli_real_escape_string($con, $_POST['kriptoar']);
+    $privateid = $_SESSION['userid'];
+
+
+    $sql = "INSERT INTO `personalcrypto` (dbkrpto, oldcrprice, users_id) VALUES ('$kriptodarab','$kriptoar','$privateid')";
+
+    if (mysqli_query($con, $sql)) {
+        echo "sikeres";
+    } else {
+        echo "sikertelen";
+    }
+
+}
+
 switch ($action) {
 
     case "listazas" :
@@ -95,7 +111,6 @@ switch ($action2) {
         $privateid = $_SESSION['userid'];
         $sql = "INSERT INTO `expense` ( broker, brokername, tax, hrenovation, users_id,expensedate) VALUES ('$broker', '$brokername', '$tax','$hrenovation', '$privateid',now())";
 
-        var_dump($sql);
         if (mysqli_query($con, $sql)) {
             echo json_encode(array("Valasz" => True, "Uzenet" => "Sikeresen rogzitett adat"));
         } else {
@@ -142,9 +157,9 @@ switch ($action2) {
         <td>' . $row1["cryptoname"] . '</td>
         <td>' . $row1["lastprice"] . '</td>
 		<td>' . $row1["marketCap"] . '</td>
-		<td>  <input class="input is-warning" type="text" name="alma" maxlength="6" size="6" placeholder="ide darab">  </td>
-		<td>  <input  class="input is-warning" type="text" name="alma" maxlength="6" size="6" placeholder="ide régi ár" >  </td>
-		<td>  <input class="button is-warning" type="submit" name="alma" value="beszurás" >  </td>
+		<td>  <input class="input is-warning" type="text" name="kriptodarab" maxlength="6" size="6" placeholder="ide darab">  </td>
+		<td>  <input  class="input is-warning" type="text" name="kriptoar" maxlength="6" size="6" placeholder="ide régi ár" >  </td>
+		<td>  <input class="button is-warning" type="submit" name="kriptokuldes" value="beszurás" >  </td>
 		</tr>';
             }
         echo "</form>";

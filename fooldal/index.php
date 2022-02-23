@@ -88,7 +88,7 @@ if (!isset($_SESSION['username'])) {
             <div class="tile is-vertical is-8">
                 <div class="tile">
                     <div class="tile is-parent is-vertical">
-                        <article class="tile is-child notification is-danger">
+                        <article class="tile is-child notification is-light">
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
@@ -143,7 +143,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                         </article>
-                        <article class="tile is-child notification is-danger">
+                        <article class="tile is-child notification is-light">
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
@@ -198,7 +198,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                         </article>
-                        <article class="tile is-child notification is-danger">
+                        <article class="tile is-child notification is-light">
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
@@ -257,7 +257,7 @@ if (!isset($_SESSION['username'])) {
                     </div>
                 </div>
                 <div class="tile is-parent">
-                    <article class="tile is-child notification is-info">
+                    <article class="tile is-child notification is-danger">
                         <p class="title">Részvény</p>
                         <p class="subtitle"></p>
                         <div class="content">
@@ -275,7 +275,7 @@ if (!isset($_SESSION['username'])) {
                     </article>
                 </div>
                 <div class="tile is-parent">
-                    <article class="tile is-child notification is-danger">
+                    <article class="tile is-child notification is-info">
                         <p class="title">Nemesfém</p>
                         <p class="subtitle"></p>
                         <div class="content">

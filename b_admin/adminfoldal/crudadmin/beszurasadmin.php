@@ -186,7 +186,7 @@ if (!isset($_SESSION['username'])) {
                     <div class="card events-card">
                         <header class="card-header">
                             <p class="card-header-title">
-                                Felhasználók:
+                                Adminok:
                             </p>
                             <a href="#" class="card-header-icon" aria-label="more options">
                   <span class="icon">
@@ -200,8 +200,6 @@ if (!isset($_SESSION['username'])) {
                                     <tbody>
                                     <?php
 
-                                    /* idadmin, username, email, password */
-                                    /*'1', 'ksandor', 'kasza@kasza.com', 'admin' */
                                     $sql = "SELECT * FROM admin WHERE NOT username='ksandor';";
                                     $result = $con->query($sql);
 
@@ -209,9 +207,9 @@ if (!isset($_SESSION['username'])) {
                                         echo "<table border=1>";
                                         echo "<tr>";
                                         echo "<th> idadmin </th>";
-                                        echo "<th> username </th>";
-                                        echo "<th> email </th>";
-                                        echo "<th> delete </th>";
+                                        echo "<th> felhasználónév </th>";
+                                        echo "<th> emailcím </th>";
+                                        echo "<th> törlés </th>";
 
 
                                         echo "</tr>";

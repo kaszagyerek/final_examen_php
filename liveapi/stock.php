@@ -17,7 +17,7 @@ if (isset($_POST['lekerdezi'])) {
         $asset_description = $product["asset_description"];
         $amount = $product["amount"];
 
-        $sql = "INSERT INTO `stocks` (stockname, stocksymbol, newPrice) VALUES ( '$asset_description','$ticker','$amount');";
+        $sql = "INSERT INTO `stocks` (stockname, stocksymbol, newPrice) VALUES ( '$asset_description','$tikcer','$amount');";
 
         if ($con->query($sql) === TRUE) {
         } else {
@@ -27,13 +27,13 @@ if (isset($_POST['lekerdezi'])) {
 }
 
 if (isset($_POST['torli'])) {
-    $sql = "DELETE FROM crypto";
+    $sql = "DELETE FROM stocks";
 
     if ($con->query($sql) === TRUE) {
     } else {
         echo "Error: " . $sql . "<br>" . $con->error;
     }
-    $sql1 = "ALTER TABLE  crypto AUTO_INCREMENT = 1";
+    $sql1 = "ALTER TABLE  stocks AUTO_INCREMENT = 1";
     $gereset = mysqli_query($con, $sql1);
 
 }

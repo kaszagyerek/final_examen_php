@@ -1,7 +1,5 @@
 <?php
 require_once "../log_reg/connection.php";
-/*
- */
 
 if (isset($_POST['lekerdezi'])) {
 
@@ -22,22 +20,23 @@ if (isset($_POST['lekerdezi'])) {
     $response = curl_exec($curl);
     $err = curl_error($curl);
     curl_close($curl);
-    /*if ($err) {
-        echo "cURL Error #:" . $err;
-    } else {
-        echo $response;
-    }*/
+      if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            echo $response;
+        }
 
-    $data = json_decode($response, TRUE);
-    $products = $data;
 
-    foreach ($products as $product) {
-        $cryptosymbol = $product["cryptosymbol"];
-        $lastprice = $product["lastprice"];
-        $cryptoimg = $product["cryptoimg"];
+    $obj = json_decode($response, TRUE);
+    $coins = $obj['data']['coins'];
+
+    foreach ($coins as $product) {
+        $cryptosymbol = $product["symbol"];
+        $lastprice = $product["price"];
+        $cryptoimg = $product["iconUrl"];
         $marketCap = $product["marketCap"];
         $rank = $product["rank"];
-        $cryptoname = $product["cryptoname"];
+        $cryptoname = $product["name"];
         $color = $product["color"];
 
 
@@ -49,18 +48,18 @@ if (isset($_POST['lekerdezi'])) {
             echo "Error: " . $sql . "<br>" . $con->error;
         }
     }
-}
 
-if (isset($_POST['torli'])) {
-    $sql = "DELETE FROM crypto";
+    if (isset($_POST['torli'])) {
+        $sql = "DELETE FROM crypto";
 
-    if ($con->query($sql) === TRUE) {
-    } else {
-        echo "Error: " . $sql . "<br>" . $con->error;
+        if ($con->query($sql) === TRUE) {
+        } else {
+            echo "Error: " . $sql . "<br>" . $con->error;
+        }
+        $sql = "ALTER TABLE  crypto AUTO_INCREMENT = 1";
+        $gereset = mysqli_query($con, $sql);
+
     }
-    $sql1 = "ALTER TABLE  crypto AUTO_INCREMENT = 1";
-    $gereset = mysqli_query($con, $sql1);
-
 }
 
 /*
@@ -103,6 +102,7 @@ function frisites()
         }
     }
 }
+
 
 frisites();
 */

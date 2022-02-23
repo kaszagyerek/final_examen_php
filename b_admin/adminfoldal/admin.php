@@ -148,13 +148,13 @@ if (!isset($_SESSION['username'])) {
                                         echo "<table border=1>";
                                         echo "<tr>";
                                         echo "<th> id </th>";
-                                        echo "<th> firs_name </th>";
-                                        echo "<th> last_name </th>";
-                                        echo "<th> username </th>";
-                                        echo "<th> email </th>";
-                                        echo "<th> signup_date </th>";
-                                        echo "<th> phone_number </th>";
-                                        echo "<th> delete </th>";
+                                        echo "<th> vezetéknév </th>";
+                                        echo "<th> keresztnév </th>";
+                                        echo "<th> felhasználónév </th>";
+                                        echo "<th> emailcím </th>";
+                                        echo "<th> amikor regisztrált </th>";
+                                        echo "<th> telefonszám </th>";
+                                        echo "<th> törlés </th>";
 
 
                                         echo "</tr>";

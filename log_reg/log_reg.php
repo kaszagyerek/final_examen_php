@@ -10,6 +10,9 @@ session_start();
     <title>login</title>
 
     <link href="../css/szepito.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
+
+    <title>bejelentkezés</title>
 </head>
 
 <body>

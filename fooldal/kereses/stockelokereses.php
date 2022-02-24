@@ -6,6 +6,9 @@ require_once "connection.php";
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
+
+    <title>részvény keresés</title>
     <script>
         $(document).ready(function () {
             load_data();

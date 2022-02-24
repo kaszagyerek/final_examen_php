@@ -17,6 +17,9 @@ if (!isset($_SESSION['username'])) {
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="admin.css">
     <link rel="stylesheet" href="/css/bulma.min.css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
+
+    <title>admin felület</title>
 
 </head>
 

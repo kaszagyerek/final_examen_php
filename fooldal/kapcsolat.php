@@ -14,6 +14,9 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/bulma.min.css">
+    <link rel="icon" type="image/x-icon" href="../img/favicon_io/favicon.ico">
+
+    <title>kapcsolat</title>
 
     <link href="../css/index_szepito.css" rel="stylesheet" type="text/css">
 </head>

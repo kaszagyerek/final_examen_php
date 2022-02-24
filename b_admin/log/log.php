@@ -12,6 +12,9 @@ require_once "../connect.php";
     <title>login</title>
 
     <link href="szepitoadmin.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
+
+    <title>admin belépés</title>
 
 </head>
 

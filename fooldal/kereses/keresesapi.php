@@ -145,7 +145,6 @@ switch ($action2) {
 		<th>beszurás</th>
 	
 	</tr>';
-        $colors = 'green';
         echo "<form method='post' action=''>";
         while ($row1 = mysqli_fetch_array($result)) {
         $kep = $row1["cryptoimg"];
@@ -159,7 +158,7 @@ switch ($action2) {
 		<td>' . $row1["marketCap"] . '</td>
 		<td>  <input class="input is-warning" type="text" name="kriptodarab" maxlength="6" size="6" placeholder="ide darab">  </td>
 		<td>  <input  class="input is-warning" type="text" name="kriptoar" maxlength="6" size="6" placeholder="ide régi ár" >  </td>
-		<td>  <input class="button is-warning" type="submit" name="kriptokuldes" value="beszurás" >  </td>
+		<td>  <input  style="background-color: rgba(223,204,65,0.31)" class="button is-warning" type="submit" name="kriptokuldes" value="beszurás" >  </td>
 		</tr>';
             }
         echo "</form>";

@@ -5,7 +5,9 @@ require_once "connection.php";
 <head>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/bulma.min.css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
 
+    <title>kriptóvaluta keresés</title>
     <script>
         $(document).ready(function () {
             load_data();

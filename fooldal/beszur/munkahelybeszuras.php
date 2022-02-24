@@ -17,6 +17,9 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <title></title>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <link href="../../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
+
+    <title>munkahely beszurása</title>
 
 </head>
 <body>

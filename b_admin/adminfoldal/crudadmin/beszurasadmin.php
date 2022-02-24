@@ -24,6 +24,8 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"/>
     <link rel="stylesheet" type="text/css" href="../admin.css">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
+    <title>admin beszurása</title>
 
 </head>
 

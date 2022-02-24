@@ -13,6 +13,8 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <link rel="stylesheet" href="../css/bulma.min.css">
+    <title>főmenü</title>
+    <link rel="icon" type="image/x-icon" href="../img/favicon_io/favicon.ico">
 
     <link href="../css/index_szepito.css" rel="stylesheet" type="text/css">
 </head>
@@ -87,7 +89,7 @@ if (!isset($_SESSION['username'])) {
             <div class="tile is-vertical is-8">
                 <div class="tile">
                     <div class="tile is-parent is-vertical">
-                        <article class="tile is-child notification is-light">
+                        <article class="tile is-child notification is-danger">
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
@@ -142,7 +144,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                         </article>
-                        <article class="tile is-child notification is-light">
+                        <article class="tile is-child notification is-danger">
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
@@ -197,7 +199,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
 
                         </article>
-                        <article class="tile is-child notification is-light">
+                        <article class="tile is-child notification is-danger">
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">

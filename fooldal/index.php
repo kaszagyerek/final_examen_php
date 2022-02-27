@@ -31,16 +31,21 @@ if (!isset($_SESSION['username'])) {
             <p class="link is-info">
                 Jelenlegi vagyona :
                 <?php
-                $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
                 $sql2 = "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
                 $sql3 = "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
+
+                $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
                 $result = mysqli_query($con, $sql1);
+                $data = mysqli_fetch_assoc($result);
+
+
                 $result2 = mysqli_query($con, $sql2);
                 $result3 = mysqli_query($con, $sql3);
-                $data = mysqli_fetch_assoc($result);
                 $data2 = mysqli_fetch_assoc($result2);
                 $data3 = mysqli_fetch_assoc($result3);
                 echo $data['sum1'] + $data2['sum2'] - $data3['sum3'];
+
+
                 ?>
                 ron
 
@@ -89,6 +94,90 @@ if (!isset($_SESSION['username'])) {
             <div class="tile is-vertical is-8">
                 <div class="tile">
                     <div class="tile is-parent is-vertical">
+                        <article class="tile is-child notification is-light">
+                            <p class="title">Kriptóvaluta</p>
+                            <p class="subtitle"></p>
+                            <div class="content">
+                                <tbody>
+                                <?php
+
+                                if (isset($_GET['idpersonalcrypto'])) {
+                                    $idpersonalcrypto = $_GET['idpersonalcrypto'];
+                                    $sql = "DELETE FROM personalcrypto WHERE idpersonalcrypto=$idpersonalcrypto";
+
+                                    if ($con->query($sql) === TRUE) {
+                                        header("Location: index.php");
+                                    } else {
+                                        echo "Hiba történt: " . $con->error;
+                                    }
+                                }
+
+
+                                $privateid = $_SESSION['userid'];
+                                $sql = "SELECT  *
+                            FROM crypto INNER JOIN personalcrypto ON crypto.idcrypto = personalcrypto.crypto_idcrypto
+                            WHERE personalcrypto.users_id = '$privateid' ";
+                                $result = $con->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    echo "<table border=1 >";
+                                    echo "<tr>";
+                                    echo "<th> Kriptó neve </th>";
+                                    echo "<th> Kriptó szimbolum </th>";
+                                    echo "<th> Kriptó képe </th>";
+                                    echo "<th> Jelenlegi ár </th>";
+                                    echo "<th> Hány darabom van </th>";
+                                    echo "<th> Menyiért vásároltam  </th>";
+                                    echo "<th> Mikor vásároltam  </th>";
+                                    echo "<th> Profit %  </th>";
+                                    echo "<th> Profit $  </th>";
+                                    echo "<th> Törlés </th>";
+
+                                    echo "</tr>";
+                                    while ($row = $result->fetch_assoc()) {
+                                        $kep = $row["cryptoimg"];
+                                        $idcr = $row["idpersonalcrypto"];
+                                        echo "<tr>";
+                                        echo "<td>" . $row["cryptoname"] . "</td>";
+                                        echo "<td>" . $row["cryptosymbol"] . "</td>";
+                                        echo "<td>" . "<img src=$kep alt='nem betölthető a kép' width='35' height='35'>" . "</td>";
+                                        echo "<td>" . $row["lastprice"] . "</td>";
+                                        echo "<td>" . $row["dbkrpto"] . "</td>";
+                                        echo "<td>" . $row["oldcrprice"] . "</td>";
+                                        echo "<td>" . $row["cryptodate"] . "</td>";
+                                       $sql2 = "SELECT kszaz FROM kriptoszazalek WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
+                                        $res = mysqli_query($con, $sql2);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format1 = round($dat['kszaz'], 2);
+
+                                        if($format1 >= 100){
+                                            echo "<td style='background-color: rgba(12,255,18,0.38)'>" . $format1 . '%' . "</td>";
+                                        } else {
+                                            echo "<td style='background-color:rgba(255,39,23,0.54)'>"  . $format1 . '%'. "</td>";
+                                        }
+                                        $sql3 = "SELECT kvagy FROM kriptonyereseg WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
+                                        $res = mysqli_query($con, $sql3);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format2 = round($dat['kvagy'], 2);
+
+                                        if($format2 >= 0){
+                                            echo "<td style='background-color: rgba(12,255,18,0.68)'>" . $format2 . '$' . "</td>";
+                                        } else {
+                                            echo "<td style='background-color:rgba(255,39,23,0.84)'>"  . $format2 . '$'. "</td>";
+                                        }
+
+                                        echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalcrypto=" . $row["idpersonalcrypto"] . "\">Törlés</a></td>";
+                                        echo "</tr>";
+                                    }
+                                    echo "</table>";
+                                } else {
+                                    echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='kereses/kriptokereses.php'> kattintson ide </a>";
+                                }
+                                ?>
+                                </tbody>
+
+                            </div>
+                        </article>
                         <article class="tile is-child notification is-danger">
                             <div class="card-table">
                                 <div class="content">
@@ -267,63 +356,6 @@ if (!isset($_SESSION['username'])) {
                     </article>
                 </div>
                 <div class="tile is-parent">
-                    <article class="tile is-child notification is-danger">
-                        <p class="title">Kriptóvaluta</p>
-                        <p class="subtitle"></p>
-                        <div class="content">
-                            <tbody>
-                            <?php
-                            if (isset($_GET['idworkplace'])) {
-                                $idworkplace = $_GET['idworkplace'];
-                                $sql = "DELETE FROM workplace WHERE idworkplace=$idworkplace";
-
-                                if ($con->query($sql) === TRUE) {
-                                    header("Location: index.php");
-                                } else {
-                                    echo "Hiba történt: " . $con->error;
-                                }
-                            }
-
-                            $privateid = $_SESSION['userid'];
-                            $sql = "SELECT  dbkrpto, oldcrprice, users_id, crypto_idcrypto ,idcrypto, cryptosymbol, lastprice, cryptoimg, marketCap,cryptoname, idpersonalcrypto
-                            FROM crypto INNER JOIN personalcrypto ON crypto.idcrypto = personalcrypto.crypto_idcrypto
-                            WHERE personalcrypto.users_id = '$privateid' ";
-                            $result = $con->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                // output data of each row
-                                echo "<table border=1 >";
-                                echo "<tr>";
-                                echo "<th> Kriptó neve </th>";
-                                echo "<th> Kriptó szimbolum </th>";
-                                echo "<th> Kriptó képe </th>";
-                                echo "<th> Jelenlegi ár </th>";
-                                echo "<th> Hány darabom van </th>";
-                                echo "<th> Menyiért vásároltam  </th>";
-                                echo "<th> Törlés </th>";
-
-                                echo "</tr>";
-                                while ($row = $result->fetch_assoc()) {
-                                    $kep = $row["cryptoimg"];
-                                    echo "<tr>";
-                                    echo "<td>" . $row["cryptoname"] . "</td>";
-                                    echo "<td>" . $row["cryptosymbol"] . "</td>";
-                                    echo "<td>" . "<img src=$kep alt='nem betölthető a kép' width='35' height='35'>" . "</td>";
-                                    echo "<td>" . $row["lastprice"] . "</td>";
-                                    echo "<td>" . $row["dbkrpto"] . "</td>";
-                                    echo "<td>" . $row["oldcrprice"] . "</td>";
-                                    echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalcrypto=" . $row["idpersonalcrypto"] . "\">Törlés</a></td>";
-                                    echo "</tr>";
-                                }
-                                echo "</table>";
-                            } else {
-                                echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='kereses/kriptokereses.php'> kattintson ide </a>";
-                            }
-                            ?>
-                            </tbody>
-
-                        </div>
-                    </article>
                 </div>
                 <div class="tile is-parent">
                     <article class="tile is-child notification is-info">
@@ -335,18 +367,7 @@ if (!isset($_SESSION['username'])) {
                     </article>
                 </div>
             </div>
-            <div class="tile is-parent">
-                <article class="tile is-child notification is-success">
-                    <div class="content">
-                        <p class="title">Hírek</p>
-                        <p class="subtitle">Statisztikák</p>
 
-                        <div class="content">
-                            <!-- Content -->
-                        </div>
-                    </div>
-                </article>
-            </div>
         </div>
 
     </div>

@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     $cr = $_GET['idcrypto'];
     echo  "dadada2 " . $cr;
 
-    $sql = "INSERT INTO `personalcrypto` ( `dbkrpto`, `oldcrprice`, `users_id`, `crypto_idcrypto`) VALUES ( '$db', '$ar', '$privateid', '$cr');";
+    $sql = "INSERT INTO `personalcrypto` ( `dbkrpto`, `oldcrprice`, `users_id`, `crypto_idcrypto`,cryptodate) VALUES ( '$db', '$ar', '$privateid', '$cr',now());";
 
     $result = $con->query($sql);
     echo "sikeres";

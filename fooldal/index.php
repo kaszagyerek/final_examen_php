@@ -97,6 +97,7 @@ if (!isset($_SESSION['username'])) {
         <div class="tile is-ancestor">
             <div class="tile is-vertical is-8">
                 <div class="tile">
+
                     <div class="tile is-parent is-vertical">
                         <article class="tile is-child notification is-light">
                             <p class="title">Kriptóvaluta</p>
@@ -199,6 +200,103 @@ if (!isset($_SESSION['username'])) {
 
                             </div>
                         </article>
+                        <article class="tile is-child notification is-light">
+                            <p class="title">Nemesfém</p>
+                            <p class="subtitle"></p>
+                            <div class="content">
+                                <tbody>
+                                <?php
+
+                                if (isset($_GET['idpersonalmetal'])) {
+                                    $idpersonalmetal = $_GET['idpersonalmetal'];
+                                    $sql = "DELETE FROM personalmetal WHERE idpersonalmetal=$idpersonalmetal";
+
+                                    if ($con->query($sql) === TRUE) {
+                                        header("Location: index.php");
+                                    } else {
+                                        echo "Hiba történt: " . $con->error;
+                                    }
+                                }
+
+
+                                $privateid = $_SESSION['userid'];
+                                $sql = "SELECT  *
+                                FROM metals INNER JOIN personalmetal ON metals.idmetals = personalmetal.metals_idmetals
+                                WHERE personalmetal.users_id = '$privateid' ";
+                                $result = $con->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    echo "<table border=1 >";
+                                    echo "<tr>";
+                                    echo "<th> Nemesfém szimbolum </th>";
+                                    echo "<th> Jelenlegi ár </th>";
+                                    echo "<th> Hány darabom van </th>";
+                                    echo "<th> Menyiért vásároltam  </th>";
+                                    echo "<th> Mikor vásároltam  </th>";
+                                    echo "<th> Profit %  </th>";
+                                    echo "<th> Profit $  </th>";
+                                    echo "<th> Jelenlegi érték $  </th>";
+                                    echo "<th> Törlés </th>";
+
+                                    echo "</tr>";
+                                    while ($row = $result->fetch_assoc()) {
+                                        $idcr = $row["idpersonalmetal"];
+                                        echo "<tr>";
+                                        echo "<td>" . $row["metalsymbol"] . "</td>";
+                                        echo "<td>" . $row["newPrice"] . "</td>";
+                                        echo "<td>" . $row["dbmetal"] . "</td>";
+                                        echo "<td>" . $row["oldprice"] . "</td>";
+                                        echo "<td>" . $row["metaldate"] . "</td>";
+                                       $sql2 = "SELECT kmet FROM metalszazalek WHERE users_id = '$privateid' AND idpersonalmetal = '$idcr' ";
+                                        $res = mysqli_query($con, $sql2);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format4 = round($dat['kmet'], 2);
+
+                                        if($format4 >= 100){
+                                            echo "<td style='background-color: rgba(12,255,18,0.48)'>" . $format4 . '%' . "</td>";
+                                        } else {
+                                            echo "<td style='background-color:rgba(255,39,23,0.44)'>"  . $format4 . '%'. "</td>";
+                                        }
+                                        $sql3 = "SELECT mvagy FROM metalsnyereseg WHERE users_id = '$privateid' AND idpersonalmetal = '$idcr' ";
+                                        $res = mysqli_query($con, $sql3);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format5 = round($dat['mvagy'], 2);
+
+                                        if($format5 >= 0){
+                                            echo "<td style='background-color: rgba(12,255,18,0.68)'>" . $format5 . '$' . "</td>";
+                                        } else {
+                                            echo "<td style='background-color:rgba(255,39,23,0.64)'>"  . $format5 . '$'. "</td>";
+                                        }
+
+
+                                        $sql3 = "SELECT mtej FROM metalsnyereseg WHERE users_id = '$privateid' AND idpersonalmetal = '$idcr' ";
+                                        $res = mysqli_query($con, $sql3);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format3 = round($dat['mtej'], 2);
+
+
+                                            echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
+
+
+
+
+
+                                        echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalmetal=" . $row["idpersonalmetal"] . "\">Törlés</a></td>";
+                                        echo "</tr>";
+
+
+
+                                    }
+                                    echo "</table>";
+                                } else {
+                                    echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='kereses/metalskereses.php'> kattintson ide </a>";
+                                }
+                                ?>
+                                </tbody>
+
+                            </div>
+                        </article>
+
                         <article class="tile is-child notification is-danger">
                             <div class="card-table">
                                 <div class="content">
@@ -376,15 +474,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
                     </article>
                 </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child notification is-info">
-                        <p class="title">Nemesfém</p>
-                        <p class="subtitle"></p>
-                        <div class="content">
-                            <!-- Content -->
-                        </div>
-                    </article>
-                </div>
+
 
                 <div class="tile is-parent">
                 </div>

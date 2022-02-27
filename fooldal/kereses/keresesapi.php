@@ -199,8 +199,6 @@ switch ($action2) {
 	<tr style="background-color:whitesmoke">
 		<th>Nemesfém szimbolum:</th>
 		<th>Nemesfém ár:</th>
-		<th>Hány darab van nekem:</th>
-		<th>Mennyiért vásároltam meg:</th>
 		<th>Beszurás</th>
 	
 	</tr>';
@@ -211,9 +209,7 @@ switch ($action2) {
 		<tr>
 		<td>' . $row1["metalsymbol"] . '</td>
 		<td>' . $row1["newPrice"] . '</td>
-		<td>  <input class="input is-warning" type="text" name="kriptodarab" maxlength="2" size="2" placeholder="ide darab">  </td>
-		<td>  <input  class="input is-warning" type="text" name="kriptoar" maxlength="6" size="6" placeholder="ide régi ár" >  </td>
-        <td>' . "<a class='button is-warning'  href=kripsql.php?idcrypto=$id>Beszurás</a>" . '</td>
+        <td>' . "<a class='button is-warning'  href=metalsql.php?idmetals=$id>Beszurás</a>" . '</td>
 
 		<td>  <input  style="background-color: rgba(223,204,65,0.31)" class="button is-warning" type="submit" name="metalkuldes" value="beszurás" >  </td>
 	

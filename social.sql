@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Feb 27. 17:58
+-- Létrehozás ideje: 2022. Feb 27. 18:51
 -- Kiszolgáló verziója: 10.4.21-MariaDB
 -- PHP verzió: 8.0.12
 
@@ -438,6 +438,36 @@ INSERT INTO `metals` (`idmetals`, `metalsymbol`, `newPrice`) VALUES
 -- --------------------------------------------------------
 
 --
+-- A nézet helyettes szerkezete `metalsnyereseg`
+-- (Lásd alább az aktuális nézetet)
+--
+CREATE TABLE `metalsnyereseg` (
+`mvagy` decimal(37,4)
+,`mtej` decimal(36,4)
+,`idpersonalmetal` int(11)
+,`newPrice` decimal(18,2)
+,`dbmetal` decimal(18,2)
+,`oldprice` decimal(18,2)
+,`users_id` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- A nézet helyettes szerkezete `metalszazalek`
+-- (Lásd alább az aktuális nézetet)
+--
+CREATE TABLE `metalszazalek` (
+`kmet` decimal(27,6)
+,`idpersonalmetal` int(11)
+,`dbmetal` decimal(18,2)
+,`oldprice` decimal(18,2)
+,`users_id` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Tábla szerkezet ehhez a táblához `personalcrypto`
 --
 
@@ -473,6 +503,15 @@ CREATE TABLE `personalmetal` (
   `metals_idmetals` int(11) NOT NULL,
   `users_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `personalmetal`
+--
+
+INSERT INTO `personalmetal` (`idpersonalmetal`, `dbmetal`, `oldprice`, `metaldate`, `metals_idmetals`, `users_id`) VALUES
+(2, '25.00', '13.00', '2022-02-27 19:45:18', 223, 27),
+(3, '30.00', '1.00', '2022-02-27 19:46:24', 213, 27),
+(5, '20.00', '5000.00', '2022-02-27 19:46:47', 243, 27);
 
 -- --------------------------------------------------------
 
@@ -568,6 +607,24 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `kriptoszazalek`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `kriptoszazalek`  AS SELECT `crypto`.`lastprice`/ `personalcrypto`.`oldcrprice` * 100 AS `kszaz`, `personalcrypto`.`idpersonalcrypto` AS `idpersonalcrypto`, `personalcrypto`.`dbkrpto` AS `dbkrpto`, `personalcrypto`.`oldcrprice` AS `oldcrprice`, `personalcrypto`.`users_id` AS `users_id` FROM (`crypto` join `personalcrypto` on(`crypto`.`idcrypto` = `personalcrypto`.`crypto_idcrypto`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Nézet szerkezete `metalsnyereseg`
+--
+DROP TABLE IF EXISTS `metalsnyereseg`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `metalsnyereseg`  AS SELECT (`metals`.`newPrice` - `personalmetal`.`oldprice`) * `personalmetal`.`dbmetal` AS `mvagy`, `metals`.`newPrice`* `personalmetal`.`dbmetal` AS `mtej`, `personalmetal`.`idpersonalmetal` AS `idpersonalmetal`, `metals`.`newPrice` AS `newPrice`, `personalmetal`.`dbmetal` AS `dbmetal`, `personalmetal`.`oldprice` AS `oldprice`, `personalmetal`.`users_id` AS `users_id` FROM (`metals` join `personalmetal` on(`metals`.`idmetals` = `personalmetal`.`metals_idmetals`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Nézet szerkezete `metalszazalek`
+--
+DROP TABLE IF EXISTS `metalszazalek`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `metalszazalek`  AS SELECT `metals`.`newPrice`/ `personalmetal`.`oldprice` * 100 AS `kmet`, `personalmetal`.`idpersonalmetal` AS `idpersonalmetal`, `personalmetal`.`dbmetal` AS `dbmetal`, `personalmetal`.`oldprice` AS `oldprice`, `personalmetal`.`users_id` AS `users_id` FROM (`metals` join `personalmetal` on(`metals`.`idmetals` = `personalmetal`.`metals_idmetals`)) ;
 
 --
 -- Indexek a kiírt táblákhoz
@@ -701,13 +758,13 @@ ALTER TABLE `metals`
 -- AUTO_INCREMENT a táblához `personalcrypto`
 --
 ALTER TABLE `personalcrypto`
-  MODIFY `idpersonalcrypto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idpersonalcrypto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT a táblához `personalmetal`
 --
 ALTER TABLE `personalmetal`
-  MODIFY `idpersonalmetal` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idpersonalmetal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `prouser`

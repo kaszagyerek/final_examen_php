@@ -33,20 +33,34 @@ if (!isset($_SESSION['username'])) {
             <p class="link is-info">
                 Jelenlegi vagyona :
                 <?php
-                $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
                 $sql2 = "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
                 $sql3 = "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
+
+                $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
                 $result = mysqli_query($con, $sql1);
+                $data = mysqli_fetch_assoc($result);
+
+
                 $result2 = mysqli_query($con, $sql2);
                 $result3 = mysqli_query($con, $sql3);
-                $data = mysqli_fetch_assoc($result);
                 $data2 = mysqli_fetch_assoc($result2);
                 $data3 = mysqli_fetch_assoc($result3);
-                echo $data['sum1'] + $data2['sum2'] - $data3['sum3'];
+
+                $sql4 = "SELECT SUM((dbkrpto*lastprice)*4.5) AS vagyon FROM kriptonyereseg WHERE users_id ='$_SESSION[userid]';";
+                $result4 = mysqli_query($con, $sql4);
+                $data4 = mysqli_fetch_assoc($result4);
+
+
+                $sql5 = "SELECT SUM((dbmetal*newPrice)*4.5) AS vagyon2 FROM metalsnyereseg WHERE users_id ='$_SESSION[userid]';";
+                $result5 = mysqli_query($con, $sql5);
+                $data5 = mysqli_fetch_assoc($result5);
+
+
+                echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] + $data4['vagyon'] + $data5['vagyon2'];
+
+
                 ?>
                 ron
-
-            </p>
             </p>
             <p class="level-item has-text-centered">
                 <img src="../img/fooldal/logo.png" alt="" style="height: 100px;">
@@ -84,7 +98,7 @@ if (!isset($_SESSION['username'])) {
                                 <p class="title">Nyitvatartásunk</p>
                                 <p> Cím: Strada Patinoarului 9, Miercurea Ciuc 530003</p>
                                 <p>hétfő 10:00–15:00</p>
-                                <p>kedd	10:00–15:00</p>
+                                <p>kedd 10:00–15:00</p>
                                 <p>szerda 10:00–15:00</p>
                                 <p>csütörtök 10:00–15:00</p>
                                 <p>péntek 10:00–15:00</p>
@@ -119,9 +133,15 @@ if (!isset($_SESSION['username'])) {
                         <div class="tile is-parent">
                             <article class="tile is-child notification is-black">
                                 <p class="title">KaszaPortfolio előfizetés</p>
-                                <p class="subtitle">A KaszaPortfolió csapatának fő célja, hogy az oldal a jövőben is ingyenes formában, teljes funkcionalitással tudjon működni. Sajnos az ehhez szükséges fenntartási és fejlesztési költségeket jelenleg reklámmentes az oldalunk, ezért találtuk ki a támogatás alapú Prémium tagságot.
-                                    Alapelvünk, hogy nem tiltjuk le és nem korlátozzuk az ingyenes verzió funkciót, így megőrizzük az ingyenes verzió teljes körű használhatóságát a továbbiakban is.
-                                    A Prémium tagság vásárlására senkit nem célunk rábeszélni, szeretnénk ha ezt inkább az oldal támogatása végett tennétek meg és a vele járó plusz prémium funkciókra köszönetünk jeleként tekintenétek.</p>
+                                <p class="subtitle">A KaszaPortfolió csapatának fő célja, hogy az oldal a jövőben is
+                                    ingyenes formában, teljes funkcionalitással tudjon működni. Sajnos az ehhez
+                                    szükséges fenntartási és fejlesztési költségeket jelenleg reklámmentes az oldalunk,
+                                    ezért találtuk ki a támogatás alapú Prémium tagságot.
+                                    Alapelvünk, hogy nem tiltjuk le és nem korlátozzuk az ingyenes verzió funkciót, így
+                                    megőrizzük az ingyenes verzió teljes körű használhatóságát a továbbiakban is.
+                                    A Prémium tagság vásárlására senkit nem célunk rábeszélni, szeretnénk ha ezt inkább
+                                    az oldal támogatása végett tennétek meg és a vele járó plusz prémium funkciókra
+                                    köszönetünk jeleként tekintenétek.</p>
 
                                 <p class="subtitle"> Itt teheti meg 5 euró / hónap </p>
                                 <p class="subtitle"> Közleménybe írja be a felhasználónevét </p>
@@ -146,7 +166,9 @@ if (!isset($_SESSION['username'])) {
                             <p class="subtitle">Ha szeretne meglátogatni minket</p>
 
                             <div class="mapsk">
-                                <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29128.52628189388!2d25.779858691974738!3d46.34996840640623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474b2a11ee2d0f9b%3A0x8c9a52dac2586a4b!2sSapientia%20Erd%C3%A9lyi%20Magyar%20Tudom%C3%A1nyegyetem!5e1!3m2!1shu!2sro!4v1645439682001!5m2!1shu!2sro" width="450" height="800" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29128.52628189388!2d25.779858691974738!3d46.34996840640623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474b2a11ee2d0f9b%3A0x8c9a52dac2586a4b!2sSapientia%20Erd%C3%A9lyi%20Magyar%20Tudom%C3%A1nyegyetem!5e1!3m2!1shu!2sro!4v1645439682001!5m2!1shu!2sro"
+                                        width="450" height="800" style="border:0;" allowfullscreen=""
+                                        loading="lazy"></iframe>
                             </div>
                         </div>
                     </article>

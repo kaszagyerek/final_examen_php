@@ -103,7 +103,14 @@ if (!isset($_SESSION['username'])) {
                         <article class="tile is-child box">
                             <p class="title">
                                 <?php
-                                $sql = "SELECT (SELECT SUM(salary) FROM workplace) + (SELECT SUM(totalhprice) FROM house) -  (SELECT SUM(broker+tax+hrenovation) FROM expense)AS sum;";
+                                $sql = "SELECT (SELECT SUM(salary) FROM workplace) + 
+                                (SELECT SUM(totalhprice) FROM house) -  
+                                (SELECT SUM(broker+tax+hrenovation) FROM expense) +
+
+                                (SELECT SUM(ktej*4.5) FROM kriptonyereseg) +
+                                (SELECT SUM(mtej*4.5) FROM metalsnyereseg) 
+
+                                AS sum";
                                 $result = mysqli_query($con, $sql);
                                 $data = mysqli_fetch_assoc($result);
                                 echo $data['sum'];

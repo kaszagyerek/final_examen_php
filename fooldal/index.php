@@ -20,7 +20,7 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
 <div class="rendez">
-    <div >
+    <div>
         <nav class="level">
             <p class="level-item has-text-centered">
                 <b class="link is-info"><?php
@@ -44,16 +44,21 @@ if (!isset($_SESSION['username'])) {
                 $data2 = mysqli_fetch_assoc($result2);
                 $data3 = mysqli_fetch_assoc($result3);
 
-               $sql4 = "SELECT SUM((dbkrpto*lastprice)*5) AS vagyon FROM kriptonyereseg WHERE users_id ='$_SESSION[userid]';";
+                $sql4 = "SELECT SUM((dbkrpto*lastprice)*4.5) AS vagyon FROM kriptonyereseg WHERE users_id ='$_SESSION[userid]';";
                 $result4 = mysqli_query($con, $sql4);
                 $data4 = mysqli_fetch_assoc($result4);
-                echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] +$data4['vagyon'] ;
+
+
+                $sql5 = "SELECT SUM((dbmetal*newPrice)*4.5) AS vagyon2 FROM metalsnyereseg WHERE users_id ='$_SESSION[userid]';";
+                $result5 = mysqli_query($con, $sql5);
+                $data5 = mysqli_fetch_assoc($result5);
+
+
+                echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] + $data4['vagyon'] + $data5['vagyon2'];
 
 
                 ?>
                 ron
-
-            </p>
             </p>
             <p class="level-item has-text-centered">
                 <img src="../img/fooldal/logo.png" alt="" style="height: 100px;">
@@ -151,25 +156,25 @@ if (!isset($_SESSION['username'])) {
                                         echo "<td>" . $row["dbkrpto"] . "</td>";
                                         echo "<td>" . $row["oldcrprice"] . "</td>";
                                         echo "<td>" . $row["cryptodate"] . "</td>";
-                                       $sql2 = "SELECT kszaz FROM kriptoszazalek WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
+                                        $sql2 = "SELECT kszaz FROM kriptoszazalek WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
                                         $res = mysqli_query($con, $sql2);
                                         $dat = mysqli_fetch_assoc($res);
                                         $format1 = round($dat['kszaz'], 2);
 
-                                        if($format1 >= 100){
+                                        if ($format1 >= 100) {
                                             echo "<td style='background-color: rgba(12,255,18,0.48)'>" . $format1 . '%' . "</td>";
                                         } else {
-                                            echo "<td style='background-color:rgba(255,39,23,0.44)'>"  . $format1 . '%'. "</td>";
+                                            echo "<td style='background-color:rgba(255,39,23,0.44)'>" . $format1 . '%' . "</td>";
                                         }
                                         $sql3 = "SELECT kvagy FROM kriptonyereseg WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
                                         $res = mysqli_query($con, $sql3);
                                         $dat = mysqli_fetch_assoc($res);
                                         $format2 = round($dat['kvagy'], 2);
 
-                                        if($format2 >= 0){
+                                        if ($format2 >= 0) {
                                             echo "<td style='background-color: rgba(12,255,18,0.68)'>" . $format2 . '$' . "</td>";
                                         } else {
-                                            echo "<td style='background-color:rgba(255,39,23,0.64)'>"  . $format2 . '$'. "</td>";
+                                            echo "<td style='background-color:rgba(255,39,23,0.64)'>" . $format2 . '$' . "</td>";
                                         }
 
 
@@ -179,15 +184,11 @@ if (!isset($_SESSION['username'])) {
                                         $format3 = round($dat['ktej'], 2);
 
 
-                                            echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
-
-
-
+                                        echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
 
 
                                         echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalcrypto=" . $row["idpersonalcrypto"] . "\">Törlés</a></td>";
                                         echo "</tr>";
-
 
 
                                     }
@@ -247,25 +248,25 @@ if (!isset($_SESSION['username'])) {
                                         echo "<td>" . $row["dbmetal"] . "</td>";
                                         echo "<td>" . $row["oldprice"] . "</td>";
                                         echo "<td>" . $row["metaldate"] . "</td>";
-                                       $sql2 = "SELECT kmet FROM metalszazalek WHERE users_id = '$privateid' AND idpersonalmetal = '$idcr' ";
+                                        $sql2 = "SELECT kmet FROM metalszazalek WHERE users_id = '$privateid' AND idpersonalmetal = '$idcr' ";
                                         $res = mysqli_query($con, $sql2);
                                         $dat = mysqli_fetch_assoc($res);
                                         $format4 = round($dat['kmet'], 2);
 
-                                        if($format4 >= 100){
+                                        if ($format4 >= 100) {
                                             echo "<td style='background-color: rgba(12,255,18,0.48)'>" . $format4 . '%' . "</td>";
                                         } else {
-                                            echo "<td style='background-color:rgba(255,39,23,0.44)'>"  . $format4 . '%'. "</td>";
+                                            echo "<td style='background-color:rgba(255,39,23,0.44)'>" . $format4 . '%' . "</td>";
                                         }
                                         $sql3 = "SELECT mvagy FROM metalsnyereseg WHERE users_id = '$privateid' AND idpersonalmetal = '$idcr' ";
                                         $res = mysqli_query($con, $sql3);
                                         $dat = mysqli_fetch_assoc($res);
                                         $format5 = round($dat['mvagy'], 2);
 
-                                        if($format5 >= 0){
+                                        if ($format5 >= 0) {
                                             echo "<td style='background-color: rgba(12,255,18,0.68)'>" . $format5 . '$' . "</td>";
                                         } else {
-                                            echo "<td style='background-color:rgba(255,39,23,0.64)'>"  . $format5 . '$'. "</td>";
+                                            echo "<td style='background-color:rgba(255,39,23,0.64)'>" . $format5 . '$' . "</td>";
                                         }
 
 
@@ -275,15 +276,11 @@ if (!isset($_SESSION['username'])) {
                                         $format3 = round($dat['mtej'], 2);
 
 
-                                            echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
-
-
-
+                                        echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
 
 
                                         echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalmetal=" . $row["idpersonalmetal"] . "\">Törlés</a></td>";
                                         echo "</tr>";
-
 
 
                                     }

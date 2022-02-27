@@ -32,19 +32,34 @@ if (!isset($_SESSION['username'])) {
         <p class="link is-info">
             Jelenlegi vagyona :
             <?php
-            $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
             $sql2 = "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
             $sql3 = "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
+
+            $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
             $result = mysqli_query($con, $sql1);
+            $data = mysqli_fetch_assoc($result);
+
+
             $result2 = mysqli_query($con, $sql2);
             $result3 = mysqli_query($con, $sql3);
-            $data = mysqli_fetch_assoc($result);
             $data2 = mysqli_fetch_assoc($result2);
             $data3 = mysqli_fetch_assoc($result3);
-            echo $data['sum1'] + $data2['sum2'] - $data3['sum3'];
+
+            $sql4 = "SELECT SUM((dbkrpto*lastprice)*4.5) AS vagyon FROM kriptonyereseg WHERE users_id ='$_SESSION[userid]';";
+            $result4 = mysqli_query($con, $sql4);
+            $data4 = mysqli_fetch_assoc($result4);
+
+
+            $sql5 = "SELECT SUM((dbmetal*newPrice)*4.5) AS vagyon2 FROM metalsnyereseg WHERE users_id ='$_SESSION[userid]';";
+            $result5 = mysqli_query($con, $sql5);
+            $data5 = mysqli_fetch_assoc($result5);
+
+
+            echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] + $data4['vagyon'] + $data5['vagyon2'];
+
+
             ?>
             ron
-
         </p>
         <p class="level-item has-text-centered">
             <img src="../img/fooldal/logo.png" alt="" style="height: 100px;">
@@ -322,7 +337,7 @@ if (!isset($_SESSION['username'])) {
                         <?php
                         $privateid = $_SESSION['userid'];
                         if (isset($_POST['vtelefon'])) {
-                            $telefon = mysqli_real_escape_string($con,$_POST['telefon']);
+                            $telefon = mysqli_real_escape_string($con, $_POST['telefon']);
                             if (isset($telefon) && !empty($telefon) && strlen($telefon) >= 8 && is_numeric($telefon)) {
                                 $sql = "UPDATE `users` SET `phone_number`='$telefon' WHERE id = '$privateid' ";
 
@@ -373,41 +388,41 @@ if (!isset($_SESSION['username'])) {
                         <?php
 
                         $privateid = $_SESSION['userid'];
-/*                        if (isset($_POST['submit'])) {
-                            $valid_formats = array("image/jpg", "image/jpeg","image/png", "image/bmp");
-                            if(!in_array($_FILES["kep"]["type"], $valid_formats)) {
-                                die("Csak JPG, PNG vagy BMP!");
-                            }
+                        /*                        if (isset($_POST['submit'])) {
+                                                    $valid_formats = array("image/jpg", "image/jpeg","image/png", "image/bmp");
+                                                    if(!in_array($_FILES["kep"]["type"], $valid_formats)) {
+                                                        die("Csak JPG, PNG vagy BMP!");
+                                                    }
 
-                            if ($_FILES["kep"]["error"] != 0){
-                                die("Hiba a feltöltés során");
-                            }
-
-
-                            if($_FILES["kep"]["size"] > 10*1024*1024) {
-                                die("Túl nagy méretű fájl");
-                            }
-                            move_uploaded_file($_FILES["kep"]["tmp_name"], "laptopallamvizsga/img/profile_pics/" . $_FILES["kep"]["name"]);
+                                                    if ($_FILES["kep"]["error"] != 0){
+                                                        die("Hiba a feltöltés során");
+                                                    }
 
 
-                            $fenykep = mysqli_real_escape_string($con,$_POST['img']);
-                            if (isset($fenykep) && !empty($fenykep)) {
-                                $image = file_get_contents($fenykep);
-                                file_put_contents('laptopallamvizsga/img/profile_pics', $image);
+                                                    if($_FILES["kep"]["size"] > 10*1024*1024) {
+                                                        die("Túl nagy méretű fájl");
+                                                    }
+                                                    move_uploaded_file($_FILES["kep"]["tmp_name"], "laptopallamvizsga/img/profile_pics/" . $_FILES["kep"]["name"]);
 
-                                $sql = "UPDATE `users` SET `profile_pic`='$fenykep' WHERE id = '$privateid' ";
 
-                                if ($con->query($sql) === TRUE) {
-                                    echo "sikeresen rögzitettük a fényképét<br>";
-                                } else {
-                                    echo "Hiba történt: " . $con->error;
-                                }
-                            } else {
-                                if (empty($fenykep)) {
-                                    echo "A fényképet üresen nem lehet beküldeni<br>";
-                                }
-                            }
-                        }*/
+                                                    $fenykep = mysqli_real_escape_string($con,$_POST['img']);
+                                                    if (isset($fenykep) && !empty($fenykep)) {
+                                                        $image = file_get_contents($fenykep);
+                                                        file_put_contents('laptopallamvizsga/img/profile_pics', $image);
+
+                                                        $sql = "UPDATE `users` SET `profile_pic`='$fenykep' WHERE id = '$privateid' ";
+
+                                                        if ($con->query($sql) === TRUE) {
+                                                            echo "sikeresen rögzitettük a fényképét<br>";
+                                                        } else {
+                                                            echo "Hiba történt: " . $con->error;
+                                                        }
+                                                    } else {
+                                                        if (empty($fenykep)) {
+                                                            echo "A fényképet üresen nem lehet beküldeni<br>";
+                                                        }
+                                                    }
+                                                }*/
                         $sql = "SELECT profile_pic FROM users WHERE id = '$privateid' ";
                         $result = $con->query($sql);
 
@@ -429,8 +444,8 @@ if (!isset($_SESSION['username'])) {
                         }
                         ?>
                         <form action="" method="post" enctype="multipart/form-data">
-                            <input type="file" name="kep" />
-                            <input type="submit" value="Upload!" />
+                            <input type="file" name="kep"/>
+                            <input type="submit" value="Upload!"/>
                         </form>
                     </div>
                 </article>

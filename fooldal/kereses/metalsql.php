@@ -6,12 +6,12 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 $privateid = $_SESSION['userid'];
-echo  "dadada " . $privateid;
+echo "dadada " . $privateid;
 if (isset($_POST['submit'])) {
     $db = $_POST['db'];
     $ar = $_POST['ar'];
     $cr = $_GET['idmetals'];
-    echo  "dadada2 " . $cr;
+    echo "dadada2 " . $cr;
 
     $sql = "INSERT INTO `personalmetal` ( dbmetal, oldprice, metaldate, metals_idmetals, users_id) VALUES ( '$db', '$ar', now() , '$cr' ,'$privateid');";
 
@@ -30,6 +30,6 @@ if (isset($_POST['submit'])) {
     db:<input type="Text" name="db"><br>
     ar:<input type="Text" name="ar"><br>
     <input type="submit" name="submit" value="Elkuld">
-    <input type="hidden" name="id" value=<?php echo $_GET['idmetals']; ?> >
+    <input type="hidden" name="id" value=<?php echo $_GET['idmetals']; ?>>
 </form>
 

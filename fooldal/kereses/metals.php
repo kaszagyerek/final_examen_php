@@ -9,7 +9,7 @@ if (isset($_POST['lekerdezi'])) {
     $from = 'USD';
     $to = 'EUR';
     $amount = 50;
-    $ch = curl_init('https://www.metals-api.com/api/'.$endpoint.'?access_key='.$access_key);
+    $ch = curl_init('https://www.metals-api.com/api/' . $endpoint . '?access_key=' . $access_key);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
     $json = curl_exec($ch);

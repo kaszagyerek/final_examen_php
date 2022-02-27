@@ -129,12 +129,12 @@ switch ($action2) {
 		<th>beszurás</th>
 	
 	</tr>';
-        while ($row1 = mysqli_fetch_array($result)) {
-        $kep = $row1["cryptoimg"];
-        $id = $row1["idcrypto"];
-        $return .= '
+            while ($row1 = mysqli_fetch_array($result)) {
+                $kep = $row1["cryptoimg"];
+                $id = $row1["idcrypto"];
+                $return .= '
         <tr  style="background-color:rgba(223,204,65,0.1)">
-		<td >' . $row1["rank"] .  '</td>
+		<td >' . $row1["rank"] . '</td>
 	    <td>' . "<img src=$kep alt='nem betölthető a kép' width='35' height='35'>" . '</td>
 		<td>' . $row1["cryptosymbol"] . '</td>
         <td>' . $row1["cryptoname"] . '</td>

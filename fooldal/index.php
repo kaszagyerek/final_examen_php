@@ -271,7 +271,57 @@ if (!isset($_SESSION['username'])) {
                         <p class="title">Kriptóvaluta</p>
                         <p class="subtitle"></p>
                         <div class="content">
-                            <!-- Content -->
+                            <tbody>
+                            <?php
+                            if (isset($_GET['idworkplace'])) {
+                                $idworkplace = $_GET['idworkplace'];
+                                $sql = "DELETE FROM workplace WHERE idworkplace=$idworkplace";
+
+                                if ($con->query($sql) === TRUE) {
+                                    header("Location: index.php");
+                                } else {
+                                    echo "Hiba történt: " . $con->error;
+                                }
+                            }
+
+                            $privateid = $_SESSION['userid'];
+                            $sql = "SELECT  dbkrpto, oldcrprice, users_id, crypto_idcrypto ,idcrypto, cryptosymbol, lastprice, cryptoimg, marketCap,cryptoname, idpersonalcrypto
+                            FROM crypto INNER JOIN personalcrypto ON crypto.idcrypto = personalcrypto.crypto_idcrypto
+                            WHERE personalcrypto.users_id = '$privateid' ";
+                            $result = $con->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                // output data of each row
+                                echo "<table border=1 >";
+                                echo "<tr>";
+                                echo "<th> Kriptó neve </th>";
+                                echo "<th> Kriptó szimbolum </th>";
+                                echo "<th> Kriptó képe </th>";
+                                echo "<th> Jelenlegi ár </th>";
+                                echo "<th> Hány darabom van </th>";
+                                echo "<th> Menyiért vásároltam  </th>";
+                                echo "<th> Törlés </th>";
+
+                                echo "</tr>";
+                                while ($row = $result->fetch_assoc()) {
+                                    $kep = $row["cryptoimg"];
+                                    echo "<tr>";
+                                    echo "<td>" . $row["cryptoname"] . "</td>";
+                                    echo "<td>" . $row["cryptosymbol"] . "</td>";
+                                    echo "<td>" . "<img src=$kep alt='nem betölthető a kép' width='35' height='35'>" . "</td>";
+                                    echo "<td>" . $row["lastprice"] . "</td>";
+                                    echo "<td>" . $row["dbkrpto"] . "</td>";
+                                    echo "<td>" . $row["oldcrprice"] . "</td>";
+                                    echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalcrypto=" . $row["idpersonalcrypto"] . "\">Törlés</a></td>";
+                                    echo "</tr>";
+                                }
+                                echo "</table>";
+                            } else {
+                                echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='kereses/kriptokereses.php'> kattintson ide </a>";
+                            }
+                            ?>
+                            </tbody>
+
                         </div>
                     </article>
                 </div>

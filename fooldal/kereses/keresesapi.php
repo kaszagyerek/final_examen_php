@@ -126,8 +126,6 @@ switch ($action2) {
         <th>kriptó neve</th>
 		<th>ára</th>
 		<th>piaci kapitalizáció</th>
-		<th>darabszám</th>
-		<th>az ár amiben vásárolta</th>
 		<th>beszurás</th>
 	
 	</tr>';
@@ -142,7 +140,6 @@ switch ($action2) {
         <td>' . $row1["cryptoname"] . '</td>
         <td>' . $row1["lastprice"] . '</td>
 		<td>' . $row1["marketCap"] . '</td>
-		<td>' . $row1["idcrypto"] . '</td>
 		<td>' . "<a href=kripsql.php?idcrypto=$id>Update</a>" . '</td>
 		</tr>';
             }

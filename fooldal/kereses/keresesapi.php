@@ -140,7 +140,7 @@ switch ($action2) {
         <td>' . $row1["cryptoname"] . '</td>
         <td>' . $row1["lastprice"] . '</td>
 		<td>' . $row1["marketCap"] . '</td>
-		<td>' . "<a href=kripsql.php?idcrypto=$id>Update</a>" . '</td>
+		<td>' . "<a href=kripsql.php?idcrypto=$id>Beszurás</a>" . '</td>
 		</tr>';
             }
             echo $return;
@@ -182,6 +182,7 @@ switch ($action2) {
 
         break;
     case "metalsearch":
+
         $return = '';
         if (isset($_POST["query"])) {
             $search = mysqli_real_escape_string($con, $_POST["query"]);
@@ -204,12 +205,16 @@ switch ($action2) {
 	
 	</tr>';
             while ($row1 = mysqli_fetch_array($result)) {
+                $id = $row1["idmetals"];
+
                 $return .= '
 		<tr>
 		<td>' . $row1["metalsymbol"] . '</td>
 		<td>' . $row1["newPrice"] . '</td>
 		<td>  <input class="input is-warning" type="text" name="kriptodarab" maxlength="2" size="2" placeholder="ide darab">  </td>
 		<td>  <input  class="input is-warning" type="text" name="kriptoar" maxlength="6" size="6" placeholder="ide régi ár" >  </td>
+        <td>' . "<a class='button is-warning'  href=kripsql.php?idcrypto=$id>Beszurás</a>" . '</td>
+
 		<td>  <input  style="background-color: rgba(223,204,65,0.31)" class="button is-warning" type="submit" name="metalkuldes" value="beszurás" >  </td>
 	
 		</tr>';

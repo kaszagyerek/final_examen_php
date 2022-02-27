@@ -43,7 +43,11 @@ if (!isset($_SESSION['username'])) {
                 $result3 = mysqli_query($con, $sql3);
                 $data2 = mysqli_fetch_assoc($result2);
                 $data3 = mysqli_fetch_assoc($result3);
-                echo $data['sum1'] + $data2['sum2'] - $data3['sum3'];
+
+               $sql4 = "SELECT SUM((dbkrpto*lastprice)*5) AS vagyon FROM kriptonyereseg WHERE users_id ='$_SESSION[userid]';";
+                $result4 = mysqli_query($con, $sql4);
+                $data4 = mysqli_fetch_assoc($result4);
+                echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] +$data4['vagyon'] ;
 
 
                 ?>
@@ -131,6 +135,7 @@ if (!isset($_SESSION['username'])) {
                                     echo "<th> Mikor vásároltam  </th>";
                                     echo "<th> Profit %  </th>";
                                     echo "<th> Profit $  </th>";
+                                    echo "<th> Jelenlegi érték $  </th>";
                                     echo "<th> Törlés </th>";
 
                                     echo "</tr>";
@@ -151,9 +156,9 @@ if (!isset($_SESSION['username'])) {
                                         $format1 = round($dat['kszaz'], 2);
 
                                         if($format1 >= 100){
-                                            echo "<td style='background-color: rgba(12,255,18,0.38)'>" . $format1 . '%' . "</td>";
+                                            echo "<td style='background-color: rgba(12,255,18,0.48)'>" . $format1 . '%' . "</td>";
                                         } else {
-                                            echo "<td style='background-color:rgba(255,39,23,0.54)'>"  . $format1 . '%'. "</td>";
+                                            echo "<td style='background-color:rgba(255,39,23,0.44)'>"  . $format1 . '%'. "</td>";
                                         }
                                         $sql3 = "SELECT kvagy FROM kriptonyereseg WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
                                         $res = mysqli_query($con, $sql3);
@@ -163,11 +168,27 @@ if (!isset($_SESSION['username'])) {
                                         if($format2 >= 0){
                                             echo "<td style='background-color: rgba(12,255,18,0.68)'>" . $format2 . '$' . "</td>";
                                         } else {
-                                            echo "<td style='background-color:rgba(255,39,23,0.84)'>"  . $format2 . '$'. "</td>";
+                                            echo "<td style='background-color:rgba(255,39,23,0.64)'>"  . $format2 . '$'. "</td>";
                                         }
+
+
+                                        $sql3 = "SELECT ktej FROM kriptonyereseg WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
+                                        $res = mysqli_query($con, $sql3);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format3 = round($dat['ktej'], 2);
+
+
+                                            echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
+
+
+
+
 
                                         echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalcrypto=" . $row["idpersonalcrypto"] . "\">Törlés</a></td>";
                                         echo "</tr>";
+
+
+
                                     }
                                     echo "</table>";
                                 } else {
@@ -356,8 +377,6 @@ if (!isset($_SESSION['username'])) {
                     </article>
                 </div>
                 <div class="tile is-parent">
-                </div>
-                <div class="tile is-parent">
                     <article class="tile is-child notification is-info">
                         <p class="title">Nemesfém</p>
                         <p class="subtitle"></p>
@@ -365,6 +384,9 @@ if (!isset($_SESSION['username'])) {
                             <!-- Content -->
                         </div>
                     </article>
+                </div>
+
+                <div class="tile is-parent">
                 </div>
             </div>
 

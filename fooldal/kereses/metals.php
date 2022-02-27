@@ -26,6 +26,7 @@ if (isset($_POST['lekerdezi'])) {
         $sql = "INSERT INTO `metals` (metalsymbol, newPrice) VALUES ( '$metal','$price');";
 
         if ($con->query($sql) === TRUE) {
+            echo "sikeres";
         } else {
             echo "Error: " . $sql . "<br>" . $con->error;
         }

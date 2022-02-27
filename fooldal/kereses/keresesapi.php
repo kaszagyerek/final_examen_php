@@ -11,21 +11,7 @@ $action2 = isset($_POST['action']) ? $_POST['action'] : "";
 if (isset($con)) {
     $con;
 }
-if(isset($_POST['kriptokuldes'])){
-    $kriptodarab = mysqli_real_escape_string($con, $_POST['kriptodarab']);
-    $kriptoar = mysqli_real_escape_string($con, $_POST['kriptoar']);
-    $privateid = $_SESSION['userid'];
 
-
-    $sql = "INSERT INTO `personalcrypto` (dbkrpto, oldcrprice, users_id) VALUES ('$kriptodarab','$kriptoar','$privateid')";
-
-    if (mysqli_query($con, $sql)) {
-        echo "sikeres";
-    } else {
-        echo "sikertelen";
-    }
-
-}
 
 switch ($action) {
 
@@ -145,9 +131,9 @@ switch ($action2) {
 		<th>beszurás</th>
 	
 	</tr>';
-        echo "<form method='post' action=''>";
         while ($row1 = mysqli_fetch_array($result)) {
         $kep = $row1["cryptoimg"];
+        $id = $row1["idcrypto"];
         $return .= '
         <tr  style="background-color:rgba(223,204,65,0.1)">
 		<td >' . $row1["rank"] .  '</td>
@@ -156,12 +142,10 @@ switch ($action2) {
         <td>' . $row1["cryptoname"] . '</td>
         <td>' . $row1["lastprice"] . '</td>
 		<td>' . $row1["marketCap"] . '</td>
-		<td>  <input class="input is-warning" type="text" name="kriptodarab" maxlength="6" size="6" placeholder="ide darab">  </td>
-		<td>  <input  class="input is-warning" type="text" name="kriptoar" maxlength="6" size="6" placeholder="ide régi ár" >  </td>
-		<td>  <input  style="background-color: rgba(223,204,65,0.31)" class="button is-warning" type="submit" name="kriptokuldes" value="beszurás" >  </td>
+		<td>' . $row1["idcrypto"] . '</td>
+		<td>' . "<a href=kripsql.php?idcrypto=$id>Update</a>" . '</td>
 		</tr>';
             }
-        echo "</form>";
             echo $return;
         } else {
             echo 'Nem található eredmény';
@@ -213,9 +197,13 @@ switch ($action2) {
         if (mysqli_num_rows($result) > 0) {
             $return .= '
 	<div class="table-responsive">
-	<table class="table table bordered">
-	<tr>
-		<th>Nemesfémek:</th>
+   <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+	<tr style="background-color:whitesmoke">
+		<th>Nemesfém szimbolum:</th>
+		<th>Nemesfém ár:</th>
+		<th>Hány darab van nekem:</th>
+		<th>Mennyiért vásároltam meg:</th>
+		<th>Beszurás</th>
 	
 	</tr>';
             while ($row1 = mysqli_fetch_array($result)) {
@@ -223,6 +211,9 @@ switch ($action2) {
 		<tr>
 		<td>' . $row1["metalsymbol"] . '</td>
 		<td>' . $row1["newPrice"] . '</td>
+		<td>  <input class="input is-warning" type="text" name="kriptodarab" maxlength="2" size="2" placeholder="ide darab">  </td>
+		<td>  <input  class="input is-warning" type="text" name="kriptoar" maxlength="6" size="6" placeholder="ide régi ár" >  </td>
+		<td>  <input  style="background-color: rgba(223,204,65,0.31)" class="button is-warning" type="submit" name="metalkuldes" value="beszurás" >  </td>
 	
 		</tr>';
             }

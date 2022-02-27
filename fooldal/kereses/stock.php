@@ -3,6 +3,7 @@ require_once "connection.php";
 
 
 if (isset($_POST['lekerdezi'])) {
+    /*
     $url = 'https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json';
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HTTPGET, true);
@@ -22,7 +23,34 @@ if (isset($_POST['lekerdezi'])) {
         } else {
             echo "Error: " . $sql . "<br>" . $con->error;
         }
+    } */
+
+    set_time_limit(0);
+
+    $url_info = "https://financialmodelingprep.com/api/v3/quote/AAPL,FB,GOOG?apikey=ce47caa60855cdc17aac857a4bb987af";
+
+    $channel = curl_init();
+
+    curl_setopt($channel, CURLOPT_AUTOREFERER, TRUE);
+    curl_setopt($channel, CURLOPT_HEADER, 0);
+    curl_setopt($channel, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($channel, CURLOPT_URL, $url_info);
+    curl_setopt($channel, CURLOPT_FOLLOWLOCATION, TRUE);
+    curl_setopt($channel, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+    curl_setopt($channel, CURLOPT_TIMEOUT, 0);
+    curl_setopt($channel, CURLOPT_CONNECTTIMEOUT, 0);
+    curl_setopt($channel, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($channel, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    $output = curl_exec($channel);
+
+    if (curl_error($channel)) {
+        return 'error:' . curl_error($channel);
+    } else {
+        $outputJSON = json_decode($output);
+        var_dump($outputJSON);
     }
+
 }
 
 if (isset($_POST['torli'])) {
@@ -41,7 +69,7 @@ if (isset($_POST['torli'])) {
 ?>
 
 
-<form method="post">
+<form method="post" action="">
     <input type="submit" name="lekerdezi" class="button" value="lekerdezi"/>
     <input type="submit" name="torli" class="button" value="torli"/>
 

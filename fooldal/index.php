@@ -275,7 +275,6 @@ if (!isset($_SESSION['username'])) {
                                         $dat = mysqli_fetch_assoc($res);
                                         $format3 = round($dat['mtej'], 2);
 
-
                                         echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
 
 
@@ -318,31 +317,77 @@ if (!isset($_SESSION['username'])) {
                                 WHERE personalstock.users_id = '$privateid'; ";
                                 $result = $con->query($sql);
 
+
+
+
+
                                 if ($result->num_rows > 0) {
                                     echo "<table border=1 >";
                                     echo "<tr>";
                                     echo "<th> Részvény neve  </th>";
                                     echo "<th> Részvény szimbolum  </th>";
                                     echo "<th> Részvény szektora  </th>";
-                                    echo "<th> Részvény url </th>";
                                     echo "<th> Hány darabom van </th>";
-                                    echo "<th> Menyiért vásároltam  </th>";
                                     echo "<th> Mikor vásároltam  </th>";
+
+                                    echo "<th> Menyiért vásároltam  </th>";
+                                    echo "<th> Jelen ár  </th>";
+
+                                    echo "<th> % vagyon  </th>";
+
+
                                     echo "<th> Törlés </th>";
 
                                     echo "</tr>";
                                     while ($row = $result->fetch_assoc()) {
                                         $idcr = $row["idpersonalstock"];
+                                        $url =  "http://www.nasdaq.com/" . $row["stockurl"] ;
                                         echo "<tr>";
                                         echo "<td>" . $row["stockname"] . "</td>";
-                                        echo "<td>" . $row["stocksymbol"] . "</td>";
+                                        echo "<td style='color: #3a51bb'>" .'<a href="http://www.nasdaq.com/$url" target="_blank">' . $row["stocksymbol"]  ."</a>" ."</td>";
                                         echo "<td>" . $row["stocksector"] . "</td>";
-                                        echo "<td>" . $row["stockurl"] . "</td>";
                                         echo "<td>" . $row["dbstock"] . "</td>";
-                                        echo "<td>" . $row["oldprice"] . "</td>";
                                         echo "<td>" . $row["stockdata"] . "</td>";
 
-                                        echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalstock=" . $row["idpersonalstock"] . "\">Törlés</a></td>";
+                                        echo "<td>" . $row["oldprice"] . "</td>";
+                                        echo "<td>" .$row["newPrice"] . "</td>";
+
+
+
+
+                                        $sql2 = "SELECT szmet FROM stockszazalek WHERE users_id = '$privateid' AND idpersonalstock = '$idcr' ";
+                                        $res = mysqli_query($con, $sql2);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format4 = round($dat['szmet'], 2);
+
+                                        if ($format4 >= 100) {
+                                            echo "<td style='background-color: rgba(12,255,18,0.48)'>" . $format4 . '%' . "</td>";
+                                        } else {
+                                            echo "<td style='background-color:rgba(255,39,23,0.44)'>" . $format4 . '%' . "</td>";
+                                        }
+
+
+                                       $sql3 = "SELECT szvagy FROM stocknyereseg WHERE users_id = '$privateid' AND idpersonalstock = '$idcr' ";
+                                        $res = mysqli_query($con, $sql3);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format5 = round($dat['szvagy'], 2);
+
+                                        if ($format5 >= 0) {
+                                            echo "<td style='background-color: rgba(12,255,18,0.68)'>" . $format5 . '$' . "</td>";
+                                        } else {
+                                            echo "<td style='background-color:rgba(255,39,23,0.64)'>" . $format5 . '$' . "</td>";
+                                        }
+
+
+                                        $sql3 = "SELECT sztej FROM stocknyereseg WHERE users_id = '$privateid' AND idpersonalstock = '$idcr' ";
+                                        $res = mysqli_query($con, $sql3);
+                                        $dat = mysqli_fetch_assoc($res);
+                                        $format3 = round($dat['sztej'], 2);
+
+                                        echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
+
+
+                                                                                echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalstock=" . $row["idpersonalstock"] . "\">Törlés</a></td>";
                                         echo "</tr>";
 
 

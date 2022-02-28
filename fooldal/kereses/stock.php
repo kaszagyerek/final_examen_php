@@ -14,6 +14,25 @@ if (isset($_POST['lekerdezi'])) {
     $products = $response;
     $stock = $products['data']['rows'];
 
+    function floatValue($str){
+        if(preg_match("/([0-9\.,-]+)/", $str, $match)){
+            $value = $match[0];
+            if( preg_match("/(\.\d{1,2})$/", $value, $dot_delim) ){
+                $value = (float)str_replace(',', '', $value);
+            }
+            else if( preg_match("/(,\d{1,2})$/", $value, $comma_delim) ){
+                $value = str_replace('.', '', $value);
+                $value = (float)str_replace(',', '.', $value);
+            }
+            else
+                $value = (int)$value;
+        }
+        else {
+            $value = 0;
+        }
+        return $value;
+    }
+
 
     foreach ($stock as $product) {
 
@@ -26,8 +45,13 @@ if (isset($_POST['lekerdezi'])) {
         $industry = $product["industry"];
         $url = $product["url"];
 
+        $price = floatValue($lastsale);
+
+
+
+
         $sql = "INSERT INTO `stocks` (stockname, stocksymbol, newPrice, stockmarketcap, stockcountry, stockindustry, stocksector, stockurl) 
-        VALUES ('$name', '$symbol','$lastsale','$marketCap','$country','$industry','$sector','$url');";
+        VALUES ('$name', '$symbol','$price','$marketCap','$country','$industry','$sector','$url');";
 
         if ($con->query($sql) === TRUE) {
         } else {

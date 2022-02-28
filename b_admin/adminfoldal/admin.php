@@ -108,7 +108,8 @@ if (!isset($_SESSION['username'])) {
                                 (SELECT SUM(broker+tax+hrenovation) FROM expense) +
 
                                 (SELECT SUM(ktej*4.5) FROM kriptonyereseg) +
-                                (SELECT SUM(mtej*4.5) FROM metalsnyereseg) 
+                                (SELECT SUM(mtej*4.5) FROM metalsnyereseg) +
+                                (SELECT SUM(sztej*4.5) FROM stocknyereseg) 
 
                                 AS sum";
                                 $result = mysqli_query($con, $sql);

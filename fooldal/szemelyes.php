@@ -54,8 +54,12 @@ if (!isset($_SESSION['username'])) {
             $result5 = mysqli_query($con, $sql5);
             $data5 = mysqli_fetch_assoc($result5);
 
+            $sql6 = "SELECT SUM((dbstock*newPrice)*4.5) AS vagyon3 FROM stocknyereseg WHERE users_id ='$_SESSION[userid]';";
+            $result6 = mysqli_query($con, $sql6);
+            $data6 = mysqli_fetch_assoc($result6);
 
-            echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] + $data4['vagyon'] + $data5['vagyon2'];
+
+            echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] + $data4['vagyon'] + $data5['vagyon2'] + $data6['vagyon3'] ;
 
 
             ?>

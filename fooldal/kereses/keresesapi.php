@@ -164,14 +164,33 @@ switch ($action2) {
 	<div class="table-responsive">
 	<table class="table table bordered">
 	<tr>
-		<th>Részvények:</th>
+		<th>Részvény neve:</th>
+		<th>Részvények szimbolum</th>
+		<th>Részvények market kapitalizáció:</th>
+		<th>Kibocsátó ország</th>
+		<th>Ipar:</th>
+		<th>Terület:</th>
+		<th>Bővebb inffo</th>
+        <th>Részvény jelene ár</th>
+
 	
 	</tr>';
             while ($row1 = mysqli_fetch_array($result)) {
+                $id = $row1["idstocks"];
+
                 $return .= '
 		<tr>
-		<td>' . $row1["stocksymbol"] . '</td>
 		<td>' . $row1["stockname"] . '</td>
+		<td>' . $row1["stocksymbol"] . '</td>
+		<td>' . $row1["stockmarketcap"] . '</td>
+		<td>' . $row1["stockcountry"] . '</td>
+		<td>' . $row1["stockindustry"] . '</td>
+		<td>' . $row1["stocksector"] . '</td>
+		<td>' . $row1["stockurl"] . '</td>
+        <td>' . $row1["newPrice"] . '</td>
+        <td>' . "<a class='button is-warning'  href=stocksql.php?idstocks=$id>Beszurás</a>" . '</td>
+
+
 	
 		</tr>';
             }
@@ -209,10 +228,7 @@ switch ($action2) {
 		<tr>
 		<td>' . $row1["metalsymbol"] . '</td>
 		<td>' . $row1["newPrice"] . '</td>
-        <td>' . "<a class='button is-warning'  href=metalsql.php?idmetals=$id>Beszurás</a>" . '</td>
-
-		<td>  <input  style="background-color: rgba(223,204,65,0.31)" class="button is-warning" type="submit" name="metalkuldes" value="beszurás" >  </td>
-	
+        <td>' . "<a class='button is-warning'  href=metalsql.php?idmetals=$id>Beszurás</a>" . '</td>	
 		</tr>';
             }
             echo $return;

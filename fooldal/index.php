@@ -294,10 +294,78 @@ if (!isset($_SESSION['username'])) {
                             </div>
                         </article>
 
+                        <article class="tile is-child notification is-light">
+                            <p class="title">Részvény</p>
+                            <p class="subtitle"></p>
+                            <div class="content">
+                                <tbody>
+                                <?php
+
+                                if (isset($_GET['idpersonalstock'])) {
+                                    $idpersonalstock = $_GET['idpersonalstock'];
+                                    $sql = "DELETE FROM personalstock WHERE idpersonalstock=$idpersonalstock";
+
+                                    if ($con->query($sql) === TRUE) {
+                                        header("Location: index.php");
+                                    } else {
+                                        echo "Hiba történt: " . $con->error;
+                                    }
+                                }
+
+                                $privateid = $_SESSION['userid'];
+                                $sql = "SELECT  *
+                                FROM stocks INNER JOIN personalstock ON stocks.idstocks = personalstock.stocks_idstocks
+                                WHERE personalstock.users_id = '$privateid'; ";
+                                $result = $con->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    echo "<table border=1 >";
+                                    echo "<tr>";
+                                    echo "<th> Részvény neve  </th>";
+                                    echo "<th> Részvény szimbolum  </th>";
+                                    echo "<th> Részvény szektora  </th>";
+                                    echo "<th> Részvény url </th>";
+                                    echo "<th> Hány darabom van </th>";
+                                    echo "<th> Menyiért vásároltam  </th>";
+                                    echo "<th> Mikor vásároltam  </th>";
+                                    echo "<th> Törlés </th>";
+
+                                    echo "</tr>";
+                                    while ($row = $result->fetch_assoc()) {
+                                        $idcr = $row["idpersonalstock"];
+                                        echo "<tr>";
+                                        echo "<td>" . $row["stockname"] . "</td>";
+                                        echo "<td>" . $row["stocksymbol"] . "</td>";
+                                        echo "<td>" . $row["stocksector"] . "</td>";
+                                        echo "<td>" . $row["stockurl"] . "</td>";
+                                        echo "<td>" . $row["dbstock"] . "</td>";
+                                        echo "<td>" . $row["oldprice"] . "</td>";
+                                        echo "<td>" . $row["stockdata"] . "</td>";
+
+                                        echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalstock=" . $row["idpersonalstock"] . "\">Törlés</a></td>";
+                                        echo "</tr>";
+
+
+                                    }
+                                    echo "</table>";
+                                } else {
+                                    echo "Még nem rögzitette a részvényeit ha szeretné" . "<a href='kereses/stockelokereses.php'> kattintson ide </a>";
+                                }
+                                ?>
+                                </tbody>
+
+                            </div>
+                        </article>
+
+
+
+
                         <article class="tile is-child notification is-danger">
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
+                                        <p class="title">Ház</p>
+
                                         <tbody>
                                         <?php
                                         if (isset($_GET['idhouse'])) {
@@ -353,6 +421,8 @@ if (!isset($_SESSION['username'])) {
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
+                                        <p class="title">Munka</p>
+
                                         <tbody>
                                         <?php
                                         if (isset($_GET['idworkplace'])) {
@@ -408,6 +478,8 @@ if (!isset($_SESSION['username'])) {
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
+                                        <p class="title">Költés</p>
+
                                         <tbody>
                                         <?php
                                         if (isset($_GET['idexpense'])) {
@@ -462,19 +534,7 @@ if (!isset($_SESSION['username'])) {
 
                     </div>
                 </div>
-                <div class="tile is-parent">
-                    <article class="tile is-child notification is-danger">
-                        <p class="title">Részvény</p>
-                        <p class="subtitle"></p>
-                        <div class="content">
-                            <!-- Content -->
-                        </div>
-                    </article>
-                </div>
 
-
-                <div class="tile is-parent">
-                </div>
             </div>
 
         </div>

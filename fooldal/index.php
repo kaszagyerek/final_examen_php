@@ -26,6 +26,8 @@ if (!isset($_SESSION['username'])) {
                 <b class="link is-info"><?php
                     echo "Üdvözöllek " . $_SESSION['username'];
                     ?></b>
+
+
             </p>
             <p class="level-item has-text-centered">
             <p class="link is-info">
@@ -99,15 +101,52 @@ if (!isset($_SESSION['username'])) {
             <a href="kereses/stockelokereses.php" class="active">Részvény élő keresés</a>
             <a href="kereses/metalskereses.php" class="active">Nemesfém élő keresés</a>
             <a href="../log_reg/kijelentkezes.php">Kijelentkezes</a>
+
+
         </div>
 
     </div>
+
+
+    </div>
     <div>
-        <div class="tile is-ancestor">
+        <div class="tile is-ancestor" >
             <div class="tile is-vertical is-8">
                 <div class="tile">
 
                     <div class="tile is-parent is-vertical">
+                        <div> <?php
+
+                            $url = "https://freecurrencyapi.net/api/v2/latest?apikey=5bba8b20-9933-11ec-bb04-e5eb05a9a6ed";
+                            $ch = curl_init();
+                            curl_setopt($ch, CURLOPT_URL, $url);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                            curl_setopt($ch, CURLOPT_HEADER, FALSE);
+                            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                            $response = curl_exec($ch);
+                            curl_close($ch);
+                            $obj = json_decode($response, TRUE);
+                            $dev = $obj['data'];
+
+                            echo "<select name='deviza' class='select' style='background-color: rgba(150,206,250,0.46)'>";
+                            echo '1  dollár jelenleg ' . $obj['data']['RON'] . '  ROddN';
+
+                            echo '<option value="">' . '1  dollár jelenleg  ' .  $obj['data']['RON'] . '  RON' . '</option>';
+
+                            foreach ($dev as $dname => $dprice) {
+
+                                echo '<option value="">' .'1  dollár jelenleg  '. $dprice .'->' . $dname .' </option>';
+                            }
+                            echo "</select>";
+
+
+
+
+                            ?>
+
+                        </div>
+
                         <article class="tile is-child notification is-light">
                             <p class="title">Kriptóvaluta</p>
                             <p class="subtitle"></p>
@@ -407,8 +446,6 @@ if (!isset($_SESSION['username'])) {
                         </article>
 
 
-
-
                         <article class="tile is-child notification is-danger">
                             <div class="card-table">
                                 <div class="content">
@@ -586,10 +623,10 @@ if (!isset($_SESSION['username'])) {
 
             </div>
 
+
         </div>
 
     </div>
-</div>
 
 </body>
 </html>

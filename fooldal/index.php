@@ -384,10 +384,10 @@ if (!isset($_SESSION['username'])) {
                                     echo "</tr>";
                                     while ($row = $result->fetch_assoc()) {
                                         $idcr = $row["idpersonalstock"];
-                                        $url =  "http://www.nasdaq.com/" . $row["stockurl"] ;
+                                        $url =  "http://www.nasdaq.com" . $row["stockurl"] ;
                                         echo "<tr>";
                                         echo "<td>" . $row["stockname"] . "</td>";
-                                        echo "<td style='color: #3a51bb'>" .'<a href="http://www.nasdaq.com/$url" target="_blank">' . $row["stocksymbol"]  ."</a>" ."</td>";
+                                        echo "<td style='color: #3a51bb'>" .'<a href="'. $url .'" target="_blank">' . $row["stocksymbol"]  ."</a>" ."</td>";
                                         echo "<td>" . $row["stocksector"] . "</td>";
                                         echo "<td>" . $row["dbstock"] . "</td>";
                                         echo "<td>" . $row["stockdata"] . "</td>";

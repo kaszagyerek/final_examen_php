@@ -1,0 +1,51 @@
+DROP VIEW IF EXISTS kriptoszazalek;
+CREATE VIEW kriptoszazalek AS
+    SELECT 
+      ((crypto.lastprice / personalcrypto.oldcrprice ) *100) AS kszaz, idpersonalcrypto, dbkrpto, oldcrprice, users_id
+    FROM crypto INNER JOIN personalcrypto ON idcrypto = crypto_idcrypto;
+	
+
+
+DROP VIEW IF EXISTS kriptonyereseg;
+CREATE VIEW kriptonyereseg AS
+    SELECT 
+      ((crypto.lastprice - personalcrypto.oldcrprice ) * personalcrypto.dbkrpto) AS kvagy,
+	(crypto.lastprice  * personalcrypto.dbkrpto) AS ktej,
+
+      idpersonalcrypto, lastprice ,dbkrpto, oldcrprice, users_id
+    FROM crypto INNER JOIN personalcrypto ON idcrypto = crypto_idcrypto;
+	
+
+DROP VIEW IF EXISTS metalszazalek;
+CREATE VIEW metalszazalek AS
+    SELECT 
+      ((metals.newPrice / personalmetal.oldprice ) *100) AS kmet, idpersonalmetal, dbmetal, oldprice, users_id
+    FROM metals INNER JOIN personalmetal ON idmetals = metals_idmetals;
+
+DROP VIEW IF EXISTS metalsnyereseg;
+CREATE VIEW metalsnyereseg AS
+    SELECT 
+      ((metals.newPrice - personalmetal.oldprice ) * personalmetal.dbmetal) AS mvagy,
+	(metals.newPrice  * personalmetal.dbmetal) AS mtej,
+      idpersonalmetal, newPrice ,dbmetal, oldprice, users_id
+    FROM metals INNER JOIN personalmetal ON idmetals = metals_idmetals;
+
+
+
+DROP VIEW IF EXISTS stockszazalek;
+CREATE VIEW stockszazalek AS
+    SELECT 
+      ((stocks.newPrice / personalstock.oldprice ) *100) AS szmet, idpersonalstock, dbstock, oldprice, users_id
+    FROM stocks INNER JOIN personalstock ON idstocks = stocks_idstocks;
+
+
+DROP VIEW IF EXISTS stocknyereseg;
+CREATE VIEW stocknyereseg AS
+    SELECT 
+      ((stocks.newPrice - personalstock.oldprice ) * personalstock.dbstock) AS szvagy,
+	(stocks.newPrice  * personalstock.dbstock) AS sztej,
+      idpersonalstock, newPrice ,dbstock, oldprice, users_id
+    FROM stocks INNER JOIN personalstock ON idstocks = stocks_idstocks;
+
+
+

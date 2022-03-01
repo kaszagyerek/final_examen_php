@@ -37,10 +37,9 @@ if (isset($_POST['lekerdezi'])) {
         $marketCap = $product["marketCap"];
         $rank = $product["rank"];
         $cryptoname = $product["name"];
-        $color = $product["color"];
 
 
-        $sql = "INSERT INTO `crypto` (cryptosymbol, lastprice, cryptoimg, marketCap, rank, cryptoname, color) VALUES
+        $sql = "INSERT INTO `crypto` (cryptosymbol, lastprice, cryptoimg, marketCap, rank, cryptoname) VALUES
                  ( '$cryptosymbol','$lastprice','$cryptoimg','$marketCap','$rank','$cryptoname','$color');";
 
         if ($con->query($sql) === TRUE) {

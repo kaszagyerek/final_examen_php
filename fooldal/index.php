@@ -148,7 +148,7 @@ if (!isset($_SESSION['username'])) {
                         </div>
 
                         <article class="tile is-child notification is-light">
-                            <p class="title">Kriptóvaluta</p>
+                            <p class="title">Kriptóvaluta <a href="kereses/kriptokereses.php"><img src="../img/fooldal/icons8-add-96.png" alt="hozzaadd" style="width:25px;height:25px;"></a> </p>
                             <p class="subtitle"></p>
                             <div class="content">
                                 <tbody>
@@ -245,7 +245,7 @@ if (!isset($_SESSION['username'])) {
                             </div>
                         </article>
                         <article class="tile is-child notification is-light">
-                            <p class="title">Nemesfém</p>
+                            <p class="title">Nemesfém <a href="kereses/metalskereses.php"><img src="../img/fooldal/icons8-add-96.png" alt="hozzaadd" style="width:25px;height:25px;"></a> </p>
                             <p class="subtitle"></p>
                             <div class="content">
                                 <tbody>
@@ -337,7 +337,7 @@ if (!isset($_SESSION['username'])) {
                         </article>
 
                         <article class="tile is-child notification is-light">
-                            <p class="title">Részvény</p>
+                            <p class="title">Részvény <a href="kereses/stockelokereses.php"><img src="../img/fooldal/icons8-add-96.png" alt="hozzaadd" style="width:25px;height:25px;"></a> </p>
                             <p class="subtitle"></p>
                             <div class="content">
                                 <tbody>
@@ -450,7 +450,7 @@ if (!isset($_SESSION['username'])) {
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
-                                        <p class="title">Ház</p>
+                                        <p class="title">Ház <a href="beszur/hazbeszuras.php"><img src="../img/fooldal/icons8-add-96.png" alt="hozzaadd" style="width:25px;height:25px;"></a> </p>
 
                                         <tbody>
                                         <?php
@@ -507,7 +507,7 @@ if (!isset($_SESSION['username'])) {
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
-                                        <p class="title">Munka</p>
+                                        <p class="title">Munka <a href="beszur/munkahelybeszuras.php"><img src="../img/fooldal/icons8-add-96.png" alt="hozzaadd" style="width:25px;height:25px;"></a> </p>
 
                                         <tbody>
                                         <?php
@@ -564,7 +564,7 @@ if (!isset($_SESSION['username'])) {
                             <div class="card-table">
                                 <div class="content">
                                     <table class="table is-fullwidth is-striped">
-                                        <p class="title">Költés</p>
+                                        <p class="title">Kiadás <a href="beszur/kiadasbeszuras.php"><img src="../img/fooldal/icons8-add-96.png" alt="hozzaadd" style="width:25px;height:25px;"></a> </p>
 
                                         <tbody>
                                         <?php

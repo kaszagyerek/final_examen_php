@@ -20,32 +20,29 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 
 </head>
 <body>
-<div style="margin: auto;width: 60%;">
-    <div class="alert alert-success alert-dismissible" id="success" style="display:none;">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-    </div>
+<div class="bbeszur">
+    <p class="title"> <a href="../index.php"><img src="/img/fooldal/back.png" alt="hozzaadd" style="width:25px;height:25px;"> vissza a főmenübe</a> </p>
+
     <form id="fupForm" name="form1" method="post">
-        <!--       , hrenovationname, hrenovation, users_id
-        -->
         <div class="control">
             <label for="pwd">Brókerem neve:</label>
-            <input type="text" class="form-control" id="brokername" name="brokername">
+            <input type="text" class="input is-link" style="width:200px"  id="brokername" name="brokername">
         </div>
         <div class="control">
             <label for="pwd">Brókerem díja havonta:</label>
-            <input type="text" class="form-control" id="broker" name="broker">
+            <input type="text" class="input is-link" style="width:200px" id="broker" name="broker">
         </div>
         <div class="control">
             <label for="pwd">Havi befizetni való adóm:</label>
-            <input type="text" class="form-control" id="tax" name="tax">
+            <input type="text" class="input is-link" style="width:200px" id="tax" name="tax">
         </div>
         <div class="control">
             <label for="pwd">Havi házfelújítási költség:</label>
-            <input type="text" class="form-control" id="hrenovation" name="hrenovation">
+            <input type="text" class="input is-link" style="width:200px" id="hrenovation" name="hrenovation">
         </div>
 
         <div class="control">
-            <input type="button" value="Save to database" id="butsave">
+            <input   class="button is-link" type="button" value="beszurás" id="butsave">
         </div>
 
 

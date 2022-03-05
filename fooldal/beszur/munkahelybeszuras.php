@@ -13,38 +13,38 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <title></title>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <link href="../../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bulma.min.css">
     <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
 
     <title>munkahely beszurása</title>
 
 </head>
 <body>
-<div style="margin: auto;width: 60%;">
+<div class="bbeszur">
+    <p class="title"> <a href="../index.php"><img src="/img/fooldal/back.png" alt="hozzaadd" style="width:25px;height:25px;"> vissza a főmenübe</a> </p>
 
-    <form id="fupForm" name="form1" method="post">
+    <form method="post" action="">
 
 
         <div class="form-group">
             <label for="pwd">Munkahelyem neve:</label>
-            <input type="text" class="form-control" id="fmunka" name="munka">
+            <input type="text"  class="input is-link" style="width:200px" id="fmunka" name="munka">
         </div>
         <div class="form-group">
             <label for="pwd">Munkahelyem címe:</label>
-            <input type="text" class="form-control" id="fcim" name="cim">
+            <input type="text"  class="input is-link" style="width:200px" id="fcim" name="cim">
         </div>
         <div class="form-group">
             <label for="pwd">Munkahelyi pozició:</label>
-            <input type="text" class="form-control" id="beosztas" name="beosztas">
+            <input type="text"  class="input is-link" style="width:200px" id="beosztas" name="beosztas">
         </div>
         <div class="form-group">
             <label for="pwd">Munkahelyi fizetés:</label>
-            <input type="text" class="form-control" id="fizetes" name="fizetes">
+            <input type="text"  class="input is-link" style="width:200px" id="fizetes" name="fizetes">
         </div>
 
 
-        <input type="button" class="hero is-danger" value="Save to database" id="butsave">
-
-        <div class="result">Eredmény ajax hívás után</div>
+        <input type="button" class="button is-link" value="mentés" id="butsave">
 
 
     </form>

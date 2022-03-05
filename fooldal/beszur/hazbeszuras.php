@@ -14,37 +14,36 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <title></title>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
     <link href="../../css/beszuras_szepito.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/bulma.min.css">
+
     <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
     <title>ház beszurás</title>
 
 </head>
 <body>
-<div style="margin: auto;width: 60%;">
-    <div class="alert alert-success alert-dismissible" id="success" style="display:none;">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-    </div>
+<div class="bbeszur">
+        <p class="title"> <a href="../index.php"><img src="/img/fooldal/back.png" alt="hozzaadd" style="width:25px;height:25px;"> vissza a főmenübe</a> </p>
     <form id="fupForm" name="form1" method="post">
 
         <div class="form-group">
             <label for="pwd">Utca:</label>
-            <input type="email" class="form-control" id="futca" placeholder="utca" name="utca">
+            <input type="email" class="input is-link" id="futca" placeholder="utca" name="utca" style="width:200px">
         </div>
         <div class="form-group">
             <label for="pwd">Ház értéke:</label>
-            <input type="text" class="form-control" id="fhaz" placeholder="ertek" name="ertek">
+            <input type="text" class="input is-link" id="fhaz" placeholder="ertek" name="ertek" style="width:200px">
         </div>
         <div class="form-group">
             <label for="pwd">Gondozó</label>
-            <input type="text" class="form-control" id="fgondozo" placeholder="gondozo" name="gondozo">
+            <input type="text" class="input is-link" id="fgondozo" placeholder="gondozo" name="gondozo" style="width:200px">
         </div>
         <div class="form-group">
             <label for="pwd">Gondozó telefonszáma:</label>
-            <input type="text" class="form-control" id="ftgondozo" placeholder="gondozo telefonszam" name="gondozotel">
+            <input type="text" class="input is-link" id="ftgondozo" placeholder="gondozo telefonszam" name="gondozotel"  style="width:200px">
         </div>
 
-        <input type="button" name="save" class="btn btn-primary" value="Save to database" id="butsave">
+        <input type="button" class="button is-link"  name="save"  value="beszurás" id="butsave">
 
-        <div class="result">Eredmény ajax hívás után</div>
 
 
     </form>

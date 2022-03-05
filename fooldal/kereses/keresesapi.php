@@ -137,7 +137,7 @@ switch ($action2) {
         <td>' . $row1["cryptoname"] . '</td>
         <td>' . $row1["lastprice"] . '</td>
 		<td>' . $row1["marketCap"] . '</td>
-		<td>' . "<a href=kripsql.php?idcrypto=$id>Beszurás</a>" . '</td>
+		<td>' . "<a class='button is-warning' href=kripsql.php?idcrypto=$id>Beszurás</a>" . '</td>
 		</tr>';
             }
             echo $return;
@@ -157,7 +157,7 @@ switch ($action2) {
         }
         $result = mysqli_query($con, $query);
         if (mysqli_num_rows($result) > 0) {
-            $return .= '
+            $return = '
 	<div class="table-responsive">
 	<table class="table table bordered">
 	<tr>

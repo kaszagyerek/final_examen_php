@@ -3,30 +3,89 @@ session_start();
 require_once "../connection.php";
 
 $privateid = $_SESSION['userid'];
-echo "dadada " . $privateid;
 if (isset($_POST['submit'])) {
-    $db = $_POST['db'];
-    $ar = $_POST['ar'];
+    $db = mysqli_real_escape_string($con,$_POST['db']);
+    $ar = mysqli_real_escape_string($con,$_POST['ar']);
     $cr = $_GET['idmetals'];
-    echo "dadada2 " . $cr;
+    if(isset($db) && isset($ar) && !empty($db) && !empty($ar) && is_numeric($db) && is_numeric($ar))
+    {
+        $sql = "INSERT INTO `personalmetal` ( dbmetal, oldprice, metaldate, metals_idmetals, users_id) VALUES ( '$db', '$ar', now() , '$cr' ,'$privateid');";
+        $result = $con->query($sql);
+        header("Location: ../index.php");
+    }
+    else {
+        echo "<div class='reszvenyvesz'>";
+        if(empty($db)){
+            echo "nem lehet üres a darab mező <br>";
+        } else if(!empty($db) && !is_numeric($db)){
+            echo "a darab mező csak számot tartalmazhat<br>";
+        }
+        if(empty($ar)){
+            echo "nem lehet üres az ár mező <br>";
+        }else if(!empty($ar) && !is_numeric($ar)){
+            echo "az ár mező csak számot tartalmazhat<br>";
+        }
+        echo "</div>";
 
-    $sql = "INSERT INTO `personalmetal` ( dbmetal, oldprice, metaldate, metals_idmetals, users_id) VALUES ( '$db', '$ar', now() , '$cr' ,'$privateid');";
+    }
 
-    $result = $con->query($sql);
-    echo "sikeres";
+
+
 } else {
 
     $sql = "SELECT * FROM personalmetal WHERE users_id= '$privateid'";
     $result = $con->query($sql);
     $row1 = $result->fetch_assoc();
-    $con->close();
 }
 ?>
 
-<form method="post" action="">
-    db:<input type="Text" name="db"><br>
-    ar:<input type="Text" name="ar"><br>
-    <input type="submit" name="submit" value="Elkuld">
-    <input type="hidden" name="id" value=<?php echo $_GET['idmetals']; ?>>
-</form>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/bulma.min.css">
+    <title>nemesfém beszurás</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon_io/favicon.ico">
+
+    <link href="/css/index_szepito.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="reszvenyvesz">
+
+    <form method="post" action="">
+
+        Hány darab   <?php
+        $ids = $_GET["idmetals"];
+        $a = "SELECT metalsymbol FROM metals WHERE idmetals = '$ids'";
+        $result = $con->query($a);
+        if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+        echo "<b>". $row["metalsymbol"]."</b>";
+        ?> nemesféme van:<input class="input is-primary" placeholder="db"  type="Text" name="db" style="width:50px"><br>
+        Hány dollárért fizetett érte:<input class="input is-primary" placeholder="ár" type="Text" name="ar" style="width:50px"><br>
+        <input class="button is-danger"  type="submit" name="submit" value="Elküld">
+        <input  type="hidden" name="id" value=<?php echo $_GET['idmetals']; ?>>
+    </form>
+
+</div>
+
+<div class="tile is-parent">
+    <article class="tile is-child notification is-danger" style="height:550px">
+        <p class="title">Reklám</p>
+        <p class="subtitle">Reklám</p>
+        <div class="content">
+        </div>
+    </article>
+</div>
+<?php
+}
+} else {
+    echo "hiba történt";
+}
+?>
+
+</body>
+</html>

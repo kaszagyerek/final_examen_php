@@ -1,7 +1,5 @@
 <?php
-session_start();
 require_once "../connection.php";
-
 ?>
 <html>
 <head>
@@ -44,7 +42,8 @@ require_once "../connection.php";
 <div class="container-fluid">
     <div class="content-wrapper">
         <div class="container">
-            <h1>Kriptóvalutáim rögzítése</h1>
+            <p class="title"> <a href="../index.php"><img src="/img/fooldal/back.png" alt="hozzaadd" style="width:25px;height:25px;"> vissza a főmenübe</a> </p>
+            <h1 class="subtitle is-3" >Kriptóvalutáim rögzítése</h1>
             <div class="row">
                 <div class="col-xs-12">
                     <input type="text" name="search" id="search" placeholder="keresés" class="input is-info"/>

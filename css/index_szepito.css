@@ -49,7 +49,7 @@
 .reszvenyvesz{
     margin: 0 auto;
     background-color: #aaaaaa;
-    width:400px;
+    max-width:100%;
     text-align: center;
 }
 

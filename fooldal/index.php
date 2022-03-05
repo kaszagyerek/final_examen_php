@@ -2,7 +2,10 @@
 ob_start();
 session_start();
 require_once "connection.php";
-
+if (!isset($_SESSION['username'])) {
+    header("Location:/laptopallamvizsga/log_reg/log_reg.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>

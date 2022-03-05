@@ -1,9 +1,7 @@
 <?php
 session_start();
-$con = mysqli_connect("localhost", "root", "", "social");
-if (mysqli_connect_errno()) {
-    echo "Hibás csatlakozás" . mysqli_connect_errno();
-}
+require_once "connection.php";
+
 if (!isset($_SESSION['username'])) {
     header("Location:/laptopallamvizsga/b_admin/log/log.php");
     exit();

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../connection.php";
+require_once "connection.php";
 
 echo "<br>Felhasználó neve:" . $_SESSION['username'];
 echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];

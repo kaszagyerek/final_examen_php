@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-require_once "../connect.php";
+require_once "connection.php";
 if (!isset($_SESSION['username'])) {
     header("Location:../log/log.php");
     exit();

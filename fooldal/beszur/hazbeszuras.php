@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../connection.php";
+require_once "connection.php";
 
 
 echo "<br>Felhasználó neve:" . $_SESSION['username'];
@@ -22,12 +22,13 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
 </head>
 <body>
 <div class="bbeszur">
-        <p class="title"> <a href="../index.php"><img src="/img/fooldal/back.png" alt="hozzaadd" style="width:25px;height:25px;"> vissza a főmenübe</a> </p>
+    <p class="title"><a href="../index.php"><img src="/img/fooldal/back.png" alt="hozzaadd"
+                                                 style="width:25px;height:25px;"> vissza a főmenübe</a></p>
     <form id="fupForm" name="form1" method="post">
 
         <div class="form-group">
             <label for="pwd">Utca:</label>
-            <input type="email" class="input is-link" id="futca" placeholder="utca" name="utca" style="width:200px">
+            <input type="text" class="input is-link" id="futca" placeholder="utca" name="utca" style="width:200px">
         </div>
         <div class="form-group">
             <label for="pwd">Ház értéke:</label>
@@ -35,7 +36,8 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
         </div>
         <div class="form-group">
             <label for="pwd">Gondozó</label>
-            <input type="text" class="input is-link" id="fgondozo" placeholder="gondozo" name="gondozo" style="width:200px">
+            <input type="text" class="input is-link" id="fgondozo" placeholder="gondozo" name="gondozo"
+                   style="width:200px">
         </div>
         <div class="form-group">
             <label for="pwd">Gondozó telefonszáma:</label>

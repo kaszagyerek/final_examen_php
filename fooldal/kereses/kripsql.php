@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../connection.php";
+require_once "connection.php";
 
 $privateid = $_SESSION['userid'];
 if (isset($_POST['submit'])) {
@@ -52,8 +52,10 @@ if (isset($_POST['submit'])) {
 <div class="reszvenyvesz">
 
     <form method="post" action="">
+        <p class="title"><a href="../index.php"><img src="/img/fooldal/back.png" alt="hozzaadd"
+                                                     style="width:25px;height:25px;"> vissza a főmenübe</a></p>
 
-        Hány darab  <?php
+        Hány darab <?php
         $ids = $_GET["idcrypto"];
         $a = "SELECT cryptosymbol FROM crypto WHERE idcrypto = '$ids'";
         $result = $con->query($a);

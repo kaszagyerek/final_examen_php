@@ -87,6 +87,9 @@ if (!isset($_SESSION['username'])) {
                 <a class="link is-info" href="szemelyes.php">Személyes adatok módosítása</a>
             </p>
             <p class="level-item has-text-centered">
+                <a class="link is-info" href="stat.php">Statisztika</a>
+            </p>
+            <p class="level-item has-text-centered">
                 <a class="link is-info" href="kapcsolat.php">Kapcsolat</a>
             </p>
         </nav>
@@ -326,6 +329,11 @@ if (!isset($_SESSION['username'])) {
 
 
                                     }
+                                    echo "<tr>";
+                                    echo "<th> Nemesfém szimbolum </th>";
+                                    echo "<th> Jelenlegi ár </th>";
+
+                                    echo "</tr>";
                                     echo "</table>";
                                 } else {
                                     echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='kereses/metalskereses.php'> kattintson ide </a>";

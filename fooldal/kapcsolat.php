@@ -87,8 +87,12 @@ if (!isset($_SESSION['username'])) {
                 <a class="link is-info" href="szemelyes.php">Személyes adatok módosítása</a>
             </p>
             <p class="level-item has-text-centered">
+                <a class="link is-info" href="stat.php">Statisztika</a>
+            </p>
+            <p class="level-item has-text-centered">
                 <a style="color:red" class="link is-info" href="index.php">Vissza a főmenüre</a>
             </p>
+
         </nav>
 
     </div>

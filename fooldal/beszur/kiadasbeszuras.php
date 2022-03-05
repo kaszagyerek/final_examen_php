@@ -74,13 +74,11 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
                         var dataResult = JSON.parse(dataResult);
                         if (dataResult.valasz == true) {
                             $("#success").show();
-                            $('#success').html('Sikeresen rogzitesre kerult az ugyfel haza');
-                            window.location.href = 'index.php';
-
+                            $('#success').html('Sikeresen bejelentkezett');
 
                         } else if (dataResult.valasz == false) {
-                            $("#success").show();
-                            $('#success').html('Sikertelenül adta meg az adatokat');
+                            alert("Nem jol adta meg az adatokat");
+
                         }
 
                     }

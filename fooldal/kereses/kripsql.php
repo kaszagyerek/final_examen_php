@@ -1,10 +1,7 @@
 <?php
 session_start();
-require_once "connection.php";
-if (!isset($_SESSION['username'])) {
-    header("Location:../log_reg/log_reg.php");
-    exit();
-}
+require_once "../connection.php";
+
 $privateid = $_SESSION['userid'];
 echo "dadada " . $privateid;
 if (isset($_POST['submit'])) {

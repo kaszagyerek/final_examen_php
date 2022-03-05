@@ -1,10 +1,7 @@
 <?php
 session_start();
-require_once "connection.php";
-if (!isset($_SESSION['username'])) {
-    header("Location:../log_reg/log_reg.php");
-    exit();
-}
+require_once "../connection.php";
+
 
 $action = isset($_GET['action']) ? $_GET['action'] : "";
 $action2 = isset($_POST['action']) ? $_POST['action'] : "";

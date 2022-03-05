@@ -45,3 +45,11 @@
     min-width: 70%;
     min-height: 80%;
 }
+
+.reszvenyvesz{
+    margin: 0 auto;
+    background-color: #aaaaaa;
+    width:400px;
+    text-align: center;
+}
+

@@ -1,10 +1,6 @@
 <?php
 session_start();
 require_once "../connection.php";
-if (!isset($_SESSION['username'])) {
-    header("Location:../log_reg/log_reg.php");
-    exit();
-}
 
 echo "<br>Felhasználó neve:" . $_SESSION['username'];
 echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];

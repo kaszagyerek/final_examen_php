@@ -46,10 +46,22 @@
     min-height: 80%;
 }
 
-.reszvenyvesz{
+.reszvenyvesz {
     margin: 0 auto;
     background-color: #aaaaaa;
-    max-width:100%;
+    max-width: 100%;
     text-align: center;
 }
+
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 

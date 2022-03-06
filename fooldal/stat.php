@@ -6,17 +6,16 @@ require_once "connection.php";
 $privateid = $_SESSION['userid'];
 
 
-$sql2 = "SELECT  *
+$crypto = "SELECT  *
         FROM crypto INNER JOIN personalcrypto ON crypto.idcrypto = personalcrypto.crypto_idcrypto
         WHERE personalcrypto.users_id = '$privateid' ";
 
-$result2 = $con->query($sql2);
+$result1 = $con->query($crypto);
 
-
-if ($result2->num_rows > 0) {
+if ($result1->num_rows > 0) {
     // output data of each row
     $dataPoints = array();
-    while ($row = $result2->fetch_assoc()) {
+    while ($row = $result1->fetch_assoc()) {
 
         $point = array("label" => $row['cryptosymbol'], "y" => $row['lastprice']);
         array_push($dataPoints, $point);
@@ -27,6 +26,49 @@ if ($result2->num_rows > 0) {
     echo "Még nem rögzitette a kiadó házát ha szeretné";
 }
 
+
+$metal = "SELECT  *
+        FROM metals INNER JOIN personalmetal ON metals.idmetals = personalmetal.metals_idmetals
+        WHERE personalmetal.users_id = '$privateid' ";
+
+$result2 = $con->query($metal);
+
+if ($result2->num_rows > 0) {
+    // output data of each row
+    $dataPoints2 = array();
+    while ($row = $result2->fetch_assoc()) {
+
+        $point2 = array("label" => $row['metalsymbol'], "y" => $row['newPrice']);
+        array_push($dataPoints2, $point2);
+
+    }
+
+} else {
+    echo "Még nem rögzitette a kiadó házát ha szeretné";
+}
+
+
+$stock = "SELECT  *
+        FROM stocks INNER JOIN personalstock ON stocks.idstocks = personalstock.stocks_idstocks
+        WHERE personalstock.users_id = '$privateid'; ";
+
+$result3 = $con->query($stock);
+
+if ($result3->num_rows > 0) {
+    // output data of each row
+    $dataPoints3 = array();
+    while ($row = $result3->fetch_assoc()) {
+
+        $point3 = array("label" => $row['stocksymbol'], "y" => $row['newPrice']);
+        array_push($dataPoints3, $point3);
+
+    }
+
+} else {
+    echo "Még nem rögzitette a kiadó házát ha szeretné";
+}
+
+
 ?>
 
 
@@ -34,12 +76,15 @@ if ($result2->num_rows > 0) {
 <html>
 <head>
     <link rel="stylesheet" href="/css/bulma.min.css">
+    <link href="../css/index_szepito.css" rel="stylesheet" type="text/css">
+    <title>Statisztika</title>
+
 
     <script>
         window.onload = function () {
 
             var chart = new CanvasJS.Chart("chartContainer", {
-                animationEnabled: true,
+                animationEnabled: false,
                 title: {
                     text: "Kriptó statisztika"
                 },
@@ -52,8 +97,38 @@ if ($result2->num_rows > 0) {
                 }]
             });
 
-            chart.render();
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: false,
+                title: {
+                    text: "Nemesfém statisztika"
+                },
+                data: [{
+                    type: "pie",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - #percent%",
+                    dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
 
+            var chart3 = new CanvasJS.Chart("chartContainer3", {
+                animationEnabled: false,
+                title: {
+                    text: "Részvény statisztika"
+                },
+                data: [{
+                    type: "pie",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - #percent%",
+                    dataPoints: <?php echo json_encode($dataPoints3, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
+
+
+            chart.render();
+            chart2.render();
+            chart3.render();
         }
     </script>
 
@@ -135,7 +210,12 @@ if ($result2->num_rows > 0) {
         </nav>
 
     </div>
-    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <div class="row">
+        <div class="column" id="chartContainer" style="height: 370px;  float: left;"></div>
+        <div class="column" id="chartContainer2" style="height: 370px;  float: left;"></div>
+        <div class="column" id="chartContainer3" style="height: 370px;  float: left;"></div>
+    </div>
+
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

@@ -111,51 +111,53 @@ if (!isset($_SESSION['username'])) {
     </div>
 
 
-    </div>
-    <div>
-        <div class="tile is-ancestor" >
-            <div class="tile is-vertical is-8">
-                <div class="tile">
+</div>
+<div>
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-8">
+            <div class="tile">
 
-                    <div class="tile is-parent is-vertical">
-                        <div> <?php
+                <div class="tile is-parent is-vertical">
+                    <!-- <div> <?php
+                    /*
+                                                $url = "https://freecurrencyapi.net/api/v2/latest?apikey=5bba8b20-9933-11ec-bb04-e5eb05a9a6ed";
+                                                $ch = curl_init();
+                                                curl_setopt($ch, CURLOPT_URL, $url);
+                                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                                                curl_setopt($ch, CURLOPT_HEADER, FALSE);
+                                                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                                                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                                                $response = curl_exec($ch);
+                                                curl_close($ch);
+                                                $obj = json_decode($response, TRUE);
+                                                $dev = $obj['data'];
 
-                            $url = "https://freecurrencyapi.net/api/v2/latest?apikey=5bba8b20-9933-11ec-bb04-e5eb05a9a6ed";
-                            $ch = curl_init();
-                            curl_setopt($ch, CURLOPT_URL, $url);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-                            curl_setopt($ch, CURLOPT_HEADER, FALSE);
-                            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-                            $response = curl_exec($ch);
-                            curl_close($ch);
-                            $obj = json_decode($response, TRUE);
-                            $dev = $obj['data'];
+                                                echo "<select name='deviza' class='select' style='background-color: rgba(150,206,250,0.46)'>";
+                                                echo '1  dollár jelenleg ' . $obj['data']['RON'] . '  ROddN';
 
-                            echo "<select name='deviza' class='select' style='background-color: rgba(150,206,250,0.46)'>";
-                            echo '1  dollár jelenleg ' . $obj['data']['RON'] . '  ROddN';
+                                                echo '<option value="">' . '1  dollár jelenleg  ' .  $obj['data']['RON'] . '  RON' . '</option>';
 
-                            echo '<option value="">' . '1  dollár jelenleg  ' .  $obj['data']['RON'] . '  RON' . '</option>';
+                                                foreach ($dev as $dname => $dprice) {
 
-                            foreach ($dev as $dname => $dprice) {
-
-                                echo '<option value="">' .'1  dollár jelenleg  '. $dprice .'->' . $dname .' </option>';
-                            }
-                            echo "</select>";
-
-
+                                                    echo '<option value="">' .'1  dollár jelenleg  '. $dprice .'->' . $dname .' </option>';
+                                                }
+                                                echo "</select>";
 
 
-                            ?>
+
+
+                                                */ ?>
 
                         </div>
-
-                        <article class="tile is-child notification is-light">
-                            <p class="title">Kriptóvaluta <a href="kereses/kriptokereses.php"><img src="../img/fooldal/icons8-add-96.png" alt="hozzaadd" style="width:25px;height:25px;"></a> </p>
-                            <p class="subtitle"></p>
-                            <div class="content">
-                                <tbody>
-                                <?php
+-->
+                    <article class="tile is-child notification is-light">
+                        <p class="title">Kriptóvaluta <a href="kereses/kriptokereses.php"><img
+                                        src="../img/fooldal/icons8-add-96.png" alt="hozzaadd"
+                                        style="width:25px;height:25px;"></a></p>
+                        <p class="subtitle"></p>
+                        <div class="content">
+                            <tbody>
+                            <?php
 
                                 if (isset($_GET['idpersonalcrypto'])) {
                                     $idpersonalcrypto = $_GET['idpersonalcrypto'];
@@ -238,6 +240,19 @@ if (!isset($_SESSION['username'])) {
 
 
                                     }
+
+                                    echo "<tr>";
+
+                                    $sqlsum = "SELECT sum(ktej) FROM kriptonyereseg WHERE users_id = '$privateid' ";
+                                    $res5 = mysqli_query($con, $sqlsum);
+                                    $dat2 = mysqli_fetch_assoc($res5);
+                                    $format7 = round($dat2['sum(ktej)'], 2);
+                                    echo "<td style='background-color: rgba(128, 129, 255, 0.7)' width='250px' >" . "Kriptó összértéke: " . "<b>" . $format7 . '$' . "</b>" . "</td>";
+
+
+                                    echo "</tr>";
+
+
                                     echo "</table>";
                                 } else {
                                     echo "Még nem rögzitette a munkahelyét ha szeretné" . "<a href='kereses/kriptokereses.php'> kattintson ide </a>";
@@ -330,8 +345,13 @@ if (!isset($_SESSION['username'])) {
 
                                     }
                                     echo "<tr>";
-                                    echo "<th> Nemesfém szimbolum </th>";
-                                    echo "<th> Jelenlegi ár </th>";
+                                    $sqlsum = "SELECT sum(mtej) FROM metalsnyereseg WHERE users_id = '$privateid' ";
+                                    $res5 = mysqli_query($con, $sqlsum);
+                                    $dat2 = mysqli_fetch_assoc($res5);
+                                    $format7 = round($dat2['sum(mtej)'], 2);
+
+                                    echo "<td style='background-color: rgba(128, 129, 255, 0.7)' width='200px' >" . "Összvagyon " . "<b>" . $format7 . '$' . "</b>" . "</td>";
+
 
                                     echo "</tr>";
                                     echo "</table>";
@@ -368,10 +388,6 @@ if (!isset($_SESSION['username'])) {
                                 WHERE personalstock.users_id = '$privateid'; ";
                                 $result = $con->query($sql);
 
-
-
-
-
                                 if ($result->num_rows > 0) {
                                     echo "<table border=1 >";
                                     echo "<tr>";
@@ -392,18 +408,16 @@ if (!isset($_SESSION['username'])) {
                                     echo "</tr>";
                                     while ($row = $result->fetch_assoc()) {
                                         $idcr = $row["idpersonalstock"];
-                                        $url =  "http://www.nasdaq.com" . $row["stockurl"] ;
+                                        $url = "http://www.nasdaq.com" . $row["stockurl"];
                                         echo "<tr>";
                                         echo "<td>" . $row["stockname"] . "</td>";
-                                        echo "<td style='color: #3a51bb'>" .'<a href="'. $url .'" target="_blank">' . $row["stocksymbol"]  ."</a>" ."</td>";
+                                        echo "<td style='color: #3a51bb'>" . '<a href="' . $url . '" target="_blank">' . $row["stocksymbol"] . "</a>" . "</td>";
                                         echo "<td>" . $row["stocksector"] . "</td>";
                                         echo "<td>" . $row["dbstock"] . "</td>";
                                         echo "<td>" . $row["stockdata"] . "</td>";
 
                                         echo "<td>" . $row["oldprice"] . "</td>";
-                                        echo "<td>" .$row["newPrice"] . "</td>";
-
-
+                                        echo "<td>" . $row["newPrice"] . "</td>";
 
 
                                         $sql2 = "SELECT szmet FROM stockszazalek WHERE users_id = '$privateid' AND idpersonalstock = '$idcr' ";
@@ -418,7 +432,7 @@ if (!isset($_SESSION['username'])) {
                                         }
 
 
-                                       $sql3 = "SELECT szvagy FROM stocknyereseg WHERE users_id = '$privateid' AND idpersonalstock = '$idcr' ";
+                                        $sql3 = "SELECT szvagy FROM stocknyereseg WHERE users_id = '$privateid' AND idpersonalstock = '$idcr' ";
                                         $res = mysqli_query($con, $sql3);
                                         $dat = mysqli_fetch_assoc($res);
                                         $format5 = round($dat['szvagy'], 2);
@@ -438,11 +452,24 @@ if (!isset($_SESSION['username'])) {
                                         echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
 
 
-                                                                                echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalstock=" . $row["idpersonalstock"] . "\">Törlés</a></td>";
+                                        echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalstock=" . $row["idpersonalstock"] . "\">Törlés</a></td>";
+
                                         echo "</tr>";
 
 
                                     }
+                                    echo "<tr>";
+
+                                    $sqlsum = "SELECT sum(sztej) FROM stocknyereseg WHERE users_id = '$privateid' ";
+                                    $res5 = mysqli_query($con, $sqlsum);
+                                    $dat2 = mysqli_fetch_assoc($res5);
+                                    $format7 = round($dat2['sum(sztej)'], 2);
+                                    echo "<td style='background-color: rgba(128, 129, 255, 0.7)' width='250px' >" . "Részvények összértéke: " . "<b>" . $format7 . '$' . "</b>" . "</td>";
+
+
+                                    echo "</tr>";
+
+
                                     echo "</table>";
                                 } else {
                                     echo "Még nem rögzitette a részvényeit ha szeretné" . "<a href='kereses/stockelokereses.php'> kattintson ide </a>";

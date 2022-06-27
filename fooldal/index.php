@@ -31,37 +31,37 @@ if (!isset($_SESSION['username'])) {
             </p>
             <p class="level-item has-text-centered">
             <p class="link is-info">
+
+
                 Jelenlegi vagyona :
                 <?php
-                $sql2 = "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
-                $sql3 = "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
-
-                $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
+                $sql2 = "SELECT SUM(totalhprice)AS sum2 FROM house 
+                    WHERE users_id = '$_SESSION[userid]' ;";
+                $sql3 = "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense 
+                    WHERE users_id = '$_SESSION[userid]';";
+                $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace
+                    WHERE users_id = '$_SESSION[userid]';";
                 $result = mysqli_query($con, $sql1);
                 $data = mysqli_fetch_assoc($result);
-
-
                 $result2 = mysqli_query($con, $sql2);
                 $result3 = mysqli_query($con, $sql3);
                 $data2 = mysqli_fetch_assoc($result2);
                 $data3 = mysqli_fetch_assoc($result3);
-
-                $sql4 = "SELECT SUM((dbkrpto*lastprice)*4.5) AS vagyon FROM kriptonyereseg WHERE users_id ='$_SESSION[userid]';";
+                $sql4 = "SELECT SUM((dbkrpto*lastprice)*4.5) AS vagyon 
+                        FROM kriptonyereseg WHERE users_id ='$_SESSION[userid]';";
                 $result4 = mysqli_query($con, $sql4);
                 $data4 = mysqli_fetch_assoc($result4);
-
-
-                $sql5 = "SELECT SUM((dbmetal*newPrice)*4.5) AS vagyon2 FROM metalsnyereseg WHERE users_id ='$_SESSION[userid]';";
+                $sql5 = "SELECT SUM((dbmetal*newPrice)*4.5) AS vagyon2
+                        FROM metalsnyereseg WHERE users_id ='$_SESSION[userid]';";
                 $result5 = mysqli_query($con, $sql5);
                 $data5 = mysqli_fetch_assoc($result5);
-
-                $sql6 = "SELECT SUM((dbstock*newPrice)*4.5) AS vagyon3 FROM stocknyereseg WHERE users_id ='$_SESSION[userid]';";
+                $sql6 = "SELECT SUM((dbstock*newPrice)*4.5) AS vagyon3
+                            FROM stocknyereseg WHERE users_id ='$_SESSION[userid]';";
                 $result6 = mysqli_query($con, $sql6);
                 $data6 = mysqli_fetch_assoc($result6);
 
-
-                echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] + $data4['vagyon'] + $data5['vagyon2'] + $data6['vagyon3'] ;
-
+                echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] +
+                    $data4['vagyon'] + $data5['vagyon2'] + $data6['vagyon3'];
 
                 ?>
                 ron
@@ -161,21 +161,24 @@ if (!isset($_SESSION['username'])) {
 
                                 if (isset($_GET['idpersonalcrypto'])) {
                                     $idpersonalcrypto = $_GET['idpersonalcrypto'];
-                                    $sql = "DELETE FROM personalcrypto WHERE idpersonalcrypto=$idpersonalcrypto";
+                                    $sql = "DELETE FROM personalcrypto WHERE
+                                    idpersonalcrypto=$idpersonalcrypto";
 
                                     if ($con->query($sql) === TRUE) {
                                         header("Location: index.php");
                                     } else {
                                         echo "Hiba történt: " . $con->error;
                                     }
+
                                 }
 
 
-                                $privateid = $_SESSION['userid'];
-                                $sql = "SELECT  *
-                            FROM crypto INNER JOIN personalcrypto ON crypto.idcrypto = personalcrypto.crypto_idcrypto
-                            WHERE personalcrypto.users_id = '$privateid' ";
-                                $result = $con->query($sql);
+                            $privateid = $_SESSION['userid'];
+                            $sql = "SELECT  *
+                                  FROM crypto INNER JOIN personalcrypto ON crypto.idcrypto
+                                                 = personalcrypto.crypto_idcrypto
+                                  WHERE personalcrypto.users_id = '$privateid' ";
+                            $result = $con->query($sql);
 
                                 if ($result->num_rows > 0) {
                                     echo "<table border=1 >";
@@ -199,12 +202,14 @@ if (!isset($_SESSION['username'])) {
                                         echo "<tr>";
                                         echo "<td>" . $row["cryptoname"] . "</td>";
                                         echo "<td>" . $row["cryptosymbol"] . "</td>";
-                                        echo "<td>" . "<img src=$kep alt='nem betölthető a kép' width='35' height='35'>" . "</td>";
+                                        echo "<td>" . "<img src=$kep alt='nem betölthető a kép' 
+                                        width='35' height='35'>" . "</td>";
                                         echo "<td>" . $row["lastprice"] . "</td>";
                                         echo "<td>" . $row["dbkrpto"] . "</td>";
                                         echo "<td>" . $row["oldcrprice"] . "</td>";
                                         echo "<td>" . $row["cryptodate"] . "</td>";
-                                        $sql2 = "SELECT kszaz FROM kriptoszazalek WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
+                                        $sql2 = "SELECT kszaz FROM kriptoszazalek WHERE users_id = 
+                                        '$privateid' AND idpersonalcrypto = '$idcr' ";
                                         $res = mysqli_query($con, $sql2);
                                         $dat = mysqli_fetch_assoc($res);
                                         $format1 = round($dat['kszaz'], 2);
@@ -225,17 +230,17 @@ if (!isset($_SESSION['username'])) {
                                             echo "<td style='background-color:rgba(255,39,23,0.64)'>" . $format2 . '$' . "</td>";
                                         }
 
-
                                         $sql3 = "SELECT ktej FROM kriptonyereseg WHERE users_id = '$privateid' AND idpersonalcrypto = '$idcr' ";
                                         $res = mysqli_query($con, $sql3);
                                         $dat = mysqli_fetch_assoc($res);
                                         $format3 = round($dat['ktej'], 2);
 
-
                                         echo "<td style='background-color: rgba(150,206,250,0.46)'>" . $format3 . '$' . "</td>";
 
+                                        echo "<td class='level-right' ><a class='button is-black '
+                                            href=\"index.php?idpersonalcrypto=" . $row["idpersonalcrypto"] . "\">Törlés</a></td>";
 
-                                        echo "<td class='level-right' ><a class='button is-black ' href=\"index.php?idpersonalcrypto=" . $row["idpersonalcrypto"] . "\">Törlés</a></td>";
+
                                         echo "</tr>";
 
 
@@ -283,7 +288,8 @@ if (!isset($_SESSION['username'])) {
 
                                 $privateid = $_SESSION['userid'];
                                 $sql = "SELECT  *
-                                FROM metals INNER JOIN personalmetal ON metals.idmetals = personalmetal.metals_idmetals
+                                FROM metals INNER JOIN personalmetal ON metals.idmetals =
+                                                                        personalmetal.metals_idmetals
                                 WHERE personalmetal.users_id = '$privateid' ";
                                 $result = $con->query($sql);
 
@@ -299,7 +305,6 @@ if (!isset($_SESSION['username'])) {
                                     echo "<th> Profit $  </th>";
                                     echo "<th> Jelenlegi érték $  </th>";
                                     echo "<th> Törlés </th>";
-
                                     echo "</tr>";
                                     while ($row = $result->fetch_assoc()) {
                                         $idcr = $row["idpersonalmetal"];
@@ -309,7 +314,8 @@ if (!isset($_SESSION['username'])) {
                                         echo "<td>" . $row["dbmetal"] . "</td>";
                                         echo "<td>" . $row["oldprice"] . "</td>";
                                         echo "<td>" . $row["metaldate"] . "</td>";
-                                        $sql2 = "SELECT kmet FROM metalszazalek WHERE users_id = '$privateid' AND idpersonalmetal = '$idcr' ";
+                                        $sql2 = "SELECT kmet FROM metalszazalek WHERE users_id = 
+                                     '$privateid' AND idpersonalmetal = '$idcr' ";
                                         $res = mysqli_query($con, $sql2);
                                         $dat = mysqli_fetch_assoc($res);
                                         $format4 = round($dat['kmet'], 2);

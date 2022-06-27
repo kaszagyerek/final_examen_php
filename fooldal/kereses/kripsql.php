@@ -9,7 +9,9 @@ if (isset($_POST['submit'])) {
     $cr = $_GET['idcrypto'];
     if(isset($db) && isset($ar) && !empty($db) && !empty($ar) && is_numeric($db) && is_numeric($ar))
     {
-        $sql = "INSERT INTO `personalcrypto` ( `dbkrpto`, `oldcrprice`, `users_id`, `crypto_idcrypto`,cryptodate) VALUES ( '$db', '$ar', '$privateid', '$cr',now());";
+        $sql = "INSERT INTO `personalcrypto` ( `dbkrpto`, `oldcrprice`, 
+        `users_id`, `crypto_idcrypto`,cryptodate) 
+        VALUES ( '$db', '$ar', '$privateid', '$cr',now());";
         $result = $con->query($sql);
         header("Location: ../index.php");
     } else {
@@ -26,7 +28,6 @@ if (isset($_POST['submit'])) {
         }
         echo "</div>";
     }
-
 } else {
 
     $sql = "SELECT * FROM personalcrypto WHERE users_id= '$privateid'";

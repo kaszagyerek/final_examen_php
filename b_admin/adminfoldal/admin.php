@@ -35,11 +35,9 @@ if (!isset($_SESSION['username'])) {
                     echo "<div style='color: #FF416C'>";
                     echo "   Az egyetlen superadmin " . $_SESSION['username'];
                     echo "</div>";
-
                 } else {
                     echo "   Üdvözölek kedves admin :  " . $_SESSION['username'];
                 }
-
                 ?>
             </a>
         </div>
@@ -106,7 +104,6 @@ if (!isset($_SESSION['username'])) {
                                 $sql = "SELECT (SELECT SUM(salary) FROM workplace) + 
                                 (SELECT SUM(totalhprice) FROM house) -  
                                 (SELECT SUM(broker+tax+hrenovation) FROM expense) +
-
                                 (SELECT SUM(ktej*4.5) FROM kriptonyereseg) +
                                 (SELECT SUM(mtej*4.5) FROM metalsnyereseg) +
                                 (SELECT SUM(sztej*4.5) FROM stocknyereseg) 

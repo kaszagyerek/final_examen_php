@@ -148,25 +148,18 @@ session_start();
                         action: "bejelentkezes"
                     },
                     cache: false,
-
                     success: function (dataResult) {
-
                         var dataResult = JSON.parse(dataResult);
                         console.log(dataResult);
 
                         if (dataResult.valasz == true) {
-                            console.log("hello");
-
                             window.location.href = "../fooldal/index.php";
-
-
                             $("#btnLoginResponse").removeAttr("disabled");
                             $("#success").show();
                             $('#success').html('Sikeresen bejelentkezett');
 
                         } else if (dataResult.valasz == false) {
                             alert("Nem jol adta meg az adatokat");
-
                         }
 
                     }

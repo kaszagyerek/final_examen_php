@@ -5,23 +5,19 @@ require_once "connection.php";
 
 $privateid = $_SESSION['userid'];
 
-
 $crypto = "SELECT  *
-        FROM crypto INNER JOIN personalcrypto ON crypto.idcrypto = personalcrypto.crypto_idcrypto
+        FROM crypto INNER JOIN personalcrypto ON crypto.idcrypto 
+         = personalcrypto.crypto_idcrypto
         WHERE personalcrypto.users_id = '$privateid' ";
 
 $result1 = $con->query($crypto);
 
 if ($result1->num_rows > 0) {
-    // output data of each row
     $dataPoints = array();
     while ($row = $result1->fetch_assoc()) {
-
         $point = array("label" => $row['cryptosymbol'], "y" => $row['lastprice']);
         array_push($dataPoints, $point);
-
     }
-
 } else {
     echo "Még nem rögzitette a kiadó házát ha szeretné";
 }
@@ -34,7 +30,6 @@ $metal = "SELECT  *
 $result2 = $con->query($metal);
 
 if ($result2->num_rows > 0) {
-    // output data of each row
     $dataPoints2 = array();
     while ($row = $result2->fetch_assoc()) {
 
@@ -55,13 +50,11 @@ $stock = "SELECT  *
 $result3 = $con->query($stock);
 
 if ($result3->num_rows > 0) {
-    // output data of each row
     $dataPoints3 = array();
     while ($row = $result3->fetch_assoc()) {
 
         $point3 = array("label" => $row['stocksymbol'], "y" => $row['newPrice']);
         array_push($dataPoints3, $point3);
-
     }
 
 } else {
@@ -93,7 +86,8 @@ if ($result3->num_rows > 0) {
                     legendText: "{label}",
                     indexLabelFontSize: 16,
                     indexLabel: "{label} - #percent%",
-                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                    dataPoints: <?php echo json_encode($dataPoints,
+                        JSON_NUMERIC_CHECK); ?>
                 }]
             });
 
@@ -127,6 +121,8 @@ if ($result3->num_rows > 0) {
 
 
             chart.render();
+
+
             chart2.render();
             chart3.render();
         }
@@ -150,33 +146,24 @@ if ($result3->num_rows > 0) {
                 <?php
                 $sql2 = "SELECT SUM(totalhprice)AS sum2 FROM house WHERE users_id = '$_SESSION[userid]' ;";
                 $sql3 = "SELECT SUM(broker+tax+hrenovation)AS sum3 FROM expense WHERE users_id = '$_SESSION[userid]';";
-
                 $sql1 = "SELECT SUM(salary) AS sum1 FROM workplace WHERE users_id = '$_SESSION[userid]';";
                 $result = mysqli_query($con, $sql1);
                 $data = mysqli_fetch_assoc($result);
-
-
                 $result2 = mysqli_query($con, $sql2);
                 $result3 = mysqli_query($con, $sql3);
                 $data2 = mysqli_fetch_assoc($result2);
                 $data3 = mysqli_fetch_assoc($result3);
-
                 $sql4 = "SELECT SUM((dbkrpto*lastprice)*4.5) AS vagyon FROM kriptonyereseg WHERE users_id ='$_SESSION[userid]';";
                 $result4 = mysqli_query($con, $sql4);
                 $data4 = mysqli_fetch_assoc($result4);
-
-
                 $sql5 = "SELECT SUM((dbmetal*newPrice)*4.5) AS vagyon2 FROM metalsnyereseg WHERE users_id ='$_SESSION[userid]';";
                 $result5 = mysqli_query($con, $sql5);
                 $data5 = mysqli_fetch_assoc($result5);
-
                 $sql6 = "SELECT SUM((dbstock*newPrice)*4.5) AS vagyon3 FROM stocknyereseg WHERE users_id ='$_SESSION[userid]';";
                 $result6 = mysqli_query($con, $sql6);
                 $data6 = mysqli_fetch_assoc($result6);
 
-
                 echo $data['sum1'] + $data2['sum2'] - $data3['sum3'] + $data4['vagyon'] + $data5['vagyon2'] + $data6['vagyon3'];
-
 
                 ?>
                 ron

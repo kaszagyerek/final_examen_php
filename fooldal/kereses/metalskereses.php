@@ -19,7 +19,6 @@ require_once "connection.php";
                     data: {
                         query: query,
                         action: "metalsearch"
-
                     },
                     success: function (data) {
                         $('#result').html(data);

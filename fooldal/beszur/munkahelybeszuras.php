@@ -24,8 +24,6 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
     <p class="title"> <a href="../index.php"><img src="/img/fooldal/back.png" alt="hozzaadd" style="width:25px;height:25px;"> vissza a főmenübe</a> </p>
 
     <form method="post" action="">
-
-
         <div class="form-group">
             <label for="pwd">Munkahelyem neve:</label>
             <input type="text"  class="input is-link" style="width:200px" id="fmunka" name="munka">
@@ -42,11 +40,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
             <label for="pwd">Munkahelyi fizetés:</label>
             <input type="text"  class="input is-link" style="width:200px" id="fizetes" name="fizetes">
         </div>
-
-
         <input type="button" class="button is-link" value="mentés" id="butsave">
-
-
     </form>
 </div>
 <script>
@@ -80,9 +74,7 @@ echo "<br>Felhasználó ID-ja:" . $_SESSION['userid'];
                         } else if (dataResult.valasz == false) {
                             $("#success").show();
                             $('#success').html('Sikertelenül adta meg az adatokat');
-
                         }
-
                     }
                 });
             } else {

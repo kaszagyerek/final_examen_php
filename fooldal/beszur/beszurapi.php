@@ -2,12 +2,13 @@
 session_start();
 require_once "connection.php";
 
-
-$action = isset($_GET['action']) ? $_GET['action'] : "";
-$action2 = isset($_POST['action']) ? $_POST['action'] : "";
 if (isset($con)) {
     $con;
 }
+
+$action = isset($_GET['action']) ? $_GET['action'] : "";
+$action2 = isset($_POST['action']) ? $_POST['action'] : "";
+
 switch ($action) {
 
     case "listazas" :
@@ -42,7 +43,6 @@ switch ($action) {
         }
         echo json_encode($res);
         break;
-
 }
 switch ($action2) {
     case "inserthouse":
@@ -71,7 +71,8 @@ switch ($action2) {
         $salary = mysqli_real_escape_string($con, $_POST['fizetes']);
 
         $privateid = $_SESSION['userid'];
-        $sql = "INSERT INTO `workplace` (`workplacename`, `workplaceaddres`, `users_id`,`position` ,`salary`,`workdate`) VALUES ('$munka', '$cim', '$privateid','$beosztas','$salary',now())";
+        $sql = "INSERT INTO `workplace` (`workplacename`, `workplaceaddres`, `users_id`,`position` 
+            ,`salary`,`workdate`) VALUES ('$munka', '$cim', '$privateid','$beosztas','$salary',now())";
 
 
         if (mysqli_query($con, $sql)) {

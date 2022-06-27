@@ -43,13 +43,10 @@ if (isset($_POST['lekerdezi'])) {
         $sector = $product["sector"];
         $industry = $product["industry"];
         $url = $product["url"];
-
         $price = floatValue($lastsale);
 
-
-
-
-        $sql = "INSERT INTO `stocks` (stockname, stocksymbol, newPrice, stockmarketcap, stockcountry, stockindustry, stocksector, stockurl) 
+        $sql = "INSERT INTO `stocks` (stockname, stocksymbol, newPrice, stockmarketcap, 
+                      stockcountry, stockindustry, stocksector, stockurl) 
         VALUES ('$name', '$symbol','$price','$marketCap','$country','$industry','$sector','$url');";
 
         if ($con->query($sql) === TRUE) {

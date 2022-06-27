@@ -25,8 +25,6 @@ if (isset($_POST['lekerdezi'])) {
     } else {
         echo $response;
     }
-
-
     $obj = json_decode($response, TRUE);
     $coins = $obj['data']['coins'];
 
@@ -38,9 +36,8 @@ if (isset($_POST['lekerdezi'])) {
         $rank = $product["rank"];
         $cryptoname = $product["name"];
 
-
         $sql = "INSERT INTO `crypto` (cryptosymbol, lastprice, cryptoimg, marketCap, rank, cryptoname) VALUES
-                 ( '$cryptosymbol','$lastprice','$cryptoimg','$marketCap','$rank','$cryptoname','$color');";
+                 ( '$cryptosymbol','$lastprice','$cryptoimg','$marketCap','$rank','$cryptoname');";
 
         if ($con->query($sql) === TRUE) {
         } else {
@@ -49,7 +46,7 @@ if (isset($_POST['lekerdezi'])) {
     }
 
     if (isset($_POST['torli'])) {
-        $sql = "DELETE FROM crypto";
+        $sql = " DELETE FROM crypto";
 
         if ($con->query($sql) === TRUE) {
         } else {
@@ -87,23 +84,7 @@ function runIt() { // Your function to run every 5 seconds
     }
 
 }
-function frisites()
-{
-    $active = true;
-    $nextTime = microtime(true) + INTERVAL; // Set initial delay
 
-    while ($active) {
-        usleep(1000); // optional, if you want to be considerate
-
-        if (microtime(true) >= $nextTime) {
-            runIt();
-            $nextTime = microtime(true) + INTERVAL;
-        }
-    }
-}
-
-
-frisites();
 */
 ?>
 

@@ -35,14 +35,17 @@ if (!isset($_SESSION['username'])) {
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item brand-text">
+
+
                 Portfolio admin felület <?php
                 if ($_SESSION['username'] == 'ksandor') {
                     echo "<div style='color: #FF416C'>";
-                    echo "  Az egyetlen superadmin " . $_SESSION['username'];
+                    echo "  Az egyetlen superadmin " .
+                        $_SESSION['username'];
                     echo "</div>";
-
                 } else {
-                    echo "   Üdvözölek kedves admin :  " . $_SESSION['username'];
+                    echo "   Üdvözölek kedves admin :  " .
+                        $_SESSION['username'];
                 }
 
                 ?>
@@ -94,13 +97,16 @@ if (!isset($_SESSION['username'])) {
                     <div class="tile is-parent">
                         <article class="tile is-child box">
                             <p class="title">
+
                                 <?php
-                                $sql = "SELECT count(username) as total from admin WHERE NOT username='ksandor';";
+                                $sql = "SELECT count(username) as total
+                                    from admin WHERE NOT username='ksandor';";
                                 $result = mysqli_query($con, $sql);
                                 $data = mysqli_fetch_assoc($result);
                                 echo $data['total'];
                                 ?>
                             </p>
+
                             <p class="subtitle">Adminok száma</p>
                         </article>
                     </div>
@@ -112,12 +118,16 @@ if (!isset($_SESSION['username'])) {
                         $password = $_POST['password'];
                         $password2 = $_POST['password2'];
 
-                        if (isset($username) && isset($email) && isset($password) && isset($password2) && !empty($username) && !empty($email) && !empty($password) && !empty($password2)
+                        if (isset($username) && isset($email) && isset($password) &&
+                            isset($password2) && !empty($username) && !empty($email)
+                            && !empty($password) && !empty($password2)
                             && strlen($username) >= 5 && strlen($email) >= 7) {
                             if ($password == $password2) {
-                                $query = mysqli_query($con, "SELECT `username`, `email`, `password` FROM `admin` WHERE '$username' = username OR '$email' = email");
+                                $query = mysqli_query($con, "SELECT `username`, `email`,
+           `password` FROM `admin` WHERE '$username' = username OR '$email' = email");
                                 if (!(mysqli_num_rows($query) > 0)) {
-                                    $sql = "INSERT INTO `admin`( `username`, `email`, `password`) VALUES ('$username','$email','$password')";
+                                    $sql = "INSERT INTO `admin`( `username`, `email`,
+          `password`) VALUES ('$username','$email','$password')";
                                     if ($con->query($sql) === TRUE) {
                                         $con->close();
                                         echo "Köszönjük! Az adatokat elmentettük.<br>";
@@ -126,7 +136,6 @@ if (!isset($_SESSION['username'])) {
                                 } else {
                                     echo "Az email cím vagy a felhasználonév már foglalt";
                                 }
-
                             } else {
                                 echo "A 2 jelszó nem egyezik meg<br>";
                             }
@@ -219,7 +228,8 @@ if (!isset($_SESSION['username'])) {
                                             echo "<td>" . $row["idadmin"] . "</td>";
                                             echo "<td>" . $row["username"] . "</td>";
                                             echo "<td>" . $row["email"] . "</td>";
-                                            echo "<td class='level-right' ><a class='button is-small is-primary' href=\"beszurasadmin.php?idadmin=" . $row["idadmin"] . "\">Törlés</a></td>";
+                                            echo "<td class='level-right' ><a class='button is-small is-primary'
+                                            href=\"beszurasadmin.php?idadmin=" . $row["idadmin"] . "\">Törlés</a></td>";
 
                                             echo "</tr>";
                                         }
